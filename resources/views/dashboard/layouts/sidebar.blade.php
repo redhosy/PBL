@@ -2,9 +2,9 @@
 <ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
 
   <!-- Sidebar - Brand -->
-  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-     
-      <div class="sidebar-brand-text mx-3">SIKABEKA</div>
+  <a class="sidebar-brand d-flex align-items-center justify-content-center">
+        <img class="img-fluid" src="img/logo2.png" alt="" width="50px">
+      <div class="sidebar-brand-text mx-2">SIKABEKA</div>
   </a>
 
   <!-- Divider -->
@@ -12,7 +12,7 @@
 
   <!-- Nav Item - Dashboard -->
   <li class="nav-item active">
-      <a class="nav-link" href="index.html">
+      <a class="nav-link {{ Request::is('dashboard')?'active':'' }}" href="/dashboard">
         <i class="fas fa-columns"></i>
           <span>Dashboard</span></a>
   </li>
@@ -26,44 +26,47 @@
   </div>
 
   <!-- Nav Item - Pages Collapse Menu -->
-  <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-          aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-user"></i>
-          <span>Data User</span>
+  {{-- <li class="nav-item">
+    {{-- <a class="nav-link {{ Request::is('dashboard/posts*')? 'active' : '' }}"  href="/dashboard/posts"> --}}
+    {{-- <a class="nav-link"  href="">
+        <i class="fas fa-table"></i>
+          <span>Data Jurusan</span>
       </a>
-      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-light py-2 collapse-inner rounded">
-              <h6 class="collapse-header">User:</h6>
-              <a class="collapse-item" href="buttons.html">Admin</a>
-              <a class="collapse-item" href="cards.html">Pimpinan Jurusan</a>
-              <a class="collapse-item" href="cards.html">Pimpinan Program Studi</a>
-              <a class="collapse-item" href="cards.html">Dosen Pengampu</a>
-              <a class="collapse-item" href="cards.html">Pengurus KBK</a>
-              <a class="collapse-item" href="cards.html">Dosen KBK</a>
-          </div>
-      </div>
   </li>
-
-  <!-- Nav Item - Utilities Collapse Menu -->
   <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-          aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
+    <a class="nav-link" href="tables.html">
+        <i class="fas fa-book-open"></i>
+          <span>Program Studi</span>
       </a>
-      <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-          data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Custom Utilities:</h6>
-              <a class="collapse-item" href="utilities-color.html">Colors</a>
-              <a class="collapse-item" href="utilities-border.html">Borders</a>
-              <a class="collapse-item" href="utilities-animation.html">Animations</a>
-              <a class="collapse-item" href="utilities-other.html">Other</a>
-          </div>
-      </div>
   </li>
+  <li class="nav-item">
+    <a class="nav-link" href="tables.html">
+        <i class="fas fa-user"></i>
+          <span>Dosen</span>
+      </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="tables.html">
+        <i class="fas fa-calendar-alt"></i>
+          <span>Tahun Akademik</span>
+      </a>
+  </li>  --}}
 
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+        aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-university"></i>
+        <span>Data Kampus</span>
+    </a>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-light py-2 collapse-inner rounded">
+            <a class="collapse-item {{ Request::is('dajur') ? 'active': '' }}" href="/dajur">Data Jurusan</a>
+            <a class="collapse-item" href="#">Program Studi</a>
+            <a class="collapse-item" href="cards.html">Dosen</a>
+            <a class="collapse-item" href="cards.html">Tahun Akademik</a>
+        </div>
+    </div>
+  
   <!-- Divider -->
   <hr class="sidebar-divider">
 

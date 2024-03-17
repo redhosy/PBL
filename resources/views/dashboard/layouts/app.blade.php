@@ -8,8 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Dashboard</title>
+    <title>SIKABEKA | Dashboard</title>
 
     <!-- Custom fonts for this template-->
     
@@ -29,7 +28,7 @@
     <div id="wrapper">
 
         {{-- sidebar --}}
-        @include('layouts.sidebar')
+        @include('Dashboard.layouts.sidebar')
         {{-- endsidebar --}}
 
         <!-- Content Wrapper -->
@@ -39,7 +38,7 @@
             <div id="content">
 
                 {{-- top bar --}}
-                @include('layouts.topbar')
+                @include('Dashboard.layouts.topbar')
                 {{-- end top bar --}}
 
 
@@ -48,7 +47,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <h1 class="h3 mb-0 text-gray-800">@yield('title')</h1>
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
@@ -63,7 +62,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            @include('layouts.footer')
+            @include('Dashboard.layouts.footer')
             <!-- End of Footer -->
 
         </div>
@@ -88,10 +87,10 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-body">Klik "Logout" Jika Anda Yakin Ingin Mengakhiri Sesi Halaman Dashboard Ini.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="/">Logout</a>
                 </div>
             </div>
         </div>

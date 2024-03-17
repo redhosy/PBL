@@ -14,9 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',function(){
-    return view('welcome');
+    return view('home');
 });
 
+Route::get('/tentang',function(){
+    return view('tentang');
+});
+
+
 Route::get('/dashboard',function(){
-    return view('dashboard');
+    return view('dashboard.index');
+});
+
+Route::get('/dajur',function(){
+    return view('dashboard.dajur');
 });
