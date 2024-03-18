@@ -1,11 +1,14 @@
 @extends('dashboard.layouts.app')
 
-@section('title','Data Jurusan')
+@section('title','Data Program Studi')
 @section('content')
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Data Jurusan</h6>
+        <div class="card-header py-3 justify-content-end d-flex bg-dark">
+            <a href="#" class="d-flex d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-3"><i
+                class="fas fa-download fa-sm text-white-50"></i> Print</a>
+            <a href="#" class="d-flex d-sm-inline-block btn btn-sm btn-success shadow-sm"><i
+                class="fas fa-plus fa-sm text-white-50"></i> Add</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -34,16 +37,30 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode Jurusan</th>
-                            <th>Nama Jurusan</th>
+                            <th>Kode Prodi</th>
+                            <th>Nama Prodi</th>
+                            <th>ID Jurusan</th>
+                            <th>ID Jenjang</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $no = 0;
+                        @endphp
+                            @foreach ( $data_pro as $item)
+                        @php
+                            $no++;
+                        @endphp
                         <tr>
-                            <td>#</td>
-                            <td>#</td>
-                            <td># </td>
+                            <td>{{ $no }}</td>
+                            <td>{{ $item['kode_prodi']}}</td>
+                            <td>{{ $item['prodi'] }}</td>
+                            <td>{{ $item['id_jurusan'] }}</td>
+                            <td>{{ $item['id_jenjang'] }}</td>
+                            <td><a href="#" class="btn btn-sm btn-warning d-sm-inline-block"><i class="fas fa-pen"></i> edit</a></td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

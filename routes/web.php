@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RefProdiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,5 @@ Route::get('/dashboard',function(){
     return view('dashboard.index');
 });
 
-Route::get('/dajur',function(){
-    return view('dashboard.dajur');
-});
+Route::get('/dajur', [DashboardController::class,'index']);
+Route::get('/dapro', [RefProdiController::class,'index']);

@@ -1,5 +1,5 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-success sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav sidebar sidebar-dark" style="background-color: #7469B6" id="accordionSidebar">
 
   <!-- Sidebar - Brand -->
   <a class="sidebar-brand d-flex align-items-center justify-content-center">
@@ -61,7 +61,7 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-light py-2 collapse-inner rounded">
             <a class="collapse-item {{ Request::is('dajur') ? 'active': '' }}" href="/dajur">Data Jurusan</a>
-            <a class="collapse-item" href="#">Program Studi</a>
+            <a class="collapse-item {{ Request::is('dapro') ? 'active': '' }}" href="/dapro">Program Studi</a>
             <a class="collapse-item" href="cards.html">Dosen</a>
             <a class="collapse-item" href="cards.html">Tahun Akademik</a>
         </div>
