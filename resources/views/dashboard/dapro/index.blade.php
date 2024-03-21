@@ -4,10 +4,10 @@
 @section('content')
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3 justify-content-end d-flex bg-dark">
+        <div class="card-header py-3 justify-content-end d-flex bg-secondary">
             <a href="#" class="d-flex d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-3"><i
                 class="fas fa-download fa-sm text-white-50"></i> Print</a>
-            <a href="#" class="d-flex d-sm-inline-block btn btn-sm btn-success shadow-sm"><i
+            <a href="#" class="d-flex d-sm-inline-block btn btn-sm btn-success shadow-sm "><i
                 class="fas fa-plus fa-sm text-white-50"></i> Add</a>
         </div>
         <div class="card-body">
@@ -16,14 +16,14 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <div class="dataTables_length" id="dataTable_length">
-                                <label class="d-flex align-items-center justify-content-start"><p class="mb-0 mr-2">Show</p>
+                            {{-- <label class="d-flex align-items-center justify-content-start"><p class="mb-0 mr-2">Show</p>
                                 <select name="dataTable_length" aria-controls="dataTable" class="col-lg-2 custom-select custom-select-sm  form-control form-control-sm">
                                     <option value="10">10</option>
                                     <option value="25">25</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
                                 </select><p class="mb-0 ml-2">entries</p>
-                            </label>
+                            </label> --}}
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-6">
@@ -58,7 +58,7 @@
                             <td>{{ $item['prodi'] }}</td>
                             <td>{{ $item['id_jurusan'] }}</td>
                             <td>{{ $item['id_jenjang'] }}</td>
-                            <td><a href="#" class="btn btn-sm btn-warning d-sm-inline-block"><i class="fas fa-pen"></i> edit</a></td>
+                            <td><a href="#" class="btn btn-sm btn-primary d-sm-inline-block"><i class="fas fa-eye"></i></a></td>
                         </tr>
                         @endforeach
                     </tbody>

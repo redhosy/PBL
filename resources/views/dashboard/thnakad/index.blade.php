@@ -36,8 +36,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode Jurusan</th>
-                            <th>Nama Jurusan</th>
+                            <th>Semester Tahun Akademik</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -45,14 +45,18 @@
                         @php
                             $no = 0;
                         @endphp
-                            @foreach ( $data_jur as $item)
+                            @foreach ( $data_smtakad as $item)
                         @php
                             $no++;
                         @endphp
                         <tr>
                             <td>{{ $no }}</td>
-                            <td>{{ $item['kode_jurusan']}}</td>
-                            <td>{{ $item['jurusan'] }}</td>
+                            <td>{{ $item['smt_thn_akd']}}</td>
+                            <td>
+                                <a href="" class="btn btn-sm btn-{{ $item->status ? 'success' : 'danger'}}">
+                                    {{ $item->status ? 'Aktif':'NonAktif'}}
+                                </a>
+                            </td>
                             <td><a href="#" class="btn btn-sm btn-primary  d-sm-inline-block"><i class="fas fa-eye"></i></a></td>
                         </tr>
                         @endforeach

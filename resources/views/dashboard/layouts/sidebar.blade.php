@@ -62,21 +62,21 @@
         <div class="bg-light py-2 collapse-inner rounded">
             <a class="collapse-item {{ Request::is('dajur') ? 'active': '' }}" href="/dajur">Data Jurusan</a>
             <a class="collapse-item {{ Request::is('dapro') ? 'active': '' }}" href="/dapro">Program Studi</a>
-            <a class="collapse-item" href="cards.html">Dosen</a>
-            <a class="collapse-item" href="cards.html">Tahun Akademik</a>
+            <a class="collapse-item {{ Request::is('dados') ? 'active': '' }}" href="/dados">Dosen</a>
+            <a class="collapse-item {{ Request::is('thnakad') ? 'active': '' }}" href="/thnakad">Tahun Akademik</a>
         </div>
     </div>
   
   <!-- Divider -->
-  <hr class="sidebar-divider">
+  {{-- <hr class="sidebar-divider"> --}}
 
   <!-- Heading -->
-  <div class="sidebar-heading">
+  {{-- <div class="sidebar-heading">
       Addons
-  </div>
+  </div> --}}
 
   <!-- Nav Item - Pages Collapse Menu -->
-  <li class="nav-item">
+  {{-- <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
           aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
@@ -108,7 +108,7 @@
       <a class="nav-link" href="tables.html">
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
-  </li>
+  </li> --}}
 
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">

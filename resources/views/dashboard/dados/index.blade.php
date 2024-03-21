@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 
-@section('title','Data Jurusan')
+@section('title','Data Dosen')
 @section('content')
     <!-- DataTales Example -->
     <div class="card shadow mb-4"><div class="card-header py-3 justify-content-end d-flex bg-secondary">
@@ -15,14 +15,14 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <div class="dataTables_length" id="dataTable_length">
-                            {{-- <label class="d-flex align-items-center justify-content-start"><p class="mb-0 mr-2">Show</p>
+                                <label class="d-flex align-items-center justify-content-start"><p class="mb-0 mr-2">Show</p>
                                 <select name="dataTable_length" aria-controls="dataTable" class="col-lg-2 custom-select custom-select-sm  form-control form-control-sm">
                                     <option value="10">10</option>
                                     <option value="25">25</option>
                                     <option value="50">50</option>
                                     <option value="100">100</option>
                                 </select><p class="mb-0 ml-2">entries</p>
-                            </label> --}}
+                            </label>
                             </div>
                         </div>
                         <div class="col-sm-6 col-md-6">
@@ -36,8 +36,15 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode Jurusan</th>
-                            <th>Nama Jurusan</th>
+                            <th>Nama</th>
+                            <th>NIDN</th>
+                            <th>NIP</th>
+                            <th>Gender</th>
+                            <th>Id_Jurusan</th>
+                            <th>Id_Prodi</th>
+                            <th>Email</th>
+                            <th>Image</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -45,14 +52,21 @@
                         @php
                             $no = 0;
                         @endphp
-                            @foreach ( $data_jur as $item)
+                            @foreach ( $data_dos as $item)
                         @php
                             $no++;
                         @endphp
                         <tr>
                             <td>{{ $no }}</td>
-                            <td>{{ $item['kode_jurusan']}}</td>
-                            <td>{{ $item['jurusan'] }}</td>
+                            <td>{{ $item['nama']}}</td>
+                            <td>{{ $item['nidn'] }}</td>
+                            <td>{{ $item['nip'] }}</td>
+                            <td>{{ $item['gender'] }}</td>
+                            <td>{{ $item['id_jurusan'] }}</td>
+                            <td>{{ $item['id_prodi'] }}</td>
+                            <td>{{ $item['email'] }}</td>
+                            <td>{{ $item['image'] }}</td>
+                            <td>{{ $item['status'] }}</td>
                             <td><a href="#" class="btn btn-sm btn-primary  d-sm-inline-block"><i class="fas fa-eye"></i></a></td>
                         </tr>
                         @endforeach

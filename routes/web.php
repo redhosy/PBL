@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RefJurusanController;
 use App\Http\Controllers\RefProdiController;
+use App\Http\Controllers\RefDosenController;
+use App\Http\Controllers\RefSmtThnAkdController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +30,7 @@ Route::get('/dashboard',function(){
     return view('dashboard.index');
 });
 
-Route::get('/dajur', [DashboardController::class,'index']);
+Route::get('/dajur', [RefJurusanController::class,'index']);
 Route::get('/dapro', [RefProdiController::class,'index']);
+Route::get('/dados', [RefDosenController::class,'index']);
+Route::get('/thnakad', [RefSmtThnAkdController::class,'index']);

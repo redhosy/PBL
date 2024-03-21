@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ref_jurusans;
 
-class DashboardController extends Controller
+class RefJurusanController extends Controller
 {
     public function index(){
         $data_jur=ref_jurusans::all();

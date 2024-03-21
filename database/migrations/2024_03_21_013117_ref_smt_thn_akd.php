@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ref_prodis', function (Blueprint $table) {
+        Schema::create('ref_smt_thn_akds', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_prodi')->unique();
-            $table->string('prodi');
-            $table->integer('id_jurusan');
-            $table->string('id_jenjang');
+            $table->string('smt_thn_akd');
+            $table->enum('status', ['1','0'])->default('0');
             $table->timestamps();
         });
     }
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ref_prodi');
+        Schema::dropIfExists('ref_smt_thn_akd');
     }
 };
