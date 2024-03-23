@@ -29,7 +29,9 @@
                         <div class="col-sm-6 col-md-6">
                             <div id="dataTable_filter" class="dataTables_filter">
                                 <label class="d-flex align-items-center justify-content-end"><p class="mb-0 mr-2">Search:</p>
-                                    <input type="search" class="col-lg-4 form-control form-control-sm" placeholder="" aria-controls="dataTable">
+                                    <form action="/dapro" method="GET">
+                                        <input type="search" name="cari" class="col-lg-4 form-control form-control-sm" placeholder="" aria-controls="dataTable">
+                                    </form>
                                 </label>
                             </div>
                         </div>

@@ -10,7 +10,7 @@ class RefSmtThnAkdController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $data_smtakad=ref_smt_thn_akds::all();
         return view('dashboard.thnakad.index',compact('data_smtakad'));

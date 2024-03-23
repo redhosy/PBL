@@ -1,6 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
+<!-- Call to action section-->
 <header class="masthead" style="background: linear-gradient(#E1AFD1, #FFE6E6)">
     <div class="container px-5">
         <div class="row gx-5 align-items-center">
