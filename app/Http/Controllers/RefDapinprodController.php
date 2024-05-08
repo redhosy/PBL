@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ref_smt_thn_akds;
+use App\Models\ref_dapinprod;
 use Illuminate\Http\Request;
 
-class RefSmtThnAkdController extends Controller
+class RefDapinprodController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $data_smtakad=ref_smt_thn_akds::latest()->paginate(5);
-        return view('dashboard.thnakad.index',compact('data_smtakad'));
+        $data_pinprod=ref_dapinprod::latest();
+        return view('dashboard.dapinprod.index',compact('data_pinprod'));
     }
 
     /**
@@ -35,7 +35,7 @@ class RefSmtThnAkdController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ref_smt_thn_akds $ref_smt_thn_akd)
+    public function show(ref_dapinprod $ref_dapinprod)
     {
         //
     }
@@ -43,7 +43,7 @@ class RefSmtThnAkdController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ref_smt_thn_akds $ref_smt_thn_akd)
+    public function edit(ref_dapinprod $ref_dapinprod)
     {
         //
     }
@@ -51,7 +51,7 @@ class RefSmtThnAkdController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ref_smt_thn_akds $ref_smt_thn_akd)
+    public function update(Request $request, ref_dapinprod $ref_dapinprod)
     {
         //
     }
@@ -59,7 +59,7 @@ class RefSmtThnAkdController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ref_smt_thn_akds $ref_smt_thn_akd)
+    public function destroy(ref_dapinprod $ref_dapinprod)
     {
         //
     }

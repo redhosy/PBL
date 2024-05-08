@@ -22,41 +22,14 @@
 
   <!-- Heading -->
   <div class="sidebar-heading">
-      Interface
+      Daftar Data
   </div>
-
-  <!-- Nav Item - Pages Collapse Menu -->
-  {{-- <li class="nav-item">
-    {{-- <a class="nav-link {{ Request::is('dashboard/posts*')? 'active' : '' }}"  href="/dashboard/posts"> --}}
-    {{-- <a class="nav-link"  href="">
-        <i class="fas fa-table"></i>
-          <span>Data Jurusan</span>
-      </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="tables.html">
-        <i class="fas fa-book-open"></i>
-          <span>Program Studi</span>
-      </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="tables.html">
-        <i class="fas fa-user"></i>
-          <span>Dosen</span>
-      </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="tables.html">
-        <i class="fas fa-calendar-alt"></i>
-          <span>Tahun Akademik</span>
-      </a>
-  </li>  --}}
 
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
         aria-expanded="true" aria-controls="collapseTwo">
         <i class="fas fa-university"></i>
-        <span>Data Kampus</span>
+        <span>Data Jurusan</span>
     </a>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-light py-2 collapse-inner rounded">
@@ -66,53 +39,43 @@
             <a class="collapse-item {{ Request::is('thnakad') ? 'active': '' }}" href="/thnakad">Tahun Akademik</a>
         </div>
     </div>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+            aria-expanded="true" aria-controls="collapseThree">
+            <i class="fas fa-solid fa-book"></i>
+            <span>Data Akademik</span>
+        </a>
+        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+            <div class="bg-light py-2 collapse-inner rounded">
+                <a class="collapse-item {{ Request::is('dapinjur') ? 'active': '' }}" href="/dapinjur">Pimpinan Jurusan</a>
+                <a class="collapse-item {{ Request::is('dapinprod') ? 'active': '' }}" href="/dapinprod">Pimpinan Program Studi</a>
+                <a class="collapse-item {{ Request::is('dakur') ? 'active': '' }}" href="/dakur">Kurikulum Program Studi</a>
+                <a class="collapse-item {{ Request::is('matkul') ? 'active': '' }}" href="/matkul">Mata Kuliah</a>
+            </div>
+        </div>
   
   <!-- Divider -->
-  {{-- <hr class="sidebar-divider"> --}}
+  <hr class="sidebar-divider">
 
-  <!-- Heading -->
-  {{-- <div class="sidebar-heading">
-      Addons
-  </div> --}}
-
-  <!-- Nav Item - Pages Collapse Menu -->
   {{-- <li class="nav-item">
-      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-          aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
-      </a>
-      <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Login Screens:</h6>
-              <a class="collapse-item" href="login.html">Login</a>
-              <a class="collapse-item" href="register.html">Register</a>
-              <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-              <div class="collapse-divider"></div>
-              <h6 class="collapse-header">Other Pages:</h6>
-              <a class="collapse-item" href="404.html">404 Page</a>
-              <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
-      </div>
-  </li>
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
+        aria-expanded="true" aria-controls="collapseFour">
+        <i class="fas fa-solid fa-book-open"></i>
+        <span>Daftar Data KBK</span>
+    </a>
+    <div id="collapseFour" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+        <div class="bg-light py-2 collapse-inner rounded">
+            <a class="collapse-item {{ Request::is('datakbk') ? 'active': '' }}" href="/datakbk">Data KBK</a>
+            <a class="collapse-item {{ Request::is('/') ? 'active': '' }}" href="/dapro">Dosen KBK</a>
+        </div>
+    </div>  --}}
 
   <!-- Nav Item - Charts -->
   <li class="nav-item">
-      <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
+      <a class="nav-link {{ Request::is('datakbk') ? 'active': '' }}" href="/datakbk">
+          <i class="fas fa-solid fa-book"></i>
+          <span>Data KBK</span></a>
   </li>
-
-  <!-- Nav Item - Tables -->
-  <li class="nav-item">
-      <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
-  </li> --}}
-
-  <!-- Divider -->
-  <hr class="sidebar-divider d-none d-md-block">
-
-
 </ul>
 <!-- End of Sidebar -->

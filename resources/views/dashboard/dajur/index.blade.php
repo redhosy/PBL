@@ -15,14 +15,6 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-6">
                             <div class="dataTables_length" id="dataTable_length">
-                            {{-- <label class="d-flex align-items-center justify-content-start"><p class="mb-0 mr-2">Show</p>
-                                <select name="dataTable_length" aria-controls="dataTable" class="col-lg-2 custom-select custom-select-sm  form-control form-control-sm">
-                                    <option value="10">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                </select><p class="mb-0 ml-2">entries</p>
-                            </label> --}}
                             </div>
                         </div>
                         {{-- <div class="col-sm-6 col-md-6">
@@ -38,26 +30,19 @@
                             <th>No</th>
                             <th>Kode Jurusan</th>
                             <th>Nama Jurusan</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @php
-                            $no = 0;
-                        @endphp
                             @foreach ( $data_jur as $item)
-                        @php
-                            $no++;
-                        @endphp
                         <tr>
-                            <td>{{ $no }}</td>
+                            <td>{{ $data_jur->firstItem()+$loop->index }}</td>
                             <td>{{ $item['kode_jurusan']}}</td>
                             <td>{{ $item['jurusan'] }}</td>
-                            <td><a href="#" class="btn btn-sm btn-primary  d-sm-inline-block"><i class="fas fa-eye"></i></a></td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+                {{ $data_jur->links() }} 
             </div>
         </div>
     </div>

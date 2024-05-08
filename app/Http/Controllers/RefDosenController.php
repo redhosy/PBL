@@ -17,8 +17,9 @@ class RefDosenController extends Controller
             $isEmpty=$data_dos->isEmpty();                    
         } else {
             $isEmpty=false;
-            $data_dos = ref_dosen::all();
+            $data_dos = ref_dosen::with(['jurusan','prodi'])->paginate(10);
         }
-        return view('dashboard.dados.index', compact('data_dos'));
+        
+        return view('dashboard.dados.index')->with('data_dos', $data_dos);
     }    
 }
