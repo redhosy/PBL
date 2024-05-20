@@ -10,5 +10,5 @@ class ref_datakbk extends Model
     use HasFactory;
 
     protected $guarded =['id'];
-    protected $table = 'ref_datakbk';
+    protected $table = 'ref_datakbks';
 }

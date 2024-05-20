@@ -7,8 +7,8 @@
         <div class="card-header py-3 justify-content-end d-flex bg-secondary">
             <a href="#" class="d-flex d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-3"><i
                     class="fas fa-download fa-sm text-white-50"></i> Print</a>
-            <a href="/dashboard/datakbk/create" class="d-flex d-sm-inline-block btn btn-sm btn-success shadow-sm "><i
-                    class="fas fa-plus fa-sm text-white-50"></i> Add</a>
+            <a href="/datakbk/create" class="d-flex d-sm-inline-block btn btn-sm btn-success shadow-sm "><i
+                    class="fas fa-plus fa-sm text-white-50"></i>Add</a>
         </div>
         @if (session()->has('success'))
             <div class="alert alert-success col-lg-8" role="alert">
@@ -48,9 +48,18 @@
                             @foreach ($data_datakbk as $item)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->namakbk}}</td>
+                            <td>{{ $item->nama}}</td>
                             <td>{{ $item->kodekbk}}</td>
                             <td>{{ $item->deskripsi }}</td>
+                            <td>
+                                <form action="/datakbk/{{ $item->id }}" method="POST" class="d-inline">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin?')">Hapus</button>
+                                </form>
+
+                                <a href="/datakbk/{{ $item->id }}/edit" class="btn btn-warning">Edit</a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

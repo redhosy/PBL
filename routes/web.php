@@ -44,3 +44,8 @@ Route::get('/dapinprod', [RefDapinprodController::class,'index']);
 Route::get('/dakur', [RefDakurController::class,'index']);
 Route::get('/matkul', [RefDamatkulController::class,'index']);
 Route::get('/datakbk', [RefDatakbkController::class,'index']);
+Route::get('/datakbk/create', [RefDatakbkController::class, 'create']);
+Route::post('/datakbk', [RefDatakbkController::class, 'store'])->name('datakbk.store');
+Route::delete('/datakbk/{id}', [RefDatakbkController::class, 'destroy'])->name('datakbk.destroy');
+
+

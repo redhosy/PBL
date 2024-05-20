@@ -12,7 +12,7 @@ class RefDatakbkController extends Controller
      */
     public function index()
     {
-        $data_datakbk=ref_datakbk::latest();
+        $data_datakbk=ref_datakbk::latest()->paginate(10);
         return view('dashboard.datakbk.index',compact('data_datakbk'));
     }
 
@@ -30,12 +30,12 @@ class RefDatakbkController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'namakbk' => 'required',
+            'nama' => 'required',
             'kodekbk' => 'required',
             'deskripsi' => 'required',
         ]);
         ref_datakbk::create($validated);
-        return redirect('/dashboard-datakbk')->with('success','Data Berhasil Ditambahkan');
+        return redirect('datakbk')->with('success','Data Berhasil Ditambahkan');
     }
 
     /**
@@ -65,8 +65,9 @@ class RefDatakbkController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ref_datakbk $ref_datakbk)
+    public function destroy(ref_datakbk $id)
     {
-        //
+        $id->delete();
+        return redirect('/datakbk')->with('pesan','Data Berhasil di Hapus');
     }
 }
