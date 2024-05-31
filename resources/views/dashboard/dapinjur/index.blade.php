@@ -5,9 +5,9 @@
         <div class="row justify-content-center">
             <div class="col-12 offset-md-1">
                 <div class="card mt-5">
-                    <div class="card-header d-flex justify-content-between align-items-center mt-3">
+                    <div class="card-header d-flex justify-content-between align-items-center mt-5">
                         <h3>Data Pimpinan Jurusan</h3>
-                        <div class="card-header-form mt-5">
+                        <div class="card-header-form">
                             <form>
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Search">

@@ -1,7 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand mb-4">
-      <img src="assets/img/logo2.png" alt="logo" class="mt-3 mb-3" style="width: 30%">
+      <img src="assets/img/logoig.png" alt="logo" class="mt-3 mb-3" style="width: 30%">
     </div>
     
     <ul class="sidebar-menu mt-4">
