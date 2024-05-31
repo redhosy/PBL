@@ -12,8 +12,16 @@ class RefDamatkulController extends Controller
      */
     public function index(Request $request)
     {
-        $data_matkul=ref_damatkul::latest();
-        return view('dashboard.matkul.index',compact('data_matkul'));
+        if($request->has('cari')){
+            $data_damat = ref_damatkul::where('nama', 'like', '%' . $request->cari . '%')
+                                ->orWhere('jabatan', 'like', '%' . $request->cari . '%')
+                                ->get();
+            $isEmpty=$data_damat->isEmpty();                    
+        } else {
+            $isEmpty=false;
+            $data_damat = ref_damatkul::with(['kurikulum'])->paginate(10);
+        }
+        return view('dashboard.matkul.index')->with('data_damat', $data_damat);
     }
 
     /**

@@ -10,7 +10,7 @@
             <ul class="navbar-nav ms-auto me-5 my-3 my-lg-0 text-center">
                 <li class="nav-item"><a class="nav-link me-lg-3 " href="#">Explorasi Dashboard</a></li>
                 <li class="nav-item {{ Request::is('tentang') ? 'active' : '' }}"><a class="nav-link me-lg-3 " href="/tentang">Tentang</a></li>
-                <li class="nav-item"><a class="nav-link me-lg-3 " href="/dashboard">Dashboard Utama</a></li>
+                <li class="nav-item"><a class="nav-link me-lg-3 btn btn-outline-dark py-2 px-3 rounded-pill" href="/login">Masuk Ke Akun</a></li>
             </ul>
         </div>
     </div>

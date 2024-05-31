@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\jabpim;
+use App\Models\jabpims;
 use Illuminate\Http\Request;
 
 class JabpimController extends Controller
@@ -34,7 +34,7 @@ class JabpimController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(jabpim $jabpim)
+    public function show(jabpims $jabpim)
     {
         //
     }
@@ -42,7 +42,7 @@ class JabpimController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(jabpim $jabpim)
+    public function edit(jabpims $jabpim)
     {
         //
     }
@@ -50,7 +50,7 @@ class JabpimController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, jabpim $jabpim)
+    public function update(Request $request, jabpims $jabpim)
     {
         //
     }
@@ -58,7 +58,7 @@ class JabpimController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(jabpim $jabpim)
+    public function destroy(jabpims $jabpim)
     {
         //
     }

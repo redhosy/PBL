@@ -1,7 +1,7 @@
-<footer class="sticky-footer bg-white">
-    <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Sistem Informasi KBK 2024</span>
-        </div>
+<footer class="main-footer">
+    <div class="footer-left">
+      <p>Copyright &copy; 2024 - Sistem Informasi KBK</p>
     </div>
-</footer>
+    <div class="footer-right">
+    </div>
+  </footer>

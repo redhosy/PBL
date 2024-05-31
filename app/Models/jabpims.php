@@ -9,5 +9,6 @@ class jabpims extends Model
 {
     use HasFactory;
     protected  $table = 'jabpims';
+    protected $guarded = ['id'];
 
 }

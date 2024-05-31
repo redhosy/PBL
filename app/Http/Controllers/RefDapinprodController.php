@@ -12,8 +12,16 @@ class RefDapinprodController extends Controller
      */
     public function index(Request $request)
     {
-        $data_pinprod=ref_dapinprod::latest();
-        return view('dashboard.dapinprod.index',compact('data_pinprod'));
+        if($request->has('cari')){
+            $data_pim = ref_dapinprod::where('nama', 'like', '%' . $request->cari . '%')
+                                ->orWhere('jabatan', 'like', '%' . $request->cari . '%')
+                                ->get();
+            $isEmpty=$data_pim->isEmpty();                    
+        } else {
+            $isEmpty=false;
+            $data_pim = ref_dapinprod::with(['prodi','dosen','jabpim'])->paginate(10);
+        }
+        return view('dashboard.dapinprod.index')->with('data_pim', $data_pim);
     }
 
     /**

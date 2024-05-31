@@ -12,8 +12,16 @@ class RefDakurController extends Controller
      */
     public function index(Request $request)
     {
-        $data_dakur=ref_dakur::latest();
-        return view('dashboard.dakur.index',compact('data_dakur'));
+        if($request->has('cari')){
+            $data_kur = ref_dakur::where('nama', 'like', '%' . $request->cari . '%')
+                                ->orWhere('jabatan', 'like', '%' . $request->cari . '%')
+                                ->get();
+            $isEmpty=$data_kur->isEmpty();                    
+        } else {
+            $isEmpty=false;
+            $data_kur = ref_dakur::with(['prodi'])->paginate(10);
+        }
+        return view('dashboard.dakur.index')->with('data_kur', $data_kur);
     }
 
     /**

@@ -35,6 +35,14 @@ Route::get('/dashboard',function(){
     return view('dashboard.index');
 });
 
+Route::get('/login',function(){
+    return view('login');
+});
+
+Route::get('/register',function(){
+    return view('register');
+    });
+
 Route::get('/dajur', [RefJurusanController::class,'index']);
 Route::get('/dapro', [RefProdiController::class,'index']);
 Route::get('/dados', [RefDosenController::class,'index']);
@@ -43,9 +51,11 @@ Route::get('/dapinjur', [RefDapinjurController::class,'index']);
 Route::get('/dapinprod', [RefDapinprodController::class,'index']);
 Route::get('/dakur', [RefDakurController::class,'index']);
 Route::get('/matkul', [RefDamatkulController::class,'index']);
+
 Route::get('/datakbk', [RefDatakbkController::class,'index']);
 Route::get('/datakbk/create', [RefDatakbkController::class, 'create']);
 Route::post('/datakbk', [RefDatakbkController::class, 'store'])->name('datakbk.store');
 Route::delete('/datakbk/{id}', [RefDatakbkController::class, 'destroy'])->name('datakbk.destroy');
+
 
 

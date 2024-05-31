@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('ref_dapinprods', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_pimpinan_prodi')->nullable(false);
             $table->integer('id_jabatan_pimpinan')->nullable(false);
             $table->integer('id_prodi')->nullable(false);
             $table->integer('id_dosen')->nullable(false);
