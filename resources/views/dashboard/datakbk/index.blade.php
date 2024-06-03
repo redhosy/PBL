@@ -1,71 +1,62 @@
 @extends('dashboard.layouts.app')
 
-@section('modal')
-    @include('dashboard.datakbk.modal')
-@endsection
-
-@section('title','Data KBK')
+@section('title', 'Data KBK')
 
 @section('content')
-    <div class="container">
+    <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-12 offset-md-1">
+            <div class="col-12 offset-md-0">
                 <div class="card mt-5">
-                    <div class="card-header d-flex justify-content-between align-items-center mt-5">
+                    <div class="card-header d-flex justify-content-between align-items-center">
                         <h3>Data KBK</h3>
-                        <div class="card-header-form mt-3">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary mr-2"><i class="fas fa-search"></i></button>
-                                    </div>
-                                    <a href="#"
-                                        class="d-flex d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-2">
-                                        <i class="fas fa-download fa-sm text-white-50"></i> Print
-                                    </a>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="Modal">
-                                        Tambah
-                                    </button>
+                        <div class="card-header-form">
+                            {{-- pencarian --}}
+                            <div class="input-group">
+                                <input type="text" id="searchInput" class="form-control"
+                                    placeholder="Cari Kode atau NamaKBK...">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary mr-2" id="searchButton"><i
+                                            class="fas fa-search"></i></button>
                                 </div>
-                            </form>
+                                {{-- print --}}
+                                <a href="#" class="d-flex d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-2">
+                                    <i class="fas fa-download fa-sm text-white-50"></i>
+                                </a>
+                                {{-- tambah --}}
+                                <button class="btn btn-success" type="button" data-toggle="modal" id="modalAdd"><i
+                                        class="fas fa-plus"></i></button>
+                            </div>
                         </div>
                     </div>
-                    <hr>
-                    @if (session()->has('success'))
-                        <div class="alert alert-success col-lg-8" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    @endif
-
                     <div class="card-body p-3 rounded">
                         <div class="table-responsive">
+                            <div class="alert alert-success d-none" id="success-alert">
+                                Berhasil
+                            </div>
                             <table class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>No</th>
                                         <th>Kode KBK</th>
-                                        <th>Nama KBK</th>
+                                        <th>Nama</th>
                                         <th>Deskripsi</th>
-                                        <th>Action</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach ($data_datakbk as $item)
-                                        <tr>
+                                <tbody id="dataTable">
+                                    @foreach ($datakbk as $data)
+                                        <tr id="data{{ $data->id }}">
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->kodekbk }}</td>
-                                            <td>{{ $item->nama }}</td>
-                                            <td>{{ $item->deskripsi }}</td>
+                                            <td>{{ $data->kodekbk }}</td>
+                                            <td>{{ $data->nama }}</td>
+                                            <td>{{ $data->deskripsi }}</td>
                                             <td>
-                                                <form action="/datakbk/{{ $item->id }}" method="POST" class="d-inline">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-danger"
-                                                        onclick="return confirm('Yakin?')">Hapus</button>
-                                                </form>
-
-                                                <a href="/datakbk/{{ $item->id }}/edit" class="btn btn-warning">Edit</a>
+                                                <button class="btn btn-warning editBtn" data-id="{{ $data->id }}"><i
+                                                        class="fas fa-pen"></i></button>
+                                                <button class="btn btn-info detailBtn" data-id="{{ $data->id }}"><i
+                                                        class="fas fa-info"></i></button>
+                                                <button class="btn btn-danger deleteBtn" data-toggle="modal" data-id="{{ $data->id }}" ><i
+                                                        class="fas fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -77,4 +68,30 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="modalDelete">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Anda yakin Ingin Menghapus Data?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-footer mt-5">
+                    <form action="" id="formDelete" method="POST">
+                        <button class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-danger" type="button" id="confirmDelete">Hapus</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @include('dashboard.datakbk.addModal')
+    @include('dashboard.datakbk.editModal')
+    @include('dashboard.datakbk.detailModal')
+
+    @include('dashboard.datakbk.scripts')
 @endsection

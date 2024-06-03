@@ -1,168 +1,445 @@
 @extends('layouts.main')
 
 @section('content')
-<!-- Call to action section-->
-<header class="masthead" style="background: linear-gradient(#E1AFD1, #FFE6E6)">
-    <div class="container px-5">
-        <div class="row gx-5 align-items-center">
-            <div class="col-lg-6">
-                <!-- Mashead text and app badges-->
-                <div class="mb-2 mb-lg-0 text-center text-lg-start">
-                    <h1 class="display-1 lh-1 mb-2 fw-bold fs-1 text-capitalize">Optimalkan KBK Anda dengan Kemudahan</h1>
-                    <p class="lead fw-normal text-muted mt-3" style="font-size: 16px">"Maksimalkan kegiatan akademik Anda dengan mengatur kebutuhan KBK melalui aplikasi kami. Dapatkan kemudahan merencanakan jadwal, mengelola tugas. Bergabunglah sekarang untuk mengoptimalkan waktu dan sumber daya Anda!"</p>
-                    {{-- <div class="d-flex flex-column flex-lg-row align-items-center">
-                        <a class="me-lg-3 mb-4 mb-lg-0" href="#!"><img class="app-badge" src="assets/img/google-play-badge.svg" alt="..." /></a>
-                        <a href="#!"><img class="app-badge" src="assets/img/app-store-badge.svg" alt="..." /></a>
-                    </div> --}}
-                </div>
-            </div>
-            <div class="col-lg-6 mt-4 mt-lg-0">
-                <!-- Masthead device mockup feature-->
-                <img class="animasi img-fluid" src="img/grafik.png" alt="">
-            </div>
-        </div>
-    </div>
-</header>
-<!-- Quote/testimonial aside-->
-<aside class="text-center" style="background: linear-gradient(#7469B6 ,#AD88C6)">
-    <div class="container px-5">
-        <div class="row gx-5 justify-content-center">
-            <div class="col-xl-8">
-                <div class="h2 fs-1 text-white mb-4">
-                    <section>
-                        <div class="container d-flex justify-content-around align-items-center">
-                               <div>
-                                   <h1 class="count">10</h1>
-                                   <p>PRODI</p>
-                               </div>
-                               <div>
-                                   <h1 class="count">9</h1>
-                                   <p>JURUSAN</p>
-                               </div>
-                               <div>
-                                   <h1 class="count">25</h1>
-                                   <p>DOSEN</p>
-                               </div>
-                        </div>
-                    </section>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</aside>
-<!-- App features section-->
-<section id="features">
-    <div class="container px-5">
-        <div class="row gx-5 align-items-center">
-            <div class="col-lg-8 order-lg-1 mb-5 mb-lg-0">
-                <div class="container-fluid px-5">
-                    <div class="row gx-5">
-                        <div class="col-md-6 mb-5">
-
-                            <!-- Feature item-->
-                            <div class="text-center">
-                                <i class="bi-phone icon-feature text-gradient d-block mb-3"></i>
-                                <h3 class="font-alt">Device Mockups</h3>
-                                <p class="text-muted mb-0">Ready to use HTML/CSS device mockups, no Photoshop required!</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-5">
-
-                            <!-- Feature item-->
-                            <div class="text-center">
-                                <i class="bi-camera icon-feature text-gradient d-block mb-3"></i>
-                                <h3 class="font-alt">Flexible Use</h3>
-                                <p class="text-muted mb-0">Put an image, video, animation, or anything else in the screen!</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-5 mb-md-0">
-                            <!-- Feature item-->
-                            <div class="text-center">
-                                <i class="bi-gift icon-feature text-gradient d-block mb-3"></i>
-                                <h3 class="font-alt">Free to Use</h3>
-                                <p class="text-muted mb-0">As always, this theme is free to download and use for any purpose!</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <!-- Feature item-->
-                            <div class="text-center">
-                                <i class="bi-patch-check icon-feature text-gradient d-block mb-3"></i>
-                                <h3 class="font-alt">Open Source</h3>
-                                <p class="text-muted mb-0">Since this theme is MIT licensed, you can use it commercially!</p>
-                            </div>
+<!-- Carousel Start -->
+<div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="owl-carousel header-carousel position-relative">
+        <div class="owl-carousel-item position-relative" data-dot="<img src='img/carousel-1.jpg'>">
+            <img class="img-fluid" src="img/carousel-1.jpg" alt="">
+            <div class="owl-carousel-inner">
+                <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col-10 col-lg-8">
+                            <h1 class="display-2 text-white animated slideInDown">Pioneers Of Solar And Renewable Energy</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-3">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
+                            <a href="" class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Read More</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 order-lg-0">
-                <!-- Features section device mockup-->
-                <div class="features-device-mockup">
-                    <svg class="circle" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                            <linearGradient id="circleGradient" gradientTransform="rotate(45)">
-                                <stop class="gradient-start-color" offset="0%"></stop>
-                                <stop class="gradient-end-color" offset="100%"></stop>
-                            </linearGradient>
-                        </defs>
-                        <circle cx="50" cy="50" r="50"></circle></svg>
-                        <svg class="shape-1 d-none d-sm-block" viewBox="0 0 240.83 240.83" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(120.42 -49.88) rotate(45)"></rect>
-                        <rect x="-32.54" y="78.39" width="305.92" height="84.05" rx="42.03" transform="translate(-49.88 120.42) rotate(-45)"></rect></svg>
-                        <svg class="shape-2 d-none d-sm-block" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50"></circle></svg>
-                    <div class="device-wrapper">
-                        <div class="device" data-device="iPhoneX" data-orientation="portrait" data-color="black">
-                            <div class="screen bg-black">
-                                <!-- PUT CONTENTS HERE:-->
-                                <!-- * * This can be a video, image, or just about anything else.-->
-                                <!-- * * Set the max width of your media to 100% and the height to-->
-                                <!-- * * 100% like the demo example below.-->
-                                <video muted="muted" autoplay="" loop="" style="max-width: 100%; height: 100%"><source src="assets/img/demo-screen.mp4" type="video/mp4" /></video>
-                            </div>
+        </div>
+        <div class="owl-carousel-item position-relative" data-dot="<img src='img/carousel-2.jpg'>">
+            <img class="img-fluid" src="img/carousel-2.jpg" alt="">
+            <div class="owl-carousel-inner">
+                <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col-10 col-lg-8">
+                            <h1 class="display-2 text-white animated slideInDown">Pioneers Of Solar And Renewable Energy</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-3">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
+                            <a href="" class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="owl-carousel-item position-relative" data-dot="<img src='img/carousel-3.jpg'>">
+            <img class="img-fluid" src="img/carousel-3.jpg" alt="">
+            <div class="owl-carousel-inner">
+                <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col-10 col-lg-8">
+                            <h1 class="display-2 text-white animated slideInDown">Pioneers Of Solar And Renewable Energy</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-3">Vero elitr justo clita lorem. Ipsum dolor at sed stet sit diam no. Kasd rebum ipsum et diam justo clita et kasd rebum sea elitr.</p>
+                            <a href="" class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Read More</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
-<!-- Basic features section-->
-<section class="bg-light">
-    <div class="container px-5">
-        <div class="row gx-5 align-items-center justify-content-center justify-content-lg-between">
-            <div class="col-12 col-lg-5">
-                <h2 class="display-4 lh-1 mb-4">Enter a new age of web design</h2>
-                <p class="lead fw-normal text-muted mb-5 mb-lg-0">This section is perfect for featuring some information about your application, why it was built, the problem it solves, or anything else! There's plenty of space for text here, so don't worry about writing too much.</p>
+</div>
+<!-- Carousel End -->
+
+
+<!-- Feature Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="btn-lg-square bg-primary rounded-circle me-3">
+                        <i class="fa fa-users text-white"></i>
+                    </div>
+                    <h1 class="mb-0" data-toggle="counter-up">3453</h1>
+                </div>
+                <h5 class="mb-3">Happy Customers</h5>
+                <span>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit</span>
             </div>
-            <div class="col-sm-8 col-md-6">
-                <div class="px-5 px-sm-0"><img class="img-fluid rounded-circle" src="https://source.unsplash.com/u8Jn2rzYIps/900x900" alt="..." /></div>
+            <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="btn-lg-square bg-primary rounded-circle me-3">
+                        <i class="fa fa-check text-white"></i>
+                    </div>
+                    <h1 class="mb-0" data-toggle="counter-up">4234</h1>
+                </div>
+                <h5 class="mb-3">Project Done</h5>
+                <span>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit</span>
+            </div>
+            <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="btn-lg-square bg-primary rounded-circle me-3">
+                        <i class="fa fa-award text-white"></i>
+                    </div>
+                    <h1 class="mb-0" data-toggle="counter-up">3123</h1>
+                </div>
+                <h5 class="mb-3">Awards Win</h5>
+                <span>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit</span>
+            </div>
+            <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="btn-lg-square bg-primary rounded-circle me-3">
+                        <i class="fa fa-users-cog text-white"></i>
+                    </div>
+                    <h1 class="mb-0" data-toggle="counter-up">1831</h1>
+                </div>
+                <h5 class="mb-3">Expert Workers</h5>
+                <span>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit</span>
             </div>
         </div>
     </div>
-</section>
-<!-- Call to action section-->
-<section class="cta">
-    <div class="cta-content">
-        <div class="container px-5">
-            <h2 class="text-white display-1 lh-1 mb-4">
-                Stop waiting.
-                <br />
-                Start building.
-            </h2>
-            <a class="btn btn-outline-light py-3 px-4 rounded-pill" href="https://startbootstrap.com/theme/new-age" target="_blank">Download for free</a>
+</div>
+<!-- Feature Start -->
+
+<!-- Service Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">Our Services</h6>
+            <h1 class="mb-4">We Are Pioneers In The World Of Renewable Energy</h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="img/img-600x400-1.jpg" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="fa fa-solar-panel fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Solar Panels</h4>
+                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
+                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="img/img-600x400-2.jpg" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="fa fa-wind fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Wind Turbines</h4>
+                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
+                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="img/img-600x400-3.jpg" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="fa fa-lightbulb fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Hydropower Plants</h4>
+                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
+                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="img/img-600x400-4.jpg" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="fa fa-solar-panel fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Solar Panels</h4>
+                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
+                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="img/img-600x400-5.jpg" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="fa fa-wind fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Wind Turbines</h4>
+                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
+                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="img/img-600x400-6.jpg" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="fa fa-lightbulb fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Hydropower Plants</h4>
+                        <p>Stet stet justo dolor sed duo. Ut clita sea sit ipsum diam lorem diam.</p>
+                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</section>
-<!-- App badge section-->
-<section class="bg-gradient-primary-to-secondary" id="download">
-    <div class="container px-5">
-        <h2 class="text-center text-white font-alt mb-4">Get the app now!</h2>
-        <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center">
-            <a class="me-lg-3 mb-4 mb-lg-0" href="#!"><img class="app-badge" src="assets/img/google-play-badge.svg" alt="..." /></a>
-            <a href="#!"><img class="app-badge" src="assets/img/app-store-badge.svg" alt="..." /></a>
+</div>
+<!-- Service End -->
+
+<!-- About Start -->
+<div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
+    <div class="container about px-lg-0">
+        <div class="row g-0 mx-lg-0">
+            <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
+                <div class="position-relative h-100">
+                    <img class="position-absolute img-fluid w-100 h-100" src="img/about.jpg" style="object-fit: cover;" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
+                <div class="p-lg-5 pe-lg-0">
+                    <h6 class="text-primary">About Us</h6>
+                    <h1 class="mb-4">25+ Years Experience In Solar & Renewable Energy Industry</h1>
+                    <p>Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet</p>
+                    <p><i class="fa fa-check-circle text-primary me-3"></i>Diam dolor diam ipsum</p>
+                    <p><i class="fa fa-check-circle text-primary me-3"></i>Aliqu diam amet diam et eos</p>
+                    <p><i class="fa fa-check-circle text-primary me-3"></i>Tempor erat elitr rebum at clita</p>
+                    <a href="" class="btn btn-primary rounded-pill py-3 px-5 mt-3">Explore More</a>
+                </div>
+            </div>
         </div>
     </div>
-</section>
+</div>
+<!-- About End -->
+
+
+<!-- Projects Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">Our Projects</h6>
+            <h1 class="mb-4">Visit Our Latest Solar And Renewable Energy Projects</h1>
+        </div>
+        <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
+            <div class="col-12 text-center">
+                <ul class="list-inline mb-5" id="portfolio-flters">
+                    <li class="mx-2 active" data-filter="*">All</li>
+                    <li class="mx-2" data-filter=".first">Solar Panels</li>
+                    <li class="mx-2" data-filter=".second">Wind Turbines</li>
+                    <li class="mx-2" data-filter=".third">Hydropower Plants</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row g-4 portfolio-container wow fadeInUp" data-wow-delay="0.5s">
+            <div class="col-lg-4 col-md-6 portfolio-item first">
+                <div class="portfolio-img rounded overflow-hidden">
+                    <img class="img-fluid" src="img/img-600x400-6.jpg" alt="">
+                    <div class="portfolio-btn">
+                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-6.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <p class="text-primary mb-0">Solar Panels</p>
+                    <hr class="text-primary w-25 my-2">
+                    <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 portfolio-item second">
+                <div class="portfolio-img rounded overflow-hidden">
+                    <img class="img-fluid" src="img/img-600x400-5.jpg" alt="">
+                    <div class="portfolio-btn">
+                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-5.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <p class="text-primary mb-0">Wind Turbines</p>
+                    <hr class="text-primary w-25 my-2">
+                    <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 portfolio-item third">
+                <div class="portfolio-img rounded overflow-hidden">
+                    <img class="img-fluid" src="img/img-600x400-4.jpg" alt="">
+                    <div class="portfolio-btn">
+                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-4.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <p class="text-primary mb-0">Hydropower Plants</p>
+                    <hr class="text-primary w-25 my-2">
+                    <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 portfolio-item first">
+                <div class="portfolio-img rounded overflow-hidden">
+                    <img class="img-fluid" src="img/img-600x400-3.jpg" alt="">
+                    <div class="portfolio-btn">
+                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-3.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <p class="text-primary mb-0">Solar Panels</p>
+                    <hr class="text-primary w-25 my-2">
+                    <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 portfolio-item second">
+                <div class="portfolio-img rounded overflow-hidden">
+                    <img class="img-fluid" src="img/img-600x400-2.jpg" alt="">
+                    <div class="portfolio-btn">
+                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-2.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <p class="text-primary mb-0">Wind Turbines</p>
+                    <hr class="text-primary w-25 my-2">
+                    <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 portfolio-item third">
+                <div class="portfolio-img rounded overflow-hidden">
+                    <img class="img-fluid" src="img/img-600x400-1.jpg" alt="">
+                    <div class="portfolio-btn">
+                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="img/img-600x400-1.jpg" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <p class="text-primary mb-0">Hydropower Plants</p>
+                    <hr class="text-primary w-25 my-2">
+                    <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Projects End -->
+
+<!-- Feature Start -->
+<div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
+    <div class="container feature px-lg-0">
+        <div class="row g-0 mx-lg-0">
+            <div class="col-lg-6 feature-text py-5 wow fadeIn" data-wow-delay="0.1s">
+                <div class="p-lg-5 ps-lg-0">
+                    <h6 class="text-primary">Why Choose Us!</h6>
+                    <h1 class="mb-4">Complete Commercial & Residential Solar Systems</h1>
+                    <p class="mb-4 pb-2">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet</p>
+                    <div class="row g-4">
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="btn-lg-square bg-primary rounded-circle">
+                                    <i class="fa fa-check text-white"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <p class="mb-0">Quality</p>
+                                    <h5 class="mb-0">Services</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="btn-lg-square bg-primary rounded-circle">
+                                    <i class="fa fa-user-check text-white"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <p class="mb-0">Expert</p>
+                                    <h5 class="mb-0">Workers</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="btn-lg-square bg-primary rounded-circle">
+                                    <i class="fa fa-drafting-compass text-white"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <p class="mb-0">Free</p>
+                                    <h5 class="mb-0">Consultation</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="btn-lg-square bg-primary rounded-circle">
+                                    <i class="fa fa-headphones text-white"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <p class="mb-0">Customer</p>
+                                    <h5 class="mb-0">Support</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 pe-lg-0 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
+                <div class="position-relative h-100">
+                    <img class="position-absolute img-fluid w-100 h-100" src="img/feature.jpg" style="object-fit: cover;" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Feature End -->
+
+<!-- Testimonial Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">Testimonial</h6>
+            <h1 class="mb-4">What Our Clients Say!</h1>
+        </div>
+        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+            <div class="testimonial-item text-center">
+                <div class="testimonial-img position-relative">
+                    <img class="img-fluid rounded-circle mx-auto mb-5" src="img/testimonial-1.jpg">
+                    <div class="btn-square bg-primary rounded-circle">
+                        <i class="fa fa-quote-left text-white"></i>
+                    </div>
+                </div>
+                <div class="testimonial-text text-center rounded p-4">
+                    <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
+                    <h5 class="mb-1">Client Name</h5>
+                    <span class="fst-italic">Profession</span>
+                </div>
+            </div>
+            <div class="testimonial-item text-center">
+                <div class="testimonial-img position-relative">
+                    <img class="img-fluid rounded-circle mx-auto mb-5" src="img/testimonial-2.jpg">
+                    <div class="btn-square bg-primary rounded-circle">
+                        <i class="fa fa-quote-left text-white"></i>
+                    </div>
+                </div>
+                <div class="testimonial-text text-center rounded p-4">
+                    <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
+                    <h5 class="mb-1">Client Name</h5>
+                    <span class="fst-italic">Profession</span>
+                </div>
+            </div>
+            <div class="testimonial-item text-center">
+                <div class="testimonial-img position-relative">
+                    <img class="img-fluid rounded-circle mx-auto mb-5" src="img/testimonial-3.jpg">
+                    <div class="btn-square bg-primary rounded-circle">
+                        <i class="fa fa-quote-left text-white"></i>
+                    </div>
+                </div>
+                <div class="testimonial-text text-center rounded p-4">
+                    <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
+                    <h5 class="mb-1">Client Name</h5>
+                    <span class="fst-italic">Profession</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
 @endsection

@@ -3,16 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\register;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Str;
+
+
 
 class RegisterController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function register()
     {
-        //
+        return view('register');
     }
 
     /**
@@ -28,7 +33,20 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $Validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'captcha' => 'required|captcha'
+        ]);
+
+        $Validated['password']=bcrypt($Validated['password']);
+        $Validated['email_verified_at']=now();
+        $Validated['remember_token']=Str::random(10);
+
+
+        User::create($Validated);
+        return redirect('/login');
     }
 
     /**

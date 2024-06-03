@@ -2,39 +2,45 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta charset="utf-8">
     <title>SIKABEKA | Home</title>
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Bootstrap icons-->
-    <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="css/login.css">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Roboto:wght@500;700;900&display=swap" rel="stylesheet"> 
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google fonts-->
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
-    <style>
-        .d-none {
-            display: none;
-        }
 
-        .invalid-feedback {
-            display: none;
-        }
-
-        .btn.disabled {
-            pointer-events: none;
-            opacity: 0.65;
-        }
-    </style>
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
-<body id="page-top">
+<body>
+    <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
     @include('partials.navbar')
 
     <!-- Mashead header-->
@@ -44,60 +50,23 @@
     <!-- Footer-->
     @include('partials.footer')
 
-    <!-- Bootstrap core JS-->
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+   <!-- Back to Top -->
+   <a href="#" class="btn btn-lg btn-primary btn-lg-square rounded-circle back-to-top"><i class="bi bi-arrow-up"></i></a>
 
-    <script>
-        // Fungsi untuk memulai animasi count saat elemen masuk ke dalam viewport
-        function startCountAnimation() {
-            var countElements = document.querySelectorAll('.count');
 
-            countElements.forEach(function(element) {
-                var start = 0;
-                var end = parseInt(element.innerText);
-                var duration = 25000;
-                var step = Math.ceil(end / (duration / 100));
+   <!-- JavaScript Libraries -->
+   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+   <script src="lib/wow/wow.min.js"></script>
+   <script src="lib/easing/easing.min.js"></script>
+   <script src="lib/waypoints/waypoints.min.js"></script>
+   <script src="lib/counterup/counterup.min.js"></script>
+   <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+   <script src="lib/isotope/isotope.pkgd.min.js"></script>
+   <script src="lib/lightbox/js/lightbox.min.js"></script>
 
-                function updateCount() {
-                    start += step;
-                    start = Math.min(start, end);
-                    element.textContent = start;
-                    if (start < end) {
-                        requestAnimationFrame(updateCount);
-                    }
-                }
-
-                updateCount();
-            });
-        }
-
-        // Fungsi untuk memeriksa apakah elemen masuk ke dalam viewport
-        function isInViewport(element) {
-            var bounding = element.getBoundingClientRect();
-            return (
-                bounding.top >= 0 &&
-                bounding.left >= 0 &&
-                bounding.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                bounding.right <= (window.innerWidth || document.documentElement.clientWidth)
-            );
-        }
-
-        // Fungsi untuk menambahkan kelas 'visible' ketika elemen masuk ke dalam viewport
-        function handleScroll() {
-            var servicediv = document.querySelector('.servicediv');
-            if (isInViewport(servicediv)) {
-                servicediv.classList.add('visible');
-                startCountAnimation(); // Mulai animasi count saat elemen masuk ke dalam viewport
-                window.removeEventListener('scroll', handleScroll); // Hapus event listener setelah animasi dimulai
-            }
-        }
-
-        // Tambahkan event listener untuk mendeteksi scroll
-        window.addEventListener('scroll', handleScroll);
-    </script>
+   <!-- Template Javascript -->
+   <script src="js/main.js"></script>
 </body>
 
 </html>

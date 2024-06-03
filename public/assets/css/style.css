@@ -1911,7 +1911,7 @@ a.dropdown-item {
   font-weight: 400;
   src: url("../fonts/nunito-v9-latin-regular.eot");
   /* IE9 Compat Modes */
-  src: local("Nunito Regular"), local("Nunito-Regular"), url("../fonts/nunito-v9-latin-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/nunito-v9-latin-regular.woff2") format("woff2"), url("../fonts/nunito-v9-latin-regular.woff") format("woff"), url("../fonts/nunito-v9-latin-regular.ttf") format("truetype"), url("../fonts/nunito-v9-latin-regular.svg#Nunito") format("svg");
+  /* src: local("Nunito Regular"), local("Nunito-Regular"), url("../fonts/nunito-v9-latin-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/nunito-v9-latin-regular.woff2") format("woff2"), url("../fonts/nunito-v9-latin-regular.woff") format("woff"), url("../fonts/nunito-v9-latin-regular.ttf") format("truetype"), url("../fonts/nunito-v9-latin-regular.svg#Nunito") format("svg"); */
   /* Legacy iOS */ }
 /* nunito-600 - latin */
 @font-face {
@@ -1920,7 +1920,7 @@ a.dropdown-item {
   font-weight: 600;
   src: url("../fonts/nunito-v9-latin-600.eot");
   /* IE9 Compat Modes */
-  src: local("Nunito SemiBold"), local("Nunito-SemiBold"), url("../fonts/nunito-v9-latin-600.eot?#iefix") format("embedded-opentype"), url("../fonts/nunito-v9-latin-600.woff2") format("woff2"), url("../fonts/nunito-v9-latin-600.woff") format("woff"), url("../fonts/nunito-v9-latin-600.ttf") format("truetype"), url("../fonts/nunito-v9-latin-600.svg#Nunito") format("svg");
+  /* src: local("Nunito SemiBold"), local("Nunito-SemiBold"), url("../fonts/nunito-v9-latin-600.eot?#iefix") format("embedded-opentype"), url("../fonts/nunito-v9-latin-600.woff2") format("woff2"), url("../fonts/nunito-v9-latin-600.woff") format("woff"), url("../fonts/nunito-v9-latin-600.ttf") format("truetype"), url("../fonts/nunito-v9-latin-600.svg#Nunito") format("svg"); */
   /* Legacy iOS */ }
 /* nunito-700 - latin */
 @font-face {
@@ -1929,7 +1929,7 @@ a.dropdown-item {
   font-weight: 700;
   src: url("../fonts/nunito-v9-latin-700.eot");
   /* IE9 Compat Modes */
-  src: local("Nunito Bold"), local("Nunito-Bold"), url("../fonts/nunito-v9-latin-700.eot?#iefix") format("embedded-opentype"), url("../fonts/nunito-v9-latin-700.woff2") format("woff2"), url("../fonts/nunito-v9-latin-700.woff") format("woff"), url("../fonts/nunito-v9-latin-700.ttf") format("truetype"), url("../fonts/nunito-v9-latin-700.svg#Nunito") format("svg");
+  /* src: local("Nunito Bold"), local("Nunito-Bold"), url("../fonts/nunito-v9-latin-700.eot?#iefix") format("embedded-opentype"), url("../fonts/nunito-v9-latin-700.woff2") format("woff2"), url("../fonts/nunito-v9-latin-700.woff") format("woff"), url("../fonts/nunito-v9-latin-700.ttf") format("truetype"), url("../fonts/nunito-v9-latin-700.svg#Nunito") format("svg"); */
   /* Legacy iOS */ }
 /* nunito-800 - latin */
 @font-face {
@@ -1938,7 +1938,7 @@ a.dropdown-item {
   font-weight: 800;
   src: url("../fonts/nunito-v9-latin-800.eot");
   /* IE9 Compat Modes */
-  src: local("Nunito ExtraBold"), local("Nunito-ExtraBold"), url("../fonts/nunito-v9-latin-800.eot?#iefix") format("embedded-opentype"), url("../fonts/nunito-v9-latin-800.woff2") format("woff2"), url("../fonts/nunito-v9-latin-800.woff") format("woff"), url("../fonts/nunito-v9-latin-800.ttf") format("truetype"), url("../fonts/nunito-v9-latin-800.svg#Nunito") format("svg");
+  /* src: local("Nunito ExtraBold"), local("Nunito-ExtraBold"), url("../fonts/nunito-v9-latin-800.eot?#iefix") format("embedded-opentype"), url("../fonts/nunito-v9-latin-800.woff2") format("woff2"), url("../fonts/nunito-v9-latin-800.woff") format("woff"), url("../fonts/nunito-v9-latin-800.ttf") format("truetype"), url("../fonts/nunito-v9-latin-800.svg#Nunito") format("svg"); */
   /* Legacy iOS */ }
 :root {
   /* Colors */
@@ -2753,9 +2753,40 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
     display: block; }
 
   .main-content {
+    padding: 20px;
     padding-left: 30px;
     padding-right: 30px;
     width: 100% !important; }
+
+    .container-fluid {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 1200px; /* You can adjust this value as needed */
+      padding: 0 15px; /* Add horizontal padding */
+  }
+  
+  /* Ensure the footer sticks to the bottom of the page */
+  .footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 60px; /* Footer height */
+      line-height: 60px; /* Vertically center the text */
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+  }
+  
+  /* Additional responsive adjustments if needed */
+  @media (max-width: 768px) {
+      .main-content {
+          padding: 10px;
+      }
+  
+      .container-fluid {
+          padding: 0 10px;
+      }
+  }
 
   .main-footer {
     padding-left: 30px; }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\matkulKBKController;
 use App\Http\Controllers\RefDakurController;
 use App\Http\Controllers\RefDamatkulController;
 use App\Http\Controllers\RefDapinjurController;
@@ -9,7 +10,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RefJurusanController;
 use App\Http\Controllers\RefProdiController;
 use App\Http\Controllers\RefDosenController;
+use App\Http\Controllers\RefDosenkbkController;
 use App\Http\Controllers\RefSmtThnAkdController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,10 +29,6 @@ Route::get('/',function(){
     return view('home');
 });
 
-Route::get('/tentang',function(){
-    return view('tentang');
-});
-
 
 Route::get('/dashboard',function(){
     return view('dashboard.index');
@@ -39,9 +38,25 @@ Route::get('/login',function(){
     return view('login');
 });
 
-Route::get('/register',function(){
-    return view('register');
-    });
+Route::get('/team',function(){
+    return view('team');
+});
+
+Route::get('/feature',function(){
+    return view('feature');
+});
+
+Route::get('/about',function(){
+    return view('about');
+});
+
+
+Route::get('/terms',function(){
+    return view('terms');
+});
+
+Route::get('/register', [RegisterController::class,'register']);
+Route::post('/register', [RegisterController::class,'store']);
 
 Route::get('/dajur', [RefJurusanController::class,'index']);
 Route::get('/dapro', [RefProdiController::class,'index']);
@@ -52,10 +67,10 @@ Route::get('/dapinprod', [RefDapinprodController::class,'index']);
 Route::get('/dakur', [RefDakurController::class,'index']);
 Route::get('/matkul', [RefDamatkulController::class,'index']);
 
-Route::get('/datakbk', [RefDatakbkController::class,'index']);
-Route::get('/datakbk/create', [RefDatakbkController::class, 'create']);
-Route::post('/datakbk', [RefDatakbkController::class, 'store'])->name('datakbk.store');
-Route::delete('/datakbk/{id}', [RefDatakbkController::class, 'destroy'])->name('datakbk.destroy');
+Route::resource('datakbk', RefDatakbkController::class);
+Route::resource('matkulkbk', matkulKBKController::class);
+
+
 
 
 

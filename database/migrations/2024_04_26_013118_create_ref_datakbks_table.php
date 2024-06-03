@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('ref_datakbks', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
             $table->string('kodekbk')->unique();
+            $table->string('nama');
             $table->string('deskripsi');
             $table->timestamps();
         });

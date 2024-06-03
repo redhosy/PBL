@@ -12,8 +12,8 @@ class RefDatakbkController extends Controller
      */
     public function index()
     {
-        $data_datakbk=ref_datakbk::latest()->paginate(10);
-        return view('dashboard.datakbk.index',compact('data_datakbk'));
+        $datakbk = ref_datakbk::all();
+        return view('dashboard.datakbk.index', compact('datakbk'));
     }
 
     /**
@@ -21,7 +21,7 @@ class RefDatakbkController extends Controller
      */
     public function create()
     {
-        return view('dashboard.datakbk.create', ['ref_datakbks'=>ref_datakbk::all()]);
+        //return view('dashboard.datakbk.create', ['ref_datakbks' => ref_datakbk::all()]);
     }
 
     /**
@@ -30,28 +30,41 @@ class RefDatakbkController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nama' => 'required',
             'kodekbk' => 'required',
+            'nama' => 'required',
             'deskripsi' => 'required',
         ]);
-        ref_datakbk::create($validated);
-        return redirect('datakbk')->with('success','Data Berhasil Ditambahkan');
+
+        $data = new ref_datakbk();
+        $data->kodekbk = $validated['kodekbk'];
+        $data->nama = $validated['nama'];
+        $data->deskripsi = $validated['deskripsi'];
+        $data->save();
+
+        return response()->json(['data' => $data]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(ref_datakbk $ref_datakbk)
+    public function show(string $id)
     {
-        //
+        $data = ref_datakbk::find($id);
+        return response()->json([
+            'status' => 200,
+            'data' => $data]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ref_datakbk $ref_datakbk)
+    public function edit(string $id)
     {
-        //
+        $data = ref_datakbk::find($id);
+        return response()->json([
+            'status'=>200,
+            'data'=>$data
+        ]);
     }
 
     /**
@@ -59,15 +72,28 @@ class RefDatakbkController extends Controller
      */
     public function update(Request $request, ref_datakbk $ref_datakbk)
     {
-        //
+        $validated = $request->validate([
+            'kodekbk' => 'required',
+            'nama' => 'required',
+            'deskripsi' => 'required',
+        ]);
+
+        $ref_datakbk->update($validated);
+
+        return response()->json(['data' => $ref_datakbk]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ref_datakbk $id)
+    public function destroy(string $id)
     {
-        $id->delete();
-        return redirect('/datakbk')->with('pesan','Data Berhasil di Hapus');
+
+        $kbk = ref_datakbk::find($id);
+
+        if($kbk->delete()){
+            return response()->json(['success' => true]);
+        }
+        return  response()->json(['status' => 404, 'message'=>'something went wrong']);
     }
 }

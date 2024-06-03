@@ -42,8 +42,8 @@
         <a class="nav-link has-dropdown"><i class="fas fa-th-large"></i><span>Kelompok Bidang Keahlian</span></a>
         <ul class="dropdown-menu">
           <li><a class="nav-link" href="/datakbk">Data KBK</a></li>
-          <li><a class="nav-link" href="components-avatar.html">Mata Kuliah KBK</a></li>
-          <li><a class="nav-link" href="components-chat-box.html">Dosen KBK</a></li>
+          <li><a class="nav-link" href="/matkulkbk">Mata Kuliah KBK</a></li>
+          <li><a class="nav-link" href="/dosenkbk">Dosen KBK</a></li>
         </ul>
       </li>
     </ul>

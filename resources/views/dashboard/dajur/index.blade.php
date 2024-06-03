@@ -1,11 +1,13 @@
 @extends('dashboard.layouts.app')
 
+@section('title','Data Jurusan')
+
 @section('content')
     <div class="container ">
         <div class="row justify-content-center">
-            <div class="col-12 offset-md-1">
+            <div class="col-12 offset-md-0">
                 <div class="card mt-5">
-                    <div class="card-header d-flex justify-content-between align-items-center mt-5">
+                    <div class="card-header d-flex justify-content-between align-items-center">
                         <h3>Data Jurusan</h3>
                         <div class="card-header-form">
                             <form>
@@ -26,7 +28,6 @@
                                         <th>No</th>
                                         <th>Kode Jurusan</th>
                                         <th>Nama Jurusan</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -35,7 +36,6 @@
                                             <td>{{ $data_jur->firstItem() + $loop->index }}</td>
                                             <td>{{ $item['kode_jurusan'] }}</td>
                                             <td>{{ $item['jurusan'] }}</td>
-                                            <td><!-- Action buttons or links --></td>
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -1,11 +1,13 @@
 @extends('dashboard.layouts.app')
 
+@section('title','Data Pimpinan Prodi')
+
 @section('content')
     <div class="container ">
         <div class="row justify-content-center">
-            <div class="col-12 offset-md-1">
+            <div class="col-12 offset-md-0">
                 <div class="card mt-5">
-                    <div class="card-header d-flex justify-content-between align-items-center mt-5">
+                    <div class="card-header d-flex justify-content-between align-items-center">
                         <h3>Data Pimpinan Program Studi</h3>
                         <div class="card-header-form">
                             <form>

@@ -1,17 +1,26 @@
-<!-- Navigation-->
-<nav class="navbar navbar-expand-lg fixed-top shadow-sm" id="mainNav" style="background : linear-gradient(#7469B6, #7469B6)">
-    <div class="container px-5">
-        <img class="img-fluid" src="img/logo2.png" alt="" width="50px">
-        <a class="navbar-brand fw-bold text-light mx-2" href="/">SIKABEKA</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-list-ul"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ms-auto me-5 my-3 my-lg-0 text-center">
-                <li class="nav-item"><a class="nav-link me-lg-3 " href="#">Explorasi Dashboard</a></li>
-                <li class="nav-item {{ Request::is('tentang') ? 'active' : '' }}"><a class="nav-link me-lg-3 " href="/tentang">Tentang</a></li>
-                <li class="nav-item"><a class="nav-link me-lg-3 btn btn-outline-dark py-2 px-3 rounded-pill" href="/login">Masuk Ke Akun</a></li>
-            </ul>
+<!-- Navbar Start -->
+<nav class="navbar fixed- navbar-expand-lg bg-white navbar-light sticky-top p-0">
+    <a href="index.html" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
+        
+        <img src="assets/img/logo2.png" alt="Logo" style="max-height: 50px; width: auto;">
+        
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a href="/" class="nav-item nav-link {{ Request::is('/')  ? 'active' : '' }}">Home</a>
+            <a href="/about" class="nav-item nav-link {{ Request::is('about')  ? 'active' : '' }}">About</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                <div class="dropdown-menu bg-light m-0">
+                    <a href="/feature" class="dropdown-item">Feature</a>
+                    <a href="/team" class="dropdown-item">Our Team</a>
+                </div>
+            </div>
         </div>
+        <a href="/login" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
     </div>
 </nav>
+<!-- Navbar End -->
