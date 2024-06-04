@@ -34,6 +34,8 @@ Route::get('/dashboard',function(){
     return view('dashboard.index');
 });
 
+// Route::resource('/dashboard',dasboard::class)->middleware('admin');
+
 Route::get('/login',function(){
     return view('login');
 });
@@ -69,6 +71,7 @@ Route::get('/matkul', [RefDamatkulController::class,'index']);
 
 Route::resource('datakbk', RefDatakbkController::class);
 Route::resource('matkulkbk', matkulKBKController::class);
+Route::resource('dosenkbk', RefDosenkbkController::class);
 
 
 

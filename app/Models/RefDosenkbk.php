@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class RefDosenkbk extends Model
 {
-    use HasFactory;
+    protected $table = 'dosenkbk';
+    protected $guarded = ['id'];
 }

@@ -12,15 +12,15 @@
                         {{-- pencarian --}}
                         <div class="input-group">
                             <input type="text" id="searchInput" class="form-control"
-                                placeholder="Cari Kode atau NamaKBK...">
+                                placeholder="Cari NIP dan NamaDosen...">
                             <div class="input-group-append">
                                 <button class="btn btn-primary mr-2" id="searchButton"><i
                                         class="fas fa-search"></i></button>
                             </div>
                             {{-- print --}}
-                            <a href="#" class="d-flex d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-2">
+                            {{-- <a href="#" class="d-flex d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-2">
                                 <i class="fas fa-download fa-sm text-white-50"></i>
-                            </a>
+                            </a> --}}
                             {{-- tambah --}}
                             <button class="btn btn-success" type="button" data-toggle="modal" id="modalAdd"><i
                                     class="fas fa-plus"></i></button>
@@ -38,9 +38,9 @@
                                     <th>No</th>
                                     <th>Nip</th>
                                     <th>Nama Dosen</th>
+                                    <th>Email</th>
                                     <th>Jurusan</th>
                                     <th>Prodi</th>
-                                    <th>Email</th>
                                     <th>Status</th>
                                     <th>Actions</th>
                                 </tr>
@@ -49,16 +49,17 @@
                                 @foreach ($dosenkbk as $data)
                                     <tr id="data{{ $data->id }}">
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $data->nip }}</td>
                                         <td>{{ $data->namadosen }}</td>
                                         <td>{{ $data->jurusan }}</td>
                                         <td>{{ $data->prodi }}</td>
                                         <td>{{ $data->email }}</td>
                                         <td>{{ $data->status }}</td>
                                         <td>
-                                            <button class="btn btn-warning editBtn" data-id="{{ $data->id }}"><i
-                                                    class="fas fa-pen"></i></button>
-                                            <button class="btn btn-info detailBtn" data-id="{{ $data->id }}"><i
-                                                    class="fas fa-info"></i></button>
+                                            <button class="btn btn-icon btn-warning editBtn" data-id="{{ $data->id }}"><i
+                                                    class="far fa-edit"></i></button>
+                                            <button class="btn btn-icon btn-info detailBtn" data-id="{{ $data->id }}"><i
+                                                    class="fas fa-info-circle"></i></button>
                                             <button class="btn btn-danger deleteBtn" data-toggle="modal" data-id="{{ $data->id }}" ><i
                                                     class="fas fa-trash"></i></button>
                                         </td>
@@ -93,9 +94,9 @@
 </div>
 
 
-@include('dashboard.datakbk.addModal')
-@include('dashboard.datakbk.editModal')
-@include('dashboard.datakbk.detailModal')
+@include('dashboard.dosenkbk.addModal')
+@include('dashboard.dosenkbk.editModal')
+@include('dashboard.dosenkbk.detailModal')
 
-@include('dashboard.datakbk.scripts')
+@include('dashboard.dosenkbk.scripts')
 @endsection

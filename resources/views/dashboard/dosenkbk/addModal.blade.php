@@ -20,67 +20,55 @@
                         <input type="text" class="form-control" id="nama" name="nama" required>
                         <span id="error_nama"></span>
                     </div>
-                    <div class="form-group">
-                        <label for="jurusan">Jurusan:</label>
-                        <div class="dropdown d-inline mr-2">
-                            <button class="btn btn-primary dropdown-toggle" type="button" name="jurusan"
-                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                --Pilih Jurusan--
-                            </button>
-                            <div class="dropdown-menu" id="jurusan" aria-labelledby="dropdownMenuButton">
-                                @foreach ($data_jur as $item)
-                                    <a class="dropdown-item" href="#">{{ $item->jurusan }}</a>
-                                @endforeach
-                            </div>
-                        </div>
+                    <div class="input-group mb-3">
+                        <label for="jurusan" class="mb-2">Jurusan:</label>
+                        <select class="form-select w-100 px-2 py-2" name="jurusan" id="inputGroupSelect04"
+                            aria-label="Example select with button addon" required data-parsley-group="block-0">
+                            <option selected disabled value="">Pilih Jurusan</option>
+                            @foreach ($data_jur as $item)
+                                <option class="dropdown-item" id="jurusan" value="{{ $item->kode_jurusan }}"
+                                    >{{ $item->jurusan }}</option>
+                            @endforeach
+                        </select>
                         <span id="error_jurusan"></span>
                     </div>
-                    <div class="form-group">
-                        <label for="jurusan">Prodi:</label>
-                        <div class="dropdown d-inline mr-2">
-                            <button class="btn btn-primary dropdown-toggle" type="button" name="prodi"
-                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                --Pilih Prodi--
-                            </button>
-                            <div class="dropdown-menu" id="prodi" aria-labelledby="dropdownMenuButton">
-                                @foreach ($data_pro as $item)
-                                    <a class="dropdown-item" href="#">{{ $item->prodi }}</a>
-                                @endforeach
-                            </div>
-                        </div>
+                    <div class="input-group mb-3">
+                        <label for="prodi" class="mb-2">Prodi:</label>
+                        <select class="form-select w-100 px-2 py-2" name="prodi" id="inputGroupSelect04"
+                            aria-label="Example select with button addon" required data-parsley-group="block-0">
+                            <option selected disabled value="" id="prodi">Pilih Prodi</option>
+                            @foreach ($data_pro as $item)
+                                <option class="dropdown-item" id="prodi" value="{{ $item->kode_prodi }}"
+                                    href="#">{{ $item->prodi }}</option>
+                            @endforeach
+                        </select>
                         <span id="error_prodi"></span>
                     </div>
+
                     <div class="form-group">
                         <label for="email">Email:</label>
                         <input class="form-control" type="email" id="email" name="email" required>
                         <span id="error_email"></span>
                     </div>
-                    <div class="form-group">
-                        <label for="jurusan">Status:</label>
-                        <div class="dropdown d-inline mr-2">
-                            <button class="btn btn-primary dropdown-toggle" type="button" name="status"
-                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                --Pilih Status--
-                            </button>
-                            <div class="dropdown-menu" id="status" aria-labelledby="dropdownMenuButton">
-                                @foreach($dosenkbk as $user)
-                                    <a class="dropdown-item" href="#">
-                                        {{ $user->status }}
-                                    </a>
-                                @endforeach
-                            </div>
-                        </div>
+
+                    <div class="input-group mb-3">
+                        <label for="status" class="mb-2">Status:</label>
+                        <select class="form-select w-100 px-2 py-2" name="status" id="inputGroupSelect04"
+                            aria-label="Example select with button addon" required data-parsley-group="block-0">
+                            <option selected disabled value="" id="status">Pilih status</option>
+                            @foreach ($statuses as $value => $label)
+                                <option value="{{ $value }}" id="status" {{ $item->status == $value ? 'selected' : '' }}>
+                                    {{ $label }}</option>
+                            @endforeach
+                        </select>
                         <span id="error_status"></span>
                     </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="saveKbk">Save</button>
                     <span id="error_kode"></span>
-
                 </div>
             </form>
         </div>

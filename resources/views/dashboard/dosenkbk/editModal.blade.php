@@ -18,38 +18,57 @@
                         <label for="editnama">Nama:</label>
                         <input type="text" class="form-control" id="editnama" name="nama" required>
                     </div>
-                    <div class="dropdown d-inline mr-2">
-                        <button class="btn btn-primary dropdown-toggle" type="button" name="jurusan"
-                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            --Pilih Jurusan--
-                        </button>
-                        <div class="dropdown-menu" id="editjurusan" aria-labelledby="dropdownMenuButton">
-                            @foreach ($data_jur as $item)
-                                <a class="dropdown-item" href="#">{{ $item->jurusan }}</a>
-                            @endforeach
+                    <div class="form-group">
+                        <label for="jurusan">Jurusan:</label>
+                        <div class="dropdown d-inline mr-2">
+                            <button class="btn btn-primary dropdown-toggle" type="button" name="jurusan"
+                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
+                                --Pilih jurusan--
+                            </button>
+                            <div class="dropdown-menu" id="editjurusan" aria-labelledby="dropdownMenuButton">
+                                @foreach ($data_jur as $item)
+                                    <a class="dropdown-item" href="#">{{ $item->jurusan }}</a>
+                                @endforeach
+                            </div>
                         </div>
+
+                        <div class="form-group">
+                            <label for="jurusan">Prodi:</label>
+                            <div class="dropdown d-inline mr-2">
+                                <button class="btn btn-primary dropdown-toggle" type="button" name="prodi"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    --Pilih Prodi--
+                                </button>
+                                <div class="dropdown-menu" id="editprodi" aria-labelledby="dropdownMenuButton">
+                                    @foreach ($data_pro as $item)
+                                        <a class="dropdown-item" href="#">{{ $item->prodi }}</a>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="jurusan">Status:</label>
+                                <div class="dropdown d-inline mr-2">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" name="status"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        --Pilih Status--
+                                    </button>
+                                    <div class="dropdown-menu" id="editstatus" aria-labelledby="dropdownMenuButton">
+                                        @foreach($dosenkbk as $user)
+                                            <a class="dropdown-item" href="#">
+                                                {{ $user->status }}
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div> 
+                        </form>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="jurusan">Prodi:</label>
-                    <div class="dropdown d-inline mr-2">
-                        <button class="btn btn-primary dropdown-toggle" type="button" name="prodi"
-                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            --Pilih Prodi--
-                        </button>
-                        <div class="dropdown-menu" id="editprodi" aria-labelledby="dropdownMenuButton">
-                            @foreach ($data_pro as $item)
-                                <a class="dropdown-item" href="#">{{ $item->prodi }}</a>
-                            @endforeach
-                        </div>
-                    </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Update</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+            </div>

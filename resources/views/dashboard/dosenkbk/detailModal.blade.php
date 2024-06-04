@@ -27,7 +27,7 @@
                         <td><span id="detailprodi"></span></td>
                     </tr>
                     <tr>
-                        <th>Prodi :</th>
+                        <th>Email :</th>
                         <td><span id="detailemail"></span></td>
                     </tr>
                     <tr>

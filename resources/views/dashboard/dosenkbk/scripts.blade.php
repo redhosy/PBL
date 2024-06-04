@@ -9,14 +9,23 @@
 
 
         function clearErrorMsg() {
-            $('#deskripsi').removeClass('is-invalid');
-            $('#error_deskripsi').html(``)
+            $('#status').removeClass('is-invalid');
+            $('#error_status').html(``)
+
+            $('#email').removeClass('is-invalid');
+            $('#error_email').html(``)
+
+            $('#prodi').removeClass('is-invalid');
+            $('#error_prodi').html(``)
+
+            $('#jurusan').removeClass('is-invalid');
+            $('#error_jurusan').html(``)
 
             $('#nama').removeClass('is-invalid');
             $('#error_nama').html(``)
 
-            $('#kodekbk').removeClass('is-invalid');
-            $('#error_kode').html(``)
+            $('#nip').removeClass('is-invalid');
+            $('#error_nip').html(``)
 
         }
 
@@ -29,7 +38,7 @@
         $('#saveKbk').on('click', function() {
             let formData = $('#addPostForm').serialize();
             $.ajax({
-                url: "{{ url('datakbk') }}",
+                url: "{{ url('dosenkbk') }}",
                 method: 'POST',
                 data: formData,
                 success: function(response) {
@@ -39,15 +48,21 @@
                         'Data berhasil ditambahkan!');
 
                     // Append new data to table
-                    $('#data').append('<tr id="data' + response.data.id + '"><td>' +
-                        response.data.id + '</td><td>' + response.data.nama +
-                        '</td><td>' +
-                        response.data.kodekbk + '</td><td>' + response.data.deskripsi +
-                        '</td><td><button class="btn btn-primary editBtn" data-id="' +
-                        response.data.id +
-                        '">Edit</button> <button class="btn btn-danger deleteBtn" data-id="' +
-                        response.data.id + '">Delete</button></td></tr>');
-
+                    $('#data').append(`
+                    <tr id="data${response.data.id}">
+                        <td>${response.data.id}</td>
+                        <td>${response.data.nip}</td>
+                        <td>${response.data.nama}</td>
+                        <td>${response.data.email}</td>
+                        <td>${response.data.jurusan}</td>
+                        <td>${response.data.prodi}</td>
+                        <td>${response.data.status }</td>
+                        <td>
+                            <button class="btn btn-primary editBtn" data-id="${response.data.id}">Edit</button>
+                            <button class="btn btn-danger deleteBtn" data-id="${response.data.id}">Delete</button>
+                        </td>
+                    </tr>
+                    `);
                     // Hide alert after 3 seconds
                     setTimeout(function() {
                         $('#success-alert').removeClass('d-none');
@@ -58,10 +73,28 @@
                 error: function(errors) {
                     const error = errors.responseJSON.errors;
                     clearErrorMsg();
-                    if (error.deskripsi) {
-                        $('#deskripsi').addClass('is-invalid');
-                        $('#error_deskripsi').html(
-                            `<div class="text-danger">${error.deskripsi}</div>`)
+                    if (error.status) {
+                        $('#status').addClass('is-invalid');
+                        $('#error_status').html(
+                            `<div class="text-danger">${error.status}</div>`)
+                    }
+
+                    if (error.prodi) {
+                        $('#prodi').addClass('is-invalid');
+                        $('#error_prodi').html(
+                            `<div class="text-danger">${error.prodi}</div>`)
+                    }
+
+                    if (error.jurusan) {
+                        $('#jurusan').addClass('is-invalid');
+                        $('#error_jurusan').html(
+                            `<div class="text-danger">${error.jurusan}</div>`)
+                    }
+
+                    if (error.email) {
+                        $('#email').addClass('is-invalid');
+                        $('#error_email').html(
+                            `<div class="text-danger">${error.email}</div>`)
                     }
 
                     if (error.nama) {
@@ -70,10 +103,10 @@
                             `<div class="text-danger">${error.nama}</div>`)
                     }
 
-                    if (error.kodekbk) {
-                        $('#kodekbk').addClass('is-invalid');
-                        $('#error_kode').html(
-                            `<div class="text-danger">${error.kodekbk}</div>`)
+                    if (error.nip) {
+                        $('#nip').addClass('is-invalid');
+                        $('#error_nip').html(
+                            `<div class="text-danger">${error.nip}</div>`)
                     }
 
                     console.log(errors)
@@ -87,12 +120,15 @@
         // Edit Data
         $(document).on('click', '.editBtn', function() {
             let dataId = $(this).data('id');
-            $.get("{{ url('datakbk') }}/" + dataId + "/edit", function(response) {
+            $.get("{{ url('dosenkbk') }}/" + dataId + "/edit", function(response) {
                 console.log(response)
                 $('#editDataId').val(response.data.id);
-                $('#editNama').val(response.data.nama);
-                $('#editKodekbk').val(response.data.kodekbk);
-                $('#editDeskripsi').val(response.data.deskripsi);
+                $('#editnip').val(response.data.nip);
+                $('#editnama').val(response.data.nama);
+                $('#editnama').val(response.data.email);
+                $('#editjurusan').val(response.data.jurusan);
+                $('#editprodi').val(response.data.prodi);
+                $('#editstatus').val(response.data.status);
                 $('#editModal').modal('show');
             });
         });
@@ -102,16 +138,19 @@
             let dataId = $('#editDataId').val();
             let formData = $(this).serialize(); // Serialize form data
             $.ajax({
-                url: "{{ url('datakbk') }}/" + dataId,
+                url: "{{ url('dosenkbk') }}/" + dataId,
                 method: 'PUT',
                 data: formData,
                 success: function(response) {
                     $('#editModal').modal('hide');
                     $('#data' + response.data.id).html(
                         '<td>' + response.data.id + '</td>' +
-                        '<td>' + response.data.kodekbk + '</td>' +
+                        '<td>' + response.data.nip + '</td>' +
                         '<td>' + response.data.nama + '</td>' +
-                        '<td>' + response.data.deskripsi + '</td>' +
+                        '<td>' + response.data.email + '</td>' +
+                        '<td>' + response.data.jurusan + '</td>' +
+                        '<td>' + response.data.prodi + '</td>' +
+                        '<td>' + response.data.status + '</td>' +
                         '<td><button class="btn btn-primary editBtn" data-id="' +
                         response.data.id + '">Edit</button> ' +
                         '<button class="btn btn-danger deleteBtn" data-id="' + response
@@ -138,7 +177,7 @@
             let dataId = $(this).data('id');
             if (confirm('Are you sure you want to delete this data?')) {
                 $.ajax({
-                    url: "{{ url('datakbk') }}/" + dataId,
+                    url: "{{ url('dosenkbk') }}/" + dataId,
                     method: 'DELETE',
                     success: function(res) {
                         console.log(res)

@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('Nama Dosen');
             $table->string('Jurusan');
+            $table->foreign('Jurusan')->references('kode_jurusan')->on('ref_jurusans');
             $table->string('Prodi');
+            $table->foreign('Prodi')->references('kode_prodi')->on('ref_prodis');
             $table->string('Email');
             $table->enum('Status',['1','0'])->default('0');
             $table->timestamps();

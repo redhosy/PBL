@@ -19,9 +19,9 @@
                                             class="fas fa-search"></i></button>
                                 </div>
                                 {{-- print --}}
-                                <a href="#" class="d-flex d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-2">
+                                {{-- <a href="#" class="d-flex d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-2">
                                     <i class="fas fa-download fa-sm text-white-50"></i>
-                                </a>
+                                </a> --}}
                                 {{-- tambah --}}
                                 <button class="btn btn-success" type="button" data-toggle="modal" id="modalAdd"><i
                                         class="fas fa-plus"></i></button>
@@ -51,10 +51,10 @@
                                             <td>{{ $data->nama }}</td>
                                             <td>{{ $data->deskripsi }}</td>
                                             <td>
-                                                <button class="btn btn-warning editBtn" data-id="{{ $data->id }}"><i
-                                                        class="fas fa-pen"></i></button>
-                                                <button class="btn btn-info detailBtn" data-id="{{ $data->id }}"><i
-                                                        class="fas fa-info"></i></button>
+                                                <button class="btn btn-icon btn-warning editBtn" data-id="{{ $data->id }}"><i
+                                                        class="far fa-edit"></i></button>
+                                                <button class="btn btn-icon btn-info detailBtn" data-id="{{ $data->id }}"><i
+                                                        class="fas fa-info-circle"></i></button>
                                                 <button class="btn btn-danger deleteBtn" data-toggle="modal" data-id="{{ $data->id }}" ><i
                                                         class="fas fa-trash"></i></button>
                                             </td>

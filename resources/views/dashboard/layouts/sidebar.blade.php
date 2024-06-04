@@ -37,13 +37,20 @@
         <a href="/thnakad" class="nav-link"><i class="fas fa-calendar"></i><span>Tahun Akademik</span></a>
       </li> 
 
-      <li class="menu-header">Data KBK</li>
+      <li class="menu-header">Kelompok Bidang Keahlian</li>
       <li class="dropdown">
-        <a class="nav-link has-dropdown"><i class="fas fa-th-large"></i><span>Kelompok Bidang Keahlian</span></a>
+        <a class="nav-link has-dropdown"><i class="fas fa-th-large"></i><span>KBK</span></a>
         <ul class="dropdown-menu">
           <li><a class="nav-link" href="/datakbk">Data KBK</a></li>
           <li><a class="nav-link" href="/matkulkbk">Mata Kuliah KBK</a></li>
           <li><a class="nav-link" href="/dosenkbk">Dosen KBK</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a class="nav-link has-dropdown"><i class="fa fa-upload"></i><span>Unggah KBK</span></a>
+        <ul class="dropdown-menu">
+          <li><a class="nav-link" href="/datakbk">Unggah RPS</a></li>
+          <li><a class="nav-link" href="/matkulkbk">Unggah Soal UAS</a></li>
         </ul>
       </li>
     </ul>
