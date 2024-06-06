@@ -7,6 +7,9 @@ use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Str;
+use App\Models\ref_jurusans;
+use App\Models\ref_prodis;
+use App\Models\RefDosenkbk;
 
 
 
@@ -17,9 +20,21 @@ class RegisterController extends Controller
      */
     public function register()
     {
-        return view('register');
+        $kbk_jur=ref_jurusans::all();
+        $kbk_pro=ref_prodis::all();
+        $dosenkbk = RefDosenkbk::all();
+        // $dosenkbk = RefDosenkbk::latest()->paginate(10);
+        $statuses = [
+            '1' => 'Aktif',
+            '0' => 'Tidak-Aktif'
+        ];
+        return view('register')->with([
+            'data_jur'=>$kbk_jur,
+            'dosenkbk'=>$dosenkbk,
+            'data_pro'=>$kbk_pro,
+            'statuses'=>$statuses
+        ]);
     }
-
     /**
      * Show the form for creating a new resource.
      */
@@ -33,20 +48,19 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
-        $Validated = $request->validate([
+        $validated = $request->validate([
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
             'captcha' => 'required|captcha'
         ]);
-
-        $Validated['password']=bcrypt($Validated['password']);
-        $Validated['email_verified_at']=now();
-        $Validated['remember_token']=Str::random(10);
-
-
-        User::create($Validated);
-        return redirect('/login');
+    
+        $validated['password'] = bcrypt($validated['password']);
+        $validated['email_verified_at'] = now();
+        $validated['remember_token'] = Str::random(10);
+    
+        User::create($validated);
+        return redirect('/login')->with('success', 'Registration successful. Please login.');
     }
 
     /**

@@ -13,8 +13,12 @@ use App\Http\Controllers\RefDosenController;
 use App\Http\Controllers\RefDosenkbkController;
 use App\Http\Controllers\RefSmtThnAkdController;
 use App\Http\Controllers\RegisterController;
+
 use App\Http\Controllers\RPSController;
 use App\Http\Controllers\SoalUasController;
+
+use App\Http\Controllers\LoginController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -61,6 +65,8 @@ Route::get('/terms',function(){
 
 Route::get('/register', [RegisterController::class,'register']);
 Route::post('/register', [RegisterController::class,'store']);
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+
 
 Route::get('/dajur', [RefJurusanController::class,'index']);
 Route::get('/dapro', [RefProdiController::class,'index']);
