@@ -31,7 +31,6 @@
                                         <th>Dosen</th>
                                         <th>Priode</th>
                                         <th>Status</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>

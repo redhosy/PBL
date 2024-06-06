@@ -19,16 +19,16 @@
                         <td><span id="detailNama"></span></td>
                     </tr>
                     <tr>
+                        <th>Email :</th>
+                        <td><span id="detailemail"></span></td>
+                    </tr>
+                    <tr>
                         <th>Jurusan :</th>
                         <td><span id="detailjurusan"></span></td>
                     </tr>
                     <tr>
                         <th>Prodi :</th>
                         <td><span id="detailprodi"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Email :</th>
-                        <td><span id="detailemail"></span></td>
                     </tr>
                     <tr>
                         <th>Status :</th>

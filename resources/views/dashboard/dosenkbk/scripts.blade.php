@@ -42,35 +42,23 @@
                 method: 'POST',
                 data: formData,
                 success: function(response) {
-                    console.log(response)
+                    console.log(response);
                     $('#addModal').modal('hide');
                     $('#success-alert').removeClass('d-none').text(
                         'Data berhasil ditambahkan!');
 
-                    // Append new data to table
-                    $('#data').append(`
-                    <tr id="data${response.data.id}">
-                        <td>${response.data.id}</td>
-                        <td>${response.data.nip}</td>
-                        <td>${response.data.nama}</td>
-                        <td>${response.data.email}</td>
-                        <td>${response.data.jurusan}</td>
-                        <td>${response.data.prodi}</td>
-                        <td>${response.data.status }</td>
-                        <td>
-                            <button class="btn btn-primary editBtn" data-id="${response.data.id}">Edit</button>
-                            <button class="btn btn-danger deleteBtn" data-id="${response.data.id}">Delete</button>
-                        </td>
-                    </tr>
-                    `);
+                
                     // Hide alert after 3 seconds
-                    setTimeout(function() {
-                        $('#success-alert').removeClass('d-none');
-                    }, 3000);
+                    if(response.status == 200){
+                        setTimeout(function() {
+                            $('#success-alert').addClass('d-none');
+                        }, 3000);
+                        location.reload();
+                    }
 
-                    location.reload();
                 },
                 error: function(errors) {
+                    console.log(errors)
                     const error = errors.responseJSON.errors;
                     clearErrorMsg();
                     if (error.status) {
@@ -108,14 +96,10 @@
                         $('#error_nip').html(
                             `<div class="text-danger">${error.nip}</div>`)
                     }
-
                     console.log(errors)
                 }
             });
         })
-        // $('#addDataForm').on('submit', function(e) {
-        //     e.preventDefault();
-        // });
 
         // Edit Data
         $(document).on('click', '.editBtn', function() {
@@ -125,7 +109,7 @@
                 $('#editDataId').val(response.data.id);
                 $('#editnip').val(response.data.nip);
                 $('#editnama').val(response.data.nama);
-                $('#editnama').val(response.data.email);
+                $('#editemail').val(response.data.email);
                 $('#editjurusan').val(response.data.jurusan);
                 $('#editprodi').val(response.data.prodi);
                 $('#editstatus').val(response.data.status);
@@ -172,30 +156,69 @@
             });
         });
 
-        // Delete Data
+        //detail
+        $(document).on('click', '.detailBtn', function() {
+            let dataId = $(this).data('id');
+            console.log("Button clicked, data ID:", dataId);
+            $.get("{{ url('dosenkbk') }}/" + dataId, function(response) {
+                console.log(response)
+                $('#editDataId').text(response.data.id);
+                $('#detailnip').text(response.data.nip);
+                $('#detailNama').text(response.data.nama);
+                $('#detailemail').text(response.data.email);
+                $('#detailjurusan').text(response.data.jurusan);
+                $('#detailprodi').text(response.data.prodi);
+                $('#detailstatus').text(response.data.status);
+                $('#detailModal').modal('show');
+            });
+        });
+
+         // pencarian
+         $(document).ready(function() {
+            $('#searchButton').on('click', function() {
+                var value = $('#searchInput').val().toLowerCase();
+                $("#dataTable tr").filter(function() {
+                    // Get the text content of the 'nama' and 'kodekbk' columns
+                    var nip = $(this).find('td:nth-child(2)').text().toLowerCase();
+                    var nama = $(this).find('td:nth-child(3)').text().toLowerCase();
+
+                    // Check if the search value matches either 'nama' or 'kodekbk'
+                    $(this).toggle(nama.indexOf(value) > -1 || nip.indexOf(value) >
+                        -1);
+                });
+            });
+        });
+
+
         $(document).on('click', '.deleteBtn', function() {
             let dataId = $(this).data('id');
-            if (confirm('Are you sure you want to delete this data?')) {
-                $.ajax({
-                    url: "{{ url('dosenkbk') }}/" + dataId,
-                    method: 'DELETE',
-                    success: function(res) {
-                        console.log(res)
-                        $('#data' + dataId).remove();
-                        $('#success-alert').removeClass('d-none').text(
-                            'Data berhasil dihapus!');
+            $('#modalDelete').modal('show');
+            $('#confirmDelete').data('id', dataId);
+        });
 
-                        // Hide alert after 3 seconds
-                        setTimeout(function() {
-                            $('#success-alert').removeClass('d-none');
-                        }, 3000);
-                    },
-                    error: function(xhr, status, error) {
-                        console.log(xhr.responseText);
-                        alert('Failed to delete data');
-                    }
-                });
-            }
+        $('#confirmDelete').click(function() {
+            var dataId = $(this).data('id');
+            console.log(dataId)
+            $.ajax({
+                url: "{{ url('dosenkbk') }}/" + dataId,
+                type: 'DELETE',
+                success: function(res) {
+                    console.log(res);
+                    $('#data' + dataId).remove();
+                    $('#modalDelete').modal('hide');
+                    $('#success-alert').removeClass('d-none').text(
+                    'Data berhasil dihapus!');
+
+                    // Hide alert after 3 seconds
+                    setTimeout(function() {
+                        $('#success-alert').addClass('d-none');
+                    }, 3000);
+                },
+                error: function(xhr, status, error){
+                    console.log(xhr.responseText);
+                    alert('Failed to delete data');
+                }
+            });
         });
     });
 </script>

@@ -27,14 +27,15 @@
                                     <tr class="auto-width">
                                         <th>No</th>
                                         <th>Nama</th>
-                                        <th>NIDN</th>
+                                        {{-- <th>NIDN</th> --}}
                                         <th>NIP</th>
-                                        <th>Gender</th>
+                                        {{-- <th>Gender</th> --}}
                                         <th>Jurusan</th>
                                         <th>Prodi</th>
-                                        <th>Email</th>
-                                        <th>Image</th>
+                                        {{-- <th>Email</th> --}}
+                                        {{-- <th>Image</th> --}}
                                         <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,14 +43,14 @@
                                         <tr style="font-size: 13px" class="auto-width">
                                             
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->nama }}</td>
-                                            <td>{{ $item->nidn }}</td>
-                                            <td>{{ $item->nip }}</td>
-                                            <td>{{ $item->gender }}</td>
-                                            <td>{{ $item->jurusan->jurusan }}</td>
-                                            <td>{{ $item->prodi?->prodi }}</td>
-                                            <td>{{ $item->email }}</td>
-                                            <td>{{ $item->image }}</td>
+                                            <td class="text-nowrap">{{ $item->nama }}</td>
+                                            {{-- <td>{{ $item->nidn }}</td> --}}
+                                            <td class="text-nowrap">{{ $item->nip }}</td>
+                                            {{-- <td>{{ $item->gender }}</td> --}}
+                                            <td class="text-nowrap">{{ $item->jurusan->jurusan }}</td>
+                                            <td class="text-nowrap">{{ $item->prodi?->prodi }}</td>
+                                            {{-- <td>{{ $item->email }}</td>
+                                            <td>{{ $item->image }}</td> --}}
                                             <td>
                                                 <span class="badge rounded-pill {{ $item->status ? 'bg-danger text-white' : 'bg-success text-white' }} py-2 px-4">
                                                     {{ $item->status ? 'Tidak Aktif' : ' Aktif' }}

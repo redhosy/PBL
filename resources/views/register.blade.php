@@ -58,8 +58,9 @@
                                                 aria-label="Example select with button addon" required
                                                 data-parsley-group="block-0">
                                                 <option selected disabled value="">Pilih Peran</option>
-                                                <option value="1">Dosen Pengampu</option>
-                                                <option value="2">Dosen KBK</option>
+                                                <option value="1">Pengurus KBK</option>
+                                                <option value="2">Dosen </option>
+                                                <option value="3">Kaprodi</option>
                                             </select>
                                         </div>
                                     </div>

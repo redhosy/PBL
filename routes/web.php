@@ -13,6 +13,8 @@ use App\Http\Controllers\RefDosenController;
 use App\Http\Controllers\RefDosenkbkController;
 use App\Http\Controllers\RefSmtThnAkdController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\RPSController;
+use App\Http\Controllers\SoalUasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,6 +74,8 @@ Route::get('/matkul', [RefDamatkulController::class,'index']);
 Route::resource('datakbk', RefDatakbkController::class);
 Route::resource('matkulkbk', matkulKBKController::class);
 Route::resource('dosenkbk', RefDosenkbkController::class);
+Route::resource('soalUas', SoalUasController::class);
+Route::resource('RPS', RPSController::class);
 
 
 

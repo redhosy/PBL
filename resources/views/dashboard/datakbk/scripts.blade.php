@@ -38,16 +38,6 @@
                     $('#success-alert').removeClass('d-none').text(
                         'Data berhasil ditambahkan!');
 
-                    // Append new data to table
-                    $('#data').append('<tr id="data' + response.data.id + '"><td>' +
-                        response.data.id + '</td><td>' + response.data.nama +
-                        '</td><td>' +
-                        response.data.kodekbk + '</td><td>' + response.data.deskripsi +
-                        '</td><td><button class="btn btn-primary editBtn" data-id="' +
-                        response.data.id +
-                        '">Edit</button> <button class="btn btn-danger deleteBtn" data-id="' +
-                        response.data.id + '">Delete</button></td></tr>');
-
                         // Hide alert after 3 seconds
                         setTimeout(function() {
                             $('#success-alert').removeClass('d-none');
@@ -79,7 +69,6 @@
                 }
             });
         })
-
 
         // Edit Data
         $(document).on('click', '.editBtn', function() {
@@ -161,33 +150,7 @@
             });
         });
 
-        // Delete Data
-        // $(document).on('click', '.deleteBtn', function() {
-        //     let dataId = $(this).data('id');
-        //     if (confirm('Are you sure you want to delete this data?')) {
-        //         $.ajax({
-        //             url: "{{ url('datakbk') }}/" + dataId,
-        //             method: 'DELETE',
-        //             success: function(res) {
-        //                 console.log(res)
-        //                 $('#data' + dataId).remove();
-        //                 $('#success-alert').removeClass('d-none').text(
-        //                     'Data berhasil dihapus!');
-
-        //                 // Hide alert after 3 seconds
-        //                 setTimeout(function() {
-        //                     $('#success-alert').removeClass('d-none');
-        //                 }, 30000);
-
-        //                 location.reload();
-        //             },
-        //             error: function(xhr, status, error) {
-        //                 console.log(xhr.responseText);
-        //                 alert('Failed to delete data');
-        //             }
-        //         });
-        //     }
-        // });
+      
 
         $(document).on('click', '.deleteBtn', function() {
             let dataId = $(this).data('id');

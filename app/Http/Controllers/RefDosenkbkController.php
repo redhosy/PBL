@@ -15,19 +15,21 @@ class RefDosenkbkController extends Controller
      */
     public function index()
     {
-        $kbk_jur=ref_jurusans::all();
-        $kbk_pro=ref_prodis::all();
+        $kbk_jur = ref_jurusans::all();
+        $kbk_pro = ref_prodis::all();
         $dosenkbk = RefDosenkbk::all();
-        // $dosenkbk = RefDosenkbk::latest()->paginate(10);
-        $statuses = [
+        $status = [
             '1' => 'Aktif',
-            '0' => 'Tidak-Aktif'
+            '0' => 'Tidak-Aktive'
         ];
+        // $dosenkbk = RefDosenkbk::latest()->paginate(10);
         return view('dashboard.dosenkbk.index')->with([
-            'data_jur'=>$kbk_jur,
-            'dosenkbk'=>$dosenkbk,
-            'data_pro'=>$kbk_pro,
-            'statuses'=>$statuses
+            'data_jur' => $kbk_jur,
+            'dosenkbk' => $dosenkbk,
+            'data_pro' => $kbk_pro,
+            'status' => $status,
+            'jurusan'=>  $dosenkbk,
+            'prodi'=>  $dosenkbk,
         ]);
     }
 
@@ -36,7 +38,6 @@ class RefDosenkbkController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -44,7 +45,7 @@ class RefDosenkbkController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'nip' => 'required',
             'nama' => 'required',
             'email' => 'required',
@@ -53,16 +54,18 @@ class RefDosenkbkController extends Controller
             'status' => 'required|in:1,0',
         ]);
 
-        $data = new RefDosenkbk();
-        $data->kodekbk = $validated['nip'];
-        $data->nama = $validated['nama'];
-        $data->deskripsi = $validated['email'];
-        $data->deskripsi = $validated['jurusan'];
-        $data->deskripsi = $validated['prodi'];
-        $data->status = $request->status;
-        $data->save();
+        $data = [
+            'nip' => $request->nip,
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'jurusan' => $request->jurusan,
+            'prodi' => $request->prodi,
+            'status' => $request->status,
+        ];
 
-        return response()->json(['data' => $data]);
+        RefDosenkbk::create($data);
+
+        return response()->json(['status' => 200, 'data'=>RefDosenkbk::latest()->first()->get()]);
     }
 
     /**
@@ -73,7 +76,8 @@ class RefDosenkbkController extends Controller
         $data = RefDosenkbk::find($id);
         return response()->json([
             'status' => 200,
-            'data' => $data]);
+            'data' => $data
+        ]);
     }
 
     /**
@@ -83,8 +87,8 @@ class RefDosenkbkController extends Controller
     {
         $data = RefDosenkbk::find($id);
         return response()->json([
-            'status'=>200,
-            'data'=>$data
+            'status' => 200,
+            'data' => $data
         ]);
     }
 
@@ -114,9 +118,9 @@ class RefDosenkbkController extends Controller
     {
         $kbk = RefDosenkbk::find($id);
 
-        if($kbk->delete()){
+        if ($kbk->delete()) {
             return response()->json(['success' => true]);
         }
-        return  response()->json(['status' => 404, 'message'=>'something went wrong']);
+        return  response()->json(['status' => 404, 'message' => 'something went wrong']);
     }
 }

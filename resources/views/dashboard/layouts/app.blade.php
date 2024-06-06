@@ -56,20 +56,20 @@
                 @section('section-header')
                     <h1>@yield('title')</h1>
                 @endsection
-                    @yield('content')
+                @yield('content')
             </div>
         </div>
         <!-- End Main Content -->
 
-        <!-- Footer -->
-        <footer class="main-footer bg-dark text-white text-center py-2 mt-auto">
-            <div class="footer-left">
-                <p>&copy; 2024 - Sistem Informasi KBK</p>
-            </div>
-            <div class="footer-right"></div>
-        </footer>
-        <!-- End Footer -->
     </div>
+    <!-- Footer -->
+    <footer class="main-footer bg-dark text-white text-center py-2 mt-auto">
+        <div class="footer-left">
+            <p>&copy; 2024 - Sistem Informasi KBK</p>
+        </div>
+        <div class="footer-right"></div>
+    </footer>
+    <!-- End Footer -->
 
     <!-- General JS Scripts -->
     <script src="assets/page/bundle.js"></script>

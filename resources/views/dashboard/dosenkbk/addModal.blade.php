@@ -26,8 +26,8 @@
                             aria-label="Example select with button addon" required data-parsley-group="block-0">
                             <option selected disabled value="">Pilih Jurusan</option>
                             @foreach ($data_jur as $item)
-                                <option class="dropdown-item" id="jurusan" value="{{ $item->kode_jurusan }}"
-                                    >{{ $item->jurusan }}</option>
+                                <option class="dropdown-item" id="jurusan" value="{{ $item->kode_jurusan }}">
+                                    {{ $item->jurusan }}</option>
                             @endforeach
                         </select>
                         <span id="error_jurusan"></span>
@@ -56,9 +56,11 @@
                         <select class="form-select w-100 px-2 py-2" name="status" id="inputGroupSelect04"
                             aria-label="Example select with button addon" required data-parsley-group="block-0">
                             <option selected disabled value="" id="status">Pilih status</option>
-                            @foreach ($statuses as $value => $label)
-                                <option value="{{ $value }}" id="status" {{ $item->status == $value ? 'selected' : '' }}>
-                                    {{ $label }}</option>
+                            @foreach ($status as $value => $label)
+                                <option value="{{ $value }}" id="status"
+                                    {{ isset($item) && $item->status == $value ? 'selected' : '' }}>
+                                    {{ $label }}
+                                </option>
                             @endforeach
                         </select>
                         <span id="error_status"></span>

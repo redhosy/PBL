@@ -11,7 +11,7 @@
                   </div>
                 <div class="card mt-5">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h3>Data Pimpinan Program Studi</h3>
+                        <h3>Data Matakuliah</h3>
                         <div class="card-header-form">
                             <form>
                                 <div class="input-group">
@@ -29,18 +29,18 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Kode MataKuliah</th>
+                                        <th class="text-nowrap">Kode MataKuliah</th>
                                         <th>TP</th>
                                         <th>SKS</th>
-                                        <th>Jam</th>
-                                        <th>SKS_Praktek</th>
-                                        <th>SKS_Teori</th>
-                                        <th>Jam_Teori</th>
-                                        <th>Jam_Praktek</th>
                                         <th>Semester</th>
                                         <th>Kurikulum</th>
                                         <th>Action</th>
                                     </tr>
+                                        {{-- <th>Jam</th>
+                                        <th>SKS_Praktek</th>
+                                        <th>SKS_Teori</th>
+                                        <th>Jam_Teori</th>
+                                        <th>Jam_Praktek</th> --}}
                                 </thead>
                                 <tbody>
                                         @foreach ( $data_damat as $item)

@@ -24,13 +24,19 @@
         <ul class="dropdown-menu">
           <li><a class="nav-link" href="/dapro">Data Program Studi</a></li>
           <li><a class="nav-link" href="/dapinprod">Pimpinan Prodi</a></li>
-          <li><a class="nav-link" href="/dakur">Kurikulum Program Studi</a></li>
-          <li><a class="nav-link" href="/matkul">MataKuliah</a></li>
         </ul>
       </li>
 
       <li>
         <a href="/dados" class="nav-link"><i class="fas fa-user"></i><span>Dosen</span></a>
+      </li> 
+
+      <li>
+        <a class="nav-link" href="/#"><i class="fas fa-book"></i><span>Kurikulum</span></a>
+      </li> 
+
+      <li>
+        <a class="nav-link" href="/matkul"><i class="fas fa-book-open"></i><span>Matakuliah</span></a>
       </li> 
 
       <li>
@@ -44,15 +50,26 @@
           <li><a class="nav-link" href="/datakbk">Data KBK</a></li>
           <li><a class="nav-link" href="/matkulkbk">Mata Kuliah KBK</a></li>
           <li><a class="nav-link" href="/dosenkbk">Dosen KBK</a></li>
+          <li><a class="nav-link" href="/dosenkbk">Jabatan KBK</a></li>
         </ul>
       </li>
       <li class="dropdown">
         <a class="nav-link has-dropdown"><i class="fa fa-upload"></i><span>Unggah KBK</span></a>
         <ul class="dropdown-menu">
-          <li><a class="nav-link" href="/datakbk">Unggah RPS</a></li>
-          <li><a class="nav-link" href="/matkulkbk">Unggah Soal UAS</a></li>
+          <li><a class="nav-link" href="/RPS">Unggah RPS</a></li>
+          <li><a class="nav-link" href="/soalUas">Unggah Soal UAS</a></li>
         </ul>
       </li>
+      <li class="dropdown " >
+        <a class="nav-link has-dropdown"><i class="fa fa-clipboard-check"></i><span>Verifikasi</span></a>
+        <ul class="dropdown-menu">
+          <li><a class="nav-link" href="/">Verifikasi Soal</a></li>
+          <li><a class="nav-link" href="/">Verifikasi RPS</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/#" class="nav-link mb-5"><i class="fas fa-users"></i><span>Pengguna</span></a>
+      </li> 
     </ul>
   </aside>
 </div>
