@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +15,7 @@
         background-size: cover;
     }
 </style>
+
 <body class="d-flex align-items-center justify-content-center">
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -30,18 +32,22 @@
                                 </div>
                             @endif
                             <form class="form-signin" method="POST" action="{{ route('login') }}">
-                                
+
                                 @csrf
                                 <div class="input-group mb-4 mt-2">
-                                    <input type="email" name="email" id="email" class="form-control" placeholder="Email" required autofocus>
+                                    <input type="email" name="email" id="email" class="form-control"
+                                        placeholder="Email" required autofocus>
                                 </div>
                                 <div class="input-group mb-4">
-                                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                                    <input type="password" name="password" id="password" class="form-control"
+                                        placeholder="Password" required>
                                 </div>
                                 <div class="input-group mb-3 d-flex justify-content-between align-items-center">
                                     <div class="form-group form-check">
-                                        <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
-                                        <label class="form-check-label small text-dark" for="terms">Saya setuju dengan <br>
+                                        <input type="checkbox" class="form-check-input" id="terms" name="terms"
+                                            required>
+                                        <label class="form-check-label small text-dark" for="terms">Saya setuju
+                                            dengan <br>
                                             <a href="/terms">syarat dan ketentuan</a></label>
                                     </div>
                                     <a class="text-dark-50 small" href="#!">Forgot password?</a>
@@ -51,7 +57,8 @@
                                 </div>
                             </form>
                             <div>
-                                <p class="mb-0 small text-dark">Belum Punya Akun? <a href="/register" class="text-dark-50 fw-bold">Daftar</a></p>
+                                <p class="mb-0 small text-dark">Belum Punya Akun? <a href="/register"
+                                        class="text-dark-50 fw-bold">Daftar</a></p>
                             </div>
                         </div>
                     </div>
@@ -60,4 +67,5 @@
         </div>
     </div>
 </body>
+
 </html>

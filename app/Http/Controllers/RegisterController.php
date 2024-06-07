@@ -10,8 +10,10 @@ use Illuminate\Support\Str;
 use App\Models\ref_jurusans;
 use App\Models\ref_prodis;
 use App\Models\RefDosenkbk;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
-
+use function Laravel\Prompts\password;
 
 class RegisterController extends Controller
 {
@@ -49,17 +51,30 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
+            'nip' => 'required|string|max:18',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email:dns|unique:users|max:255',
+            'password' => ['required', 'string','max:8', Password::min(8)->mixedCase()->letters()->numbers()->symbols()->uncompromised()],
             'captcha' => 'required|captcha'
+        ], [
+            // 'nip.required' => 'NIP wajib diisi.',
+            // 'nip.max' => 'NIP maksimal 18 karakter.',
+            // 'name.required' => 'Nama wajib diisi.',
+            // 'email.required' => 'Email wajib diisi.',
+            // 'email.email' => 'Format email tidak valid.',
+            // 'email.unique' => 'Email sudah terdaftar.',
+            // 'password.required' => 'Password wajib diisi.',
+            // 'password.min' => 'Password minimal 8 karakter.',
+            'captcha.required' => 'Captcha wajib diisi.',
+            'captcha.captcha' => 'Captcha tidak valid.'
         ]);
     
-        $validated['password'] = bcrypt($validated['password']);
+        $validated['password'] = Hash::make($validated['password']);
         $validated['email_verified_at'] = now();
         $validated['remember_token'] = Str::random(10);
     
         User::create($validated);
+    
         return redirect('/login')->with('success', 'Registration successful. Please login.');
     }
 

@@ -2,6 +2,10 @@
 
 @section('title','Data Jurusan')
 
+@section('scriptpages')
+@include('dashboard.dajur.scripts')
+@endsection
+
 @section('content')
     <div class="container ">
         <div class="row justify-content-center">
@@ -12,9 +16,9 @@
                         <div class="card-header-form">
                             <form>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
+                                    <input type="text" id="searchInput" class="form-control" placeholder="Search">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                        <button type="button" class="btn btn-primary" id="searchButton"><i class="fas fa-search"></i></button>
                                     </div>
                                 </div>
                             </form>
@@ -28,14 +32,19 @@
                                         <th>No</th>
                                         <th>Kode Jurusan</th>
                                         <th>Nama Jurusan</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="datatable">
                                     @foreach ($data_jur as $item)
-                                        <tr>
-                                            <td>{{ $data_jur->firstItem() + $loop->index }}</td>
-                                            <td>{{ $item['kode_jurusan'] }}</td>
-                                            <td>{{ $item['jurusan'] }}</td>
+                                        <tr id="data{{ $item->id }}">
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->kode_jurusan}}</td>
+                                            <td>{{ $item->jurusan}}</td>
+                                            <td>
+                                                <button class="btn btn-icon btn-info detailBtn" data-id="{{ $item->id }}"><i
+                                                    class="fas fa-info-circle"></i></button>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -47,4 +56,7 @@
             </div>
         </div>
     </div>
-@endsection
+    @endsection
+    @include('dashboard.dajur.detailModal')
+
+

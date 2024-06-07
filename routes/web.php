@@ -36,15 +36,11 @@ Route::get('/',function(){
 });
 
 
-Route::get('/dashboard',function(){
+Route::get('/dashboard', function(){
     return view('dashboard.index');
-});
+})->middleware('auth');
 
 // Route::resource('/dashboard',dasboard::class)->middleware('admin');
-
-Route::get('/login',function(){
-    return view('login');
-});
 
 Route::get('/team',function(){
     return view('team');
@@ -63,12 +59,15 @@ Route::get('/terms',function(){
     return view('terms');
 });
 
-Route::get('/register', [RegisterController::class,'register']);
-Route::post('/register', [RegisterController::class,'store']);
-Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
+Route::post('/register', [RegisterController::class, 'store']);
 
 
-Route::get('/dajur', [RefJurusanController::class,'index']);
+Route::resource('/dajur',RefJurusanController::class);
 Route::get('/dapro', [RefProdiController::class,'index']);
 Route::get('/dados', [RefDosenController::class,'index']);
 Route::get('/thnakad', [RefSmtThnAkdController::class,'index']);

@@ -27,10 +27,11 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Jabatan Pimpinan</th>
+                                        <th>Nama</th>
                                         <th>Jurusan</th>
-                                        <th>Dosen</th>
                                         <th>Priode</th>
                                         <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -38,8 +39,8 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->jabpim->jabatan_pimpinan}}</td>
-                                        <td>{{ $item->jurusan->jurusan}}</td>
                                         <td>{{ $item->dosen->nama }}</td>
+                                        <td>{{ $item->jurusan->jurusan}}</td>
                                         <td>{{ $item->periode }}</td>
                                         <td>
                                             <span class="badge rounded-pill {{ $item->status ? 'bg-success  text-white' : 'bg-danger text-white' }} py-2 px-4">

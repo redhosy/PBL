@@ -1,6 +1,6 @@
 <!-- Navbar Start -->
 <nav class="navbar fixed- navbar-expand-lg bg-white navbar-light sticky-top p-0">
-    <a href="index.html" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
+    <a class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
         
         <img src="assets/img/logo2.png" alt="Logo" style="max-height: 50px; width: auto;">
         
@@ -20,7 +20,30 @@
                 </div>
             </div>
         </div>
-        <a href="/login" class="btn btn-primary rounded-0 py-4 px-lg-5 d-none d-lg-block">Login<i class="fa fa-arrow-right ms-3"></i></a>
+        <ul class="navbar-nav ms-auto">
+            @auth
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Welcome back, {{ auth()->user()->name }}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/dashboard"><i class="fas fa-fire"></i> Dashboard</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                          <form action="/logout" method="post">
+                            @csrf
+                            <button type="submit" name="logout" class="dropdown-item"><i class="fas fa-arrow-left ms-3"></i> Logout</button>
+                          </form>
+                    </ul>
+                </li>
+            @else
+                <li class="nav-item">
+                    <a href="/login" class="btn btn-primary text-white rounded-0 py-4 px-lg-4 d-none d-lg-block nav-link {{ Request::is('active') === 'login' ? 'active' : '' }}">Login<i
+                            class=" fas fa-arrow-right ms-3"></i></a>
+                </li>
+            @endauth
+        </ul>
     </div>
 </nav>
 <!-- Navbar End -->
