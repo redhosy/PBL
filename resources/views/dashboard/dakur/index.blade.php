@@ -2,6 +2,10 @@
 
 @section('title','Data Kurikulum Prodi')
 
+@section('scriptpages')
+@include('dashboard.dakur.scripts')
+@endsection
+
 @section('content')
     <div class="container ">
         <div class="row justify-content-center">
@@ -12,9 +16,9 @@
                         <div class="card-header-form">
                             <form>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
+                                    <input type="text" id="searchInput"  class="form-control" placeholder="Search">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                        <button type="button" id="searchButton"  class="btn btn-primary"><i class="fas fa-search"></i></button>
                                     </div>
                                 </div>
                             </form>
@@ -26,18 +30,17 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Kode Kurikulum</th>
                                         <th>Nama Kurikulum</th>
                                         <th>Tahun</th>
                                         <th>Prodi</th>
                                         <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="dataTable">
                                         @foreach ( $data_kur as $item)
-                                    <tr>
+                                    <tr id="data{{ $item->id }}">
                                         <td>{{ $data_kur->firstItem()+$loop->index }}</td>
-                                        <td>{{ $item->kode_kurikulum}}</td>
                                         <td>{{ $item->nama_kurikulum}}</td>
                                         <td>{{ $item->tahun }}</td>
                                         <td>{{ $item->prodi->prodi}}</td>
@@ -45,6 +48,10 @@
                                             <span class="badge rounded-pill {{ $item->status ? 'bg-success  text-white' : 'bg-danger text-white' }} py-2 px-4">
                                                 {{ $item->status ? 'Aktif' : 'Tidak Aktif' }}
                                             </span>     
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-icon btn-info detailBtn" data-id="{{ $item->id }}"><i
+                                                class="fas fa-info-circle"></i></button>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -58,3 +65,5 @@
         </div>
     </div>
 @endsection
+@include('dashboard.dakur.detailModal')
+

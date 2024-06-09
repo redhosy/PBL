@@ -35,17 +35,21 @@ class RefSmtThnAkdController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ref_smt_thn_akds $ref_smt_thn_akd)
+    public function show(string $id)
     {
-        //
+        $data = ref_smt_thn_akds::find($id);
+        return response()->json([
+            'status' => 200,
+            'data' => $data]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ref_smt_thn_akds $ref_smt_thn_akd)
+    public function edit(string $id)
     {
-        //
+        $data = ref_smt_thn_akds::find($id);
+        return response()->json([
+            'status'=>200,
+            'data'=>$data
+        ]);
     }
 
     /**

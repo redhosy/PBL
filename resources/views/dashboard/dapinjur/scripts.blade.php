@@ -27,13 +27,16 @@ if (typeof jQuery !== 'undefined') {
             //         console.log(response)
             //     }
             // });
-            $.get("{{ url('dajur') }}/" + itemId, function(response) {
+            $.get("{{ url('dapinjur') }}/" + itemId, function(response) {
                 console.log(response);
                 $('#detailModal').modal('show');
                 // Assuming response.data contains the needed data
                 $('#editDataId').text(response.data.id);
-                $('#detailjur').text(response.data.kode_jurusan);
-                $('#detailnama').text(response.data.jurusan);
+                $('#detailjabatan').text(response.data.jabpim.jabatan_pimpinan);
+                $('#detailnama').text(response.data.dosen.nama);
+                $('#detailjurusan').text(response.data.jurusan.jurusan);
+                $('#detailperiode').text(response.data.periode);
+                $('#detailstatus').text(response.data.status);
                 // $('#detailModal').modal('show');
             }).fail(function() {
                 console.error('Failed to fetch data');
@@ -42,14 +45,12 @@ if (typeof jQuery !== 'undefined') {
 
         // Pencarian
         $('#searchButton').on('click', function() {
-            var value = $('#searchInput').val().toLowerCase();
+            let value = $('#searchInput').val().toLowerCase();
             $("#dataTable tr").filter(function() {
-                // Get the text content of the 'nama' and 'kodekbk' columns
-                var kode_jurusan = $(this).find('td:nth-child(2)').text().toLowerCase();
-                var jurusan = $(this).find('td:nth-child(3)').text().toLowerCase();
+                var jabatan_pimpinan = $(this).find('td:nth-child(2)').text().toLowerCase();
+                var nama = $(this).find('td:nth-child(3)').text().toLowerCase();
 
-                // Check if the search value matches either 'nama' or 'kodekbk'
-                $(this).toggle(kode_jurusan.indexOf(value) > -1 || jurusan.indexOf(value) >
+                $(this).toggle(jabatan_pimpinan.indexOf(value) > -1 || nama.indexOf(value) >
                         -1);
             });
         });

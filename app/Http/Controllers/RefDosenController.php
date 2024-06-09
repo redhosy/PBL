@@ -9,17 +9,25 @@ use function PHPUnit\Framework\isEmpty;
 
 class RefDosenController extends Controller
 {
-    public function index(Request $request){
-        if($request->has('cari')){
-            $data_dos = ref_dosen::where('nama', 'like', '%' . $request->cari . '%')
-                                ->orWhere('nip', 'like', '%' . $request->cari . '%')
-                                ->get();
-            $isEmpty=$data_dos->isEmpty();                    
-        } else {
-            $isEmpty=false;
-            $data_dos = ref_dosen::with(['jurusan','prodi'])->paginate(10);
-        }
-        
-        return view('dashboard.dados.index')->with('data_dos', $data_dos);
+    public function index(){
+        $data_dos=ref_dosen::latest()->paginate(10);
+        return view('dashboard.dados.index',compact('data_dos'));
     }    
+
+    public function show($id) {
+        $data = ref_dosen::with(['prodi', 'jurusan'])->find($id);
+        return response()->json([
+            'data' => $data,
+            'status' => 200
+        ]);
+    }
+
+    public function edit(string $id)
+    {
+        $data = ref_dosen::find($id);
+        return response()->json([
+            'status'=>200,
+            'data'=>$data
+        ]);
+    }
 }

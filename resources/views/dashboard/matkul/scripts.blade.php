@@ -27,13 +27,22 @@ if (typeof jQuery !== 'undefined') {
             //         console.log(response)
             //     }
             // });
-            $.get("{{ url('dajur') }}/" + itemId, function(response) {
+            $.get("{{ url('matkul') }}/" + itemId, function(response) {
                 console.log(response);
                 $('#detailModal').modal('show');
                 // Assuming response.data contains the needed data
                 $('#editDataId').text(response.data.id);
-                $('#detailjur').text(response.data.kode_jurusan);
-                $('#detailnama').text(response.data.jurusan);
+                $('#detailkodemat').text(response.data.kode_matakuliah);
+                $('#detailnamamat').text(response.data.nama_matakuliah);
+                $('#detailtp').text(response.data.TP);
+                $('#detailsks').text(response.data.sks);
+                $('#detailjam').text(response.data.jam);
+                $('#detailSKST').text(response.data.sks_teori);
+                $('#detailSKSP').text(response.data.sks_praktek);
+                $('#detailjamt').text(response.data.jam_teori);
+                $('#detailjamp').text(response.data.jam_praktek);
+                $('#detailsemester').text(response.data.semester);
+                $('#detailNakur').text(response.data.kurikulum.nama_kurikulum);
                 // $('#detailModal').modal('show');
             }).fail(function() {
                 console.error('Failed to fetch data');
@@ -42,15 +51,12 @@ if (typeof jQuery !== 'undefined') {
 
         // Pencarian
         $('#searchButton').on('click', function() {
-            var value = $('#searchInput').val().toLowerCase();
+            let value = $('#searchInput').val().toLowerCase();
             $("#dataTable tr").filter(function() {
-                // Get the text content of the 'nama' and 'kodekbk' columns
-                var kode_jurusan = $(this).find('td:nth-child(2)').text().toLowerCase();
-                var jurusan = $(this).find('td:nth-child(3)').text().toLowerCase();
+                var nama_matakuliah = $(this).find('td:nth-child(3)').text().toLowerCase();
+                // var nama = $(this).find('td:nth-child(3)').text().toLowerCase();
 
-                // Check if the search value matches either 'nama' or 'kodekbk'
-                $(this).toggle(kode_jurusan.indexOf(value) > -1 || jurusan.indexOf(value) >
-                        -1);
+                $(this).toggle(nama_matakuliah.indexOf(value) > -1);
             });
         });
     });

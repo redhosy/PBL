@@ -10,19 +10,10 @@ class RefDakurController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
-    {
-        if($request->has('cari')){
-            $data_kur = ref_dakur::where('nama', 'like', '%' . $request->cari . '%')
-                                ->orWhere('jabatan', 'like', '%' . $request->cari . '%')
-                                ->get();
-            $isEmpty=$data_kur->isEmpty();                    
-        } else {
-            $isEmpty=false;
-            $data_kur = ref_dakur::with(['prodi'])->paginate(10);
-        }
-        return view('dashboard.dakur.index')->with('data_kur', $data_kur);
-    }
+    public function index(){
+        $data_kur=ref_dakur::latest()->paginate(5);
+        return view('dashboard.dakur.index',compact('data_kur'));
+    } 
 
     /**
      * Show the form for creating a new resource.
@@ -43,17 +34,25 @@ class RefDakurController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ref_dakur $ref_dakur)
-    {
-        //
+    public function show($id) {
+        $data = ref_dakur::with(['prodi'])->find($id);
+        return response()->json([
+            'data' => $data,
+            'status' => 200
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ref_dakur $ref_dakur)
+   
+    public function edit(string $id)
     {
-        //
+        $data = ref_dakur::find($id);
+        return response()->json([
+            'status'=>200,
+            'data'=>$data
+        ]);
     }
 
     /**

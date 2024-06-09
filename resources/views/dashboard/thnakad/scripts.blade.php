@@ -1,6 +1,5 @@
 <script>
-
-if (typeof jQuery !== 'undefined') {
+    if (typeof jQuery !== 'undefined') {
         console.log("jQuery is loaded");
     } else {
         console.error("jQuery is not loaded");
@@ -27,14 +26,25 @@ if (typeof jQuery !== 'undefined') {
             //         console.log(response)
             //     }
             // });
-            $.get("{{ url('dajur') }}/" + itemId, function(response) {
+            $.get("{{ url('dapro') }}/" + itemId, function(response) {
                 console.log(response);
                 $('#detailModal').modal('show');
+
                 // Assuming response.data contains the needed data
                 $('#editDataId').text(response.data.id);
-                $('#detailjur').text(response.data.kode_jurusan);
-                $('#detailnama').text(response.data.jurusan);
-                // $('#detailModal').modal('show');
+                $('#detailsemta').text(response.data.smt_thn_akd);
+
+                // Handle status badge
+                const statusBadge = $('#detailstatus');
+                const isActive = response.data.status;
+                if (isActive) {
+                    statusBadge.text('Tidak Aktif');
+                    statusBadge.removeClass('bg-success').addClass('bg-danger text-white');
+                } else {
+                    statusBadge.text('Aktif');
+                    statusBadge.removeClass('bg-danger').addClass('bg-success text-white');
+                }
+
             }).fail(function() {
                 console.error('Failed to fetch data');
             });
@@ -42,15 +52,12 @@ if (typeof jQuery !== 'undefined') {
 
         // Pencarian
         $('#searchButton').on('click', function() {
-            var value = $('#searchInput').val().toLowerCase();
+            let value = $('#searchInput').val().toLowerCase();
             $("#dataTable tr").filter(function() {
-                // Get the text content of the 'nama' and 'kodekbk' columns
-                var kode_jurusan = $(this).find('td:nth-child(2)').text().toLowerCase();
-                var jurusan = $(this).find('td:nth-child(3)').text().toLowerCase();
+                var smt_thn_akd = $(this).find('td:nth-child(2)').text().toLowerCase();
+                // var nama = $(this).find('td:nth-child(3)').text().toLowerCase();
 
-                // Check if the search value matches either 'nama' or 'kodekbk'
-                $(this).toggle(kode_jurusan.indexOf(value) > -1 || jurusan.indexOf(value) >
-                        -1);
+                $(this).toggle(smt_thn_akd.indexOf(value) > -1);
             });
         });
     });
