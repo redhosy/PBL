@@ -13,12 +13,7 @@ class DatabaseSeederJurusan extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        
         ref_jurusans::create([
             'kode_jurusan' => 'AN',
             'jurusan' => 'Administrasi Niaga',

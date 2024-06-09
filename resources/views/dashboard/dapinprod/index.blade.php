@@ -12,9 +12,9 @@
                         <div class="card-header-form">
                             <form>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
+                                    <input type="text" id="searchInput" class="form-control" placeholder="Search">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                        <button type="button" id="searchButton" class="btn btn-primary"><i class="fas fa-search"></i></button>
                                     </div>
                                 </div>
                             </form>
@@ -33,9 +33,9 @@
                                         <th>Status</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="dataTable">
                                         @foreach ( $data_pim as $item)
-                                    <tr>
+                                    <tr id="data{{ $item->id }}">
                                         <td>{{ $data_pim->firstItem()+$loop->index }}</td>
                                         <td>{{ $item->jabpim->jabatan_pimpinan}}</td>
                                         <td>{{ $item->prodi->prodi}}</td>

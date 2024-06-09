@@ -9,14 +9,14 @@ class ref_dapinjurs extends Model
 {
     use HasFactory;
     protected $table = 'ref_dapinjurs';
-    public function jabpim()
-    {
-        return $this->belongsTo(jabpims::class, 'id_jabatan_pimpinan');
-    }
 
     public function jurusan()
     {
         return $this->belongsTo(ref_jurusans::class, 'id_jurusan');
+    }
+    public function jabpim()
+    {
+        return $this->belongsTo(jabpims::class, 'id_jabatan_pimpinan');
     }
 
     public function dosen()

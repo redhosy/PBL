@@ -2,6 +2,11 @@
 
 @section('title','Data Program Studi')
 
+@section('scriptpages')
+@include('dashboard.dapro.scripts')
+@endsection
+
+
 @section('content')
     <div class="container ">
         <div class="row justify-content-center">
@@ -12,9 +17,9 @@
                         <div class="card-header-form">
                             <form>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
+                                    <input type="text" id="searchInput" class="form-control" placeholder="Search">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                        <button type="button" id="searchButton"  class="btn btn-primary"><i class="fas fa-search"></i></button>
                                     </div>
                                 </div>
                             </form>
@@ -26,20 +31,23 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Kode Prodi</th>
                                         <th>Nama Prodi</th>
                                         <th>Jurusan</th>
                                         <th>Jenjang</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="dataTable">
                                     @foreach ($data_pro as $item)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->kode_prodi }}</td>
+                                        <tr id="data{{ $item->id }}">
+                                            <td>{{ $data_pro->firstItem()+$loop->index  }}</td>
                                             <td>{{ $item->prodi }}</td>
                                             <td>{{ $item->jurusan->jurusan }}</td>
                                             <td>{{ $item->id_jenjang }}</td>
+                                            <td>
+                                                <button class="btn btn-icon btn-info detailBtn" data-id="{{ $item->id }}"><i
+                                                    class="fas fa-info-circle"></i></button>
+                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -52,3 +60,4 @@
         </div>
     </div>
 @endsection
+@include('dashboard.dapro.detailModal')

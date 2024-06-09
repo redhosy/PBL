@@ -44,18 +44,27 @@ class RefDapinjurController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(ref_dapinjurs $ref_dapinjur)
+    public function show($id) {
+        $data = ref_dapinjurs::with(['jabpim', 'dosen', 'jurusan'])->find($id);
+        return response()->json([
+            'data' => $data,
+            'status' => 200
+        ]);
+    }
+    
+
+    public function edit(string $id)
     {
-        //
+        $data = ref_dapinjurs::find($id);
+        return response()->json([
+            'status'=>200,
+            'data'=>$data
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ref_dapinjurs $ref_dapinjur)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

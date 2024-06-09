@@ -68,13 +68,13 @@ Route::post('/register', [RegisterController::class, 'store']);
 
 
 Route::resource('/dajur',RefJurusanController::class);
-Route::get('/dapro', [RefProdiController::class,'index']);
-Route::get('/dados', [RefDosenController::class,'index']);
+Route::resource('/dapro', RefProdiController::class);
+Route::resource('/dados', RefDosenController::class);
+Route::resource('/matkul', RefDamatkulController::class);
 Route::get('/thnakad', [RefSmtThnAkdController::class,'index']);
-Route::get('/dapinjur', [RefDapinjurController::class,'index']);
+Route::resource('/dapinjur', RefDapinjurController::class);
 Route::get('/dapinprod', [RefDapinprodController::class,'index']);
-Route::get('/dakur', [RefDakurController::class,'index']);
-Route::get('/matkul', [RefDamatkulController::class,'index']);
+Route::resource('/dakur', RefDakurController::class);
 
 Route::resource('datakbk', RefDatakbkController::class);
 Route::resource('matkulkbk', matkulKBKController::class);

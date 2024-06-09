@@ -38,7 +38,7 @@
                                 <tbody id="datatable">
                                     @foreach ($data_jur as $item)
                                         <tr id="data{{ $item->id }}">
-                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $data_jur->firstItem()+$loop->index }}</td>
                                             <td>{{ $item->kode_jurusan}}</td>
                                             <td>{{ $item->jurusan}}</td>
                                             <td>

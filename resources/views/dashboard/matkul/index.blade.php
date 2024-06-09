@@ -2,6 +2,11 @@
 
 @section('title','Data Matakuliah')
 
+@section('scriptpages')
+@include('dashboard.matkul.scripts')
+@endsection
+
+
 @section('content')
     <div class="container ">
         <div class="row justify-content-center">
@@ -15,9 +20,9 @@
                         <div class="card-header-form">
                             <form>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
+                                    <input type="text" id="searchInput" class="form-control" placeholder="Search">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                        <button type="button" id="searchButton" class="btn btn-primary"><i class="fas fa-search"></i></button>
                                     </div>
                                 </div>
                             </form>
@@ -29,34 +34,34 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th class="text-nowrap">Kode MataKuliah</th>
+                                        {{-- <th class="text-nowrap">Kode MataKuliah</th> --}}
+                                        <th>Nama Matkul</th>
                                         <th>TP</th>
                                         <th>SKS</th>
                                         <th>Semester</th>
                                         <th>Kurikulum</th>
                                         <th>Action</th>
                                     </tr>
-                                        {{-- <th>Jam</th>
-                                        <th>SKS_Praktek</th>
-                                        <th>SKS_Teori</th>
-                                        <th>Jam_Teori</th>
-                                        <th>Jam_Praktek</th> --}}
                                 </thead>
                                 <tbody>
                                         @foreach ( $data_damat as $item)
                                     <tr>
                                         <td>{{ $data_damat->firstItem()+$loop->index }}</td>
-                                        <td>{{ $item->kode_matakuliah}}</td>
-                                        <td>{{ $item->nama_matakuliah}}</td>
+                                        {{-- <td>{{ $item->kode_matakuliah}}</td> --}}
+                                        <td class="text-nowrap">{{ $item->nama_matakuliah}}</td>
                                         <td>{{ $item->TP }}</td>
                                         <td>{{ $item->sks }}</td>
-                                        <td>{{ $item->jam }}</td>
-                                        <td>{{ $item->sks_teori }}</td>
-                                        <td>{{ $item->sks_praktek }}</td>
-                                        <td>{{ $item->jam_teori }}</td>
-                                        <td>{{ $item->jam_praktek }}</td>
+                                        {{-- <td>{{ $item->jam }}</td> --}}
+                                        {{-- <td>{{ $item->sks_teori }}</td> --}}
+                                        {{-- <td>{{ $item->sks_praktek }}</td> --}}
+                                        {{-- <td>{{ $item->jam_teori }}</td>
+                                        <td>{{ $item->jam_praktek }}</td> --}}
                                         <td>{{ $item->semester }}</td>
-                                        <td>{{ $item->kurikulum->id_kurikulum }}</td>
+                                        <td class="text-nowrap">{{ $item->kurikulum->nama_kurikulum }}</td>
+                                        <td>
+                                            <button class="btn btn-icon btn-info detailBtn" data-id="{{ $item->id }}"><i
+                                                class="fas fa-info-circle"></i></button>
+                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -69,3 +74,4 @@
         </div>
     </div>
 @endsection
+@include('dashboard.matkul.detailModal')

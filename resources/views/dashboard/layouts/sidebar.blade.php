@@ -32,7 +32,7 @@
       </li> 
 
       <li>
-        <a class="nav-link" href="/#"><i class="fas fa-book"></i><span>Kurikulum</span></a>
+        <a class="nav-link" href="/dakur"><i class="fas fa-book"></i><span>Kurikulum</span></a>
       </li> 
 
       <li>

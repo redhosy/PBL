@@ -2,6 +2,10 @@
 
 @section('title','Data Dosen')
 
+@section('scriptpages')
+@include('dashboard.dados.scripts')
+@endsection
+
 @section('content')
     <div class="container ">
         <div class="row justify-content-center">
@@ -12,9 +16,9 @@
                         <div class="card-header-form">
                             <form>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search">
+                                    <input type="text" id="searchInput" class="form-control" placeholder="Search">
                                     <div class="input-group-append">
-                                        <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                                        <button type="button" id="searchButton" class="btn btn-primary"><i class="fas fa-search"></i></button>
                                     </div>
                                 </div>
                             </form>
@@ -27,34 +31,31 @@
                                     <tr class="auto-width">
                                         <th>No</th>
                                         <th>Nama</th>
-                                        {{-- <th>NIDN</th> --}}
                                         <th>NIP</th>
-                                        {{-- <th>Gender</th> --}}
                                         <th>Jurusan</th>
                                         <th>Prodi</th>
-                                        {{-- <th>Email</th> --}}
-                                        {{-- <th>Image</th> --}}
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="datatable">
                                     @foreach ($data_dos as $item)
-                                        <tr style="font-size: 13px" class="auto-width">
+                                        <tr id="data{{ $item->id }}" style="font-size: 13px" class="auto-width">
                                             
-                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $data_dos->firstItem()+$loop->index }}</td>
                                             <td class="text-nowrap">{{ $item->nama }}</td>
-                                            {{-- <td>{{ $item->nidn }}</td> --}}
                                             <td class="text-nowrap">{{ $item->nip }}</td>
-                                            {{-- <td>{{ $item->gender }}</td> --}}
                                             <td class="text-nowrap">{{ $item->jurusan->jurusan }}</td>
                                             <td class="text-nowrap">{{ $item->prodi?->prodi }}</td>
-                                            {{-- <td>{{ $item->email }}</td>
-                                            <td>{{ $item->image }}</td> --}}
+                                            {{-- <td>{{ $item->image }}</td>  --}}
                                             <td>
                                                 <span class="badge rounded-pill {{ $item->status ? 'bg-danger text-white' : 'bg-success text-white' }} py-2 px-4">
                                                     {{ $item->status ? 'Tidak Aktif' : ' Aktif' }}
                                                 </span>                                    
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-icon btn-info detailBtn" data-id="{{ $item->id }}"><i
+                                                    class="fas fa-info-circle"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -68,3 +69,4 @@
         </div>
     </div>
 @endsection
+@include('dashboard.dados.detailModal')

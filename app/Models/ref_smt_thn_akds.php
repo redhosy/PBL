@@ -9,4 +9,5 @@ class ref_smt_thn_akds extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected  $table = 'ref_smt_thn_akds';
 }
