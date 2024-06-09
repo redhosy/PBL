@@ -1,6 +1,5 @@
 <script>
-
-if (typeof jQuery !== 'undefined') {
+    if (typeof jQuery !== 'undefined') {
         console.log("jQuery is loaded");
     } else {
         console.error("jQuery is not loaded");
@@ -30,11 +29,22 @@ if (typeof jQuery !== 'undefined') {
             $.get("{{ url('dapro') }}/" + itemId, function(response) {
                 console.log(response);
                 $('#detailModal').modal('show');
+
                 // Assuming response.data contains the needed data
                 $('#editDataId').text(response.data.id);
                 $('#detailsemta').text(response.data.smt_thn_akd);
-                $('#detailstatus').text(response.data.status);
-                // $('#detailModal').modal('show');
+
+                // Handle status badge
+                const statusBadge = $('#detailstatus');
+                const isActive = response.data.status;
+                if (isActive) {
+                    statusBadge.text('Tidak Aktif');
+                    statusBadge.removeClass('bg-success').addClass('bg-danger text-white');
+                } else {
+                    statusBadge.text('Aktif');
+                    statusBadge.removeClass('bg-danger').addClass('bg-success text-white');
+                }
+
             }).fail(function() {
                 console.error('Failed to fetch data');
             });
