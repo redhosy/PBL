@@ -38,7 +38,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Kode Soal</th>
-                                        <th>Kode MATKUL</th>
+                                        <th>Kode Matkul</th>
                                         <th>Dosen Pengampu</th>
                                         <th>Dokumen</th>
                                         <th>Tahun Akademik</th>
@@ -91,9 +91,9 @@
     </div>
 
 
-    @include('dashboard.datakbk.addModal')
-    @include('dashboard.datakbk.editModal')
-    @include('dashboard.datakbk.detailModal')
+    @include('dashboard.soalUas.addModal')
+    @include('dashboard.soalUas.editModal')
+    @include('dashboard.soalUas.detailModal')
 
-    @include('dashboard.datakbk.scripts')
+    @include('dashboard.soalUas.scripts')
 @endsection
