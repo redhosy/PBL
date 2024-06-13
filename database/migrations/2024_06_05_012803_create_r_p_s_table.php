@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('r_p_s', function (Blueprint $table) {
             $table->id();
+            $table->string('KodeRPS')->unique();
+            $table->string('KodeMatkul')->unique();
+            $table->string('Versi');
+            $table->string('Dokumen')->nullable();
+            $table->string('Dosen');
             $table->timestamps();
         });
     }
