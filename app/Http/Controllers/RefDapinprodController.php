@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ref_dapinprod;
+use App\Models\ref_dosen;
+use App\Models\jabpims;
 use Illuminate\Http\Request;
 
 class RefDapinprodController extends Controller
@@ -12,16 +14,11 @@ class RefDapinprodController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->has('cari')){
-            $data_pim = ref_dapinprod::where('nama', 'like', '%' . $request->cari . '%')
-                                ->orWhere('jabatan', 'like', '%' . $request->cari . '%')
-                                ->get();
-            $isEmpty=$data_pim->isEmpty();                    
-        } else {
-            $isEmpty=false;
-            $data_pim = ref_dapinprod::with(['prodi','dosen','jabpim'])->paginate(10);
-        }
-        return view('dashboard.dapinprod.index')->with('data_pim', $data_pim);
+        $dosen = ref_dosen::all();
+        $jabpim = jabpims::all();
+        $data_pim = ref_dapinprod::with([ 'dosen', 'jabpim'])->paginate(5);
+        $years = range(date('Y') - 50, date('Y') + 10);
+        return view('dashboard.dapinprod.index', compact('data_pim', 'years', 'dosen','jabpim'));
     }
 
     /**
@@ -37,23 +34,48 @@ class RefDapinprodController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'jabpim' => 'required',
+            'nama' => 'required',
+            'periode_start' => 'required',
+            'periode_end' => 'required',
+            'status' => 'required',
+        ]);
+
+        $periode = $validated['periode_start'] . '-' . $validated['periode_end'];
+
+        $data = new ref_dapinprod();
+        $data->id_jabatan_pimpinan = $validated['jabpim'];
+        $data->id_dosen = $validated['nama'];
+        $data->periode = $periode;
+        $data->status = $validated['status'];
+        $data->save();
+
+        return response()->json(['data' => $data]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(ref_dapinprod $ref_dapinprod)
+    public function show($id)
     {
-        //
+        $data = ref_dapinprod::with(['jabpim', 'dosen'])->find($id);
+        return response()->json([
+            'data' => $data,
+            'status' => 200
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(ref_dapinprod $ref_dapinprod)
+    public function edit(string $id)
     {
-        //
+        $data = ref_dapinprod::find($id);
+        return response()->json([
+            'status' => 200,
+            'data' => $data
+        ]);
     }
 
     /**
@@ -61,14 +83,29 @@ class RefDapinprodController extends Controller
      */
     public function update(Request $request, ref_dapinprod $ref_dapinprod)
     {
-        //
+        $validated = $request->validate([
+            'jabpim' => 'required',
+            'nama' => 'required',
+            'periode' => 'required',
+            'status' => 'required',
+        ]);
+
+        $ref_dapinprod->update($validated);
+
+        return response()->json(['data' => $ref_dapinprod]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ref_dapinprod $ref_dapinprod)
+    public function destroy(string $id)
     {
-        //
+
+        $kbk = ref_dapinprod::find($id);
+
+        if ($kbk->delete()) {
+            return response()->json(['success' => true]);
+        }
+        return  response()->json(['status' => 404, 'message' => 'something went wrong']);
     }
 }

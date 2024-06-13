@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ref_dapinjurs', function (Blueprint $table) {
-            $table->id()->nullable(false);;
-            $table->integer('id_jabatan_pimpinan')->nullable(false);
-            $table->integer('id_jurusan')->nullable(false);
-            $table->integer('id_dosen')->nullable(false);
+            $table->id()->nullable(false);
+            $table->foreignId('id_jabatan_pimpinan')->constrained('jabpims');
+            $table->foreignId('id_jurusan')->constrained('ref_jurusans');
+            $table->foreignId('id_dosen')->constrained('ref_dosens');
             $table->string('periode')->nullable(false);
-            $table->enum('status',['1','0'])->default('0');
+            $table->enum('status',['1','0'])->default('1');
             $table->timestamps();
         });
     }

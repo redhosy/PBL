@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->enum('role', ['super admin', 'admin', 'pimpinan jurusan', 'pimpinan program studi', 'dosen pengampu', 'pengurus kbk', 'dosen kbk']
+            )->default('dosen pengampu');       
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

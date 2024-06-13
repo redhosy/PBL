@@ -18,7 +18,9 @@ use App\Http\Controllers\RPSController;
 use App\Http\Controllers\SoalUasController;
 
 use App\Http\Controllers\LoginController;
-
+use App\Http\Controllers\UsersController;
+use App\Models\ref_dosen;
+use App\Models\ref_jurusans;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,12 +77,21 @@ Route::get('/thnakad', [RefSmtThnAkdController::class,'index']);
 Route::resource('/dapinjur', RefDapinjurController::class);
 Route::get('/dapinprod', [RefDapinprodController::class,'index']);
 Route::resource('/dakur', RefDakurController::class);
+ 
+Route::resource('/datakbk', RefDatakbkController::class);
+Route::resource('/soalUas', SoalUasController::class);
+Route::resource('/RPS', RPSController::class);
+Route::resource('/pengguna', UsersController::class);
 
-Route::resource('datakbk', RefDatakbkController::class);
-Route::resource('matkulkbk', matkulKBKController::class);
-Route::resource('dosenkbk', RefDosenkbkController::class);
-Route::resource('soalUas', SoalUasController::class);
-Route::resource('RPS', RPSController::class);
+// Group routes for all roles
+// Route::group(['middleware' => ['role:Super Admin,Admin,Pimpinan Jurusan,Pimpinan Program Studi,Dosen Pengampu,Pengurus KBK,Dosen KBK']], function () {
+//     Route::resource('/dashboard/dosen', ref_dosen::class)->except('show');
+// });
+Route::resource('/dashboard/dosen', ref_dosen::class)->middleware('auth');
+
+Route::resource('/dashboard/jurusan', ref_jurusans::class)->except('show')->middleware('Admin');
+
+
 
 
 

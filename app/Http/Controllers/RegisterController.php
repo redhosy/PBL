@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ref_dosen;
 use App\Models\register;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
@@ -20,29 +21,32 @@ class RegisterController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function register()
+    public function index()
     {
-        $kbk_jur=ref_jurusans::all();
-        $kbk_pro=ref_prodis::all();
-        $dosenkbk = RefDosenkbk::all();
+        $kbk_jur = ref_jurusans::all();
+        $kbk_pro = ref_prodis::all();
         // $dosenkbk = RefDosenkbk::latest()->paginate(10);
         $statuses = [
             '1' => 'Aktif',
             '0' => 'Tidak-Aktif'
         ];
         return view('register')->with([
-            'data_jur'=>$kbk_jur,
-            'dosenkbk'=>$dosenkbk,
-            'data_pro'=>$kbk_pro,
-            'statuses'=>$statuses
+            'data_jur' => $kbk_jur,
+            'data_pro' => $kbk_pro,
+            'statuses' => $statuses
         ]);
     }
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($data)
     {
-        //
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'role' => $data['role'],
+        ]);
     }
 
     /**
@@ -54,27 +58,36 @@ class RegisterController extends Controller
             'nip' => 'required|string|max:18',
             'name' => 'required|string|max:255',
             'email' => 'required|email:dns|unique:users|max:255',
-            'password' => ['required', 'string','max:8', Password::min(8)->mixedCase()->letters()->numbers()->symbols()->uncompromised()],
+            'password' => ['required', 'string', 'max:8', Password::min(8)->mixedCase()->letters()->numbers()->symbols()->uncompromised()],
             'captcha' => 'required|captcha'
         ], [
-            // 'nip.required' => 'NIP wajib diisi.',
-            // 'nip.max' => 'NIP maksimal 18 karakter.',
-            // 'name.required' => 'Nama wajib diisi.',
-            // 'email.required' => 'Email wajib diisi.',
-            // 'email.email' => 'Format email tidak valid.',
-            // 'email.unique' => 'Email sudah terdaftar.',
-            // 'password.required' => 'Password wajib diisi.',
-            // 'password.min' => 'Password minimal 8 karakter.',
             'captcha.required' => 'Captcha wajib diisi.',
             'captcha.captcha' => 'Captcha tidak valid.'
         ]);
-    
-        $validated['password'] = Hash::make($validated['password']);
-        $validated['email_verified_at'] = now();
-        $validated['remember_token'] = Str::random(10);
-    
-        User::create($validated);
-    
+
+        // $validated['password'] = Hash::make($validated['password']);
+        // $validated['email_verified_at'] = now();
+        // $validated['remember_token'] = Str::random(10);
+        $user = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'email_verified_at'=>now()
+        ];
+
+        $dosen = [
+            'nip' => $request->nip,
+            'nama' => $request->name,
+            'nidn' => $request->nidn,
+            'jurusan' => $request->id_jurusan,
+            'prodi' => $request->id_prodi,
+            'gender' => $request->gender,
+            'email' => $request->email
+        ];
+
+        User::create($user);
+        ref_dosen::create($dosen);
+
         return redirect('/login')->with('success', 'Registration successful. Please login.');
     }
 

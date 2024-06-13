@@ -11,16 +11,12 @@
                 <div class="modal-body">
                     <input type="hidden" id="editDataId" name="id">
                     <div class="form-group">
-                        <label for="editKodeMatkul">Kode KBK:</label>
-                        <input type="text" class="form-control" id="editKodeMatkul" name="KodeMatkul" required>
+                        <label for="editkodejurusan">Kode Jurusan:</label>
+                        <input type="text" class="form-control" id="editkodejurusan" name="editkodejurusan" required>
                     </div>
                     <div class="form-group">
-                        <label for="editNama">Nama:</label>
-                        <input type="text" class="form-control" id="editNama" name="Nama" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="editJumlahsks">Jumlah SKS:</label>
-                        <textarea class="form-control" id="editJumlahsks" name="Jumlahsks" required></textarea>
+                        <label for="editjurusan">Nama Jurusan:</label>
+                        <input type="text" class="form-control" id="editjurusan" name="editjurusan" required>
                     </div>
                 </div>
                 <div class="modal-footer">

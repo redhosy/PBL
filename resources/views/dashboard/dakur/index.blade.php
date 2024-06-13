@@ -43,7 +43,7 @@
                                         <td>{{ $data_kur->firstItem()+$loop->index }}</td>
                                         <td>{{ $item->nama_kurikulum}}</td>
                                         <td>{{ $item->tahun }}</td>
-                                        <td>{{ $item->prodi->prodi}}</td>
+                                        <td>{{ $item->prodi?->prodi}}</td>
                                         <td>
                                             <span class="badge rounded-pill {{ $item->status ? 'bg-success  text-white' : 'bg-danger text-white' }} py-2 px-4">
                                                 {{ $item->status ? 'Aktif' : 'Tidak Aktif' }}

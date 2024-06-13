@@ -22,12 +22,12 @@ class DatabaseSeederPimjur extends Seeder
             'status' => '1',
         ]);
 
-        ref_dapinjurs::create([
-            'id_jabatan_pimpinan' => 2,
-            'id_jurusan' => 7,
-            'id_dosen' => 122,
-            'periode' => '2022-2026',
-            'status' => '1',
-        ]);
+        // ref_dapinjurs::create([
+        //     'id_jabatan_pimpinan' => 2,
+        //     'id_jurusan' => 7,
+        //     'id_dosen' => 122,
+        //     'periode' => '2022-2026',
+        //     'status' => '1',
+        // ]);
     }
 }

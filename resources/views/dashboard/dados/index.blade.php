@@ -31,7 +31,9 @@
                                     <tr class="auto-width">
                                         <th>No</th>
                                         <th>Nama</th>
+                                        <th>NIDN</th>
                                         <th>NIP</th>
+                                        <th>gender</th>
                                         <th>Jurusan</th>
                                         <th>Prodi</th>
                                         <th>Status</th>
@@ -44,8 +46,10 @@
                                             
                                             <td>{{ $data_dos->firstItem()+$loop->index }}</td>
                                             <td class="text-nowrap">{{ $item->nama }}</td>
+                                            <td class="text-nowrap">{{ $item->nidn }}</td>
                                             <td class="text-nowrap">{{ $item->nip }}</td>
-                                            <td class="text-nowrap">{{ $item->jurusan->jurusan }}</td>
+                                            <td class="text-nowrap">{{ $item->gender == 1 ? 'Laki-Laki' : 'Perempuan' }}</td>
+                                            <td class="text-nowrap">{{ $item->jurusan->jurusan ?? '~' }}</td>
                                             <td class="text-nowrap">{{ $item->prodi?->prodi }}</td>
                                             {{-- <td>{{ $item->image }}</td>  --}}
                                             <td>

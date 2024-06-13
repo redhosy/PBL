@@ -2,28 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\jabpims;
 use App\Models\ref_dapinjurs;
+use App\Models\ref_dosen;
+use App\Models\ref_jurusans;
 use Illuminate\Http\Request;
-
 class RefDapinjurController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
 
-    public function index(Request $request){
-        if($request->has('cari')){
-            $data_pim = ref_dapinjurs::where('nama', 'like', '%' . $request->cari . '%')
-                                ->orWhere('jabatan', 'like', '%' . $request->cari . '%')
-                                ->get();
-            $isEmpty=$data_pim->isEmpty();                    
-        } else {
-            $isEmpty=false;
-            $data_pim = ref_dapinjurs::with(['jurusan','dosen','jabpim'])->paginate(10);
-        }
-        
-        return view('dashboard.dapinjur.index')->with('data_pim', $data_pim);
-    }    
+    public function index(Request $request)
+    {
+        $jurusan = ref_jurusans::all();
+        $dosen = ref_dosen::all();
+        $jabpim = jabpims::all();
+        $data_pim = ref_dapinjurs::with(['jurusan', 'dosen', 'jabpim'])->paginate(5);
+        $years = range(date('Y') - 50, date('Y') + 10);
+        return view('dashboard.dapinjur.index', compact('data_pim', 'jurusan', 'years', 'dosen','jabpim'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -38,27 +37,47 @@ class RefDapinjurController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'jabpim' => 'required',
+            'jurusan' => 'required',
+            'nama' => 'required',
+            'periode_start' => 'required',
+            'periode_end' => 'required',
+            'status' => 'required',
+        ]);
+
+        $periode = $validated['periode_start'] . '-' . $validated['periode_end'];
+
+        $data = new ref_dapinjurs();
+        $data->id_jabatan_pimpinan = $validated['jabpim'];
+        $data->id_jurusan = $validated['jurusan'];
+        $data->id_dosen = $validated['nama'];
+        $data->periode = $periode;
+        $data->status = $validated['status'];
+        $data->save();
+
+        return response()->json(['data' => $data]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id) {
+    public function show($id)
+    {
         $data = ref_dapinjurs::with(['jabpim', 'dosen', 'jurusan'])->find($id);
         return response()->json([
             'data' => $data,
             'status' => 200
         ]);
     }
-    
+
 
     public function edit(string $id)
     {
         $data = ref_dapinjurs::find($id);
         return response()->json([
-            'status'=>200,
-            'data'=>$data
+            'status' => 200,
+            'data' => $data
         ]);
     }
 
@@ -69,16 +88,32 @@ class RefDapinjurController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ref_dapinjurs $ref_dapinjur)
+    public function update(Request $request, ref_dapinjurs $ref_dapinjurs)
     {
-        //
+        $validated = $request->validate([
+            'jabpim' => 'required',
+            'jurusan' => 'required',
+            'nama' => 'required',
+            'periode' => 'required',
+            'status' => 'required',
+        ]);
+
+        $ref_dapinjurs->update($validated);
+
+        return response()->json(['data' => $ref_dapinjurs]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ref_dapinjurs $ref_dapinjur)
+    public function destroy(string $id)
     {
-        //
+
+        $kbk = ref_dapinjurs::find($id);
+
+        if ($kbk->delete()) {
+            return response()->json(['success' => true]);
+        }
+        return  response()->json(['status' => 404, 'message' => 'something went wrong']);
     }
 }

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('registers', function (Blueprint $table) {
             $table->id();
-            $table->enum('peran',['dosenkbk','dosenPengampu']);
             $table->integer('nip');
             $table->string('nama');
+            $table->string('nidn');
             $table->string('email');
             $table->string('jurusan');
             $table->string('prodi');
