@@ -11,28 +11,15 @@
             <div class="modal-body table-responsive">
                 <table class="table table-striped table-bordered no-margin">
                     <tr>
-                        <th>NIP :</th>
-                        <td><span id="detailnip"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Nama :</th>
-                        <td><span id="detailNama"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Email :</th>
-                        <td><span id="detailemail"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Jurusan :</th>
-                        <td><span id="detailjurusan"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Prodi :</th>
-                        <td><span id="detailprodi"></span></td>
+                        <th>Semester Tahun Akademik :</th>
+                        <td><span id="detailsemta"></span></td>
                     </tr>
                     <tr>
                         <th>Status :</th>
-                        <td><span id="detailstatus"></span></td>
+                        {{-- <td><span id="detailstatus"
+                            class="badge rounded-pill {{ $item->status ? 'bg-danger text-white' : 'bg-success text-white' }} py-2 px-4">
+                            {{ $item->status ? 'Tidak Aktif' : ' Aktif' }}
+                        </span></td> --}}
                     </tr>
                 </table>
             </div>

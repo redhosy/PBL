@@ -4,9 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Http\Middleware\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class isAdmin
+class RoleCheck
 {
     /**
      * Handle an incoming request.
@@ -15,9 +16,10 @@ class isAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->guest() || auth()->user()->name !== 'admin'){
+        if(!auth()->check() || !auth()->user()->role){
             abort(403);
         }
+
         return $next($request);
     }
 }

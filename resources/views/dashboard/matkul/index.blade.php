@@ -59,7 +59,7 @@
                                         <td>{{ $item->semester }}</td>
                                         <td class="text-nowrap">{{ $item->kurikulum->nama_kurikulum }}</td>
                                         <td>
-                                            <button class="btn btn-icon btn-info detailBtn" data-id="{{ $item->id }}"><i
+                                            <button type="button" class="btn btn-icon btn-info detailBtn" data-id="{{ $item->id }}"><i
                                                 class="fas fa-info-circle"></i></button>
                                          </td>
                                     </tr>

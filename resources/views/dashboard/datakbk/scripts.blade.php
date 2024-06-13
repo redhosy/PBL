@@ -24,7 +24,7 @@
         $('#modalAdd').on('click', function() {
             $('#addModal').modal('show');
 
-        })
+        });
 
         $('#saveKbk').on('click', function() {
             let formData = $('#addPostForm').serialize();

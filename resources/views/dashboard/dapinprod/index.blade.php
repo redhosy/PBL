@@ -31,6 +31,7 @@
                                         <th>Dosen</th>
                                         <th>Priode</th>
                                         <th>Status</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="dataTable">
@@ -45,6 +46,13 @@
                                             <span class="badge rounded-pill {{ $item->status ? 'bg-success  text-white' : 'bg-danger text-white' }} py-2 px-4">
                                                 {{ $item->status ? 'Aktif' : 'Tidak Aktif' }}
                                             </span>   
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-around">
+                                                <button class="btn btn-icon btn-warning editBtn ml-2" data-id="{{ $item->id }}"><i class="far fa-edit"></i></button>
+                                                <button class="btn btn-icon btn-info detailBtn ml-2" data-id="{{ $item->id }}"><i class="fas fa-info-circle"></i></button>
+                                                <button class="btn btn-danger deleteBtn ml-2" data-toggle="modal" data-id="{{ $item->id }}"><i class="fas fa-trash"></i></button>
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach

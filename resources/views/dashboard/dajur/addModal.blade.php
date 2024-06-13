@@ -11,24 +11,19 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="KodeMatkul">Kode Matkul:</label>
-                        <input type="text" class="form-control" id="KodeMatkul" name="KodeMatkul" required>
-                        <span id="error_KodeMatkul"></span>
+                        <label for="kodejurusan">Kode Jurusan:</label>
+                        <input type="text" class="form-control" id="kodejurusan" name="kodejurusan" required>
+                        <span id="error_kodejur"></span>
                     </div>
                     <div class="form-group">
-                        <label for="Nama">Nama Matkul:</label>
-                        <input type="text" class="form-control" id="Nama" name="Nama" required>
-                        <span id="error_Nama"></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="Jumlahsks">Jumlah SKS:</label>
-                        <input type="text" class="form-control" id="Jumlahsks" name="Jumlahsks" required>
-                        <span id="error_Jumlahsks"></span>
+                        <label for="jurusan">Nama Jurusan:</label>
+                        <input type="text" class="form-control" id="jurusan" name="jurusan" required>
+                        <span id="error_jurusan"></span>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="saveKbk">Save</button>
+                    <button type="button" class="btn btn-primary" id="saveKbk">Save</button>
                         <span id="error_kode"></span>
 
                 </div>

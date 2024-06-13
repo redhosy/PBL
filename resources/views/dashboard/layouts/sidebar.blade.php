@@ -48,13 +48,10 @@
         <a class="nav-link has-dropdown"><i class="fas fa-th-large"></i><span>KBK</span></a>
         <ul class="dropdown-menu">
           <li><a class="nav-link" href="/datakbk">Data KBK</a></li>
-          <li><a class="nav-link" href="/matkulkbk">Mata Kuliah KBK</a></li>
-          <li><a class="nav-link" href="/dosenkbk">Dosen KBK</a></li>
-          <li><a class="nav-link" href="/dosenkbk">Jabatan KBK</a></li>
         </ul>
       </li>
       <li class="dropdown">
-        <a class="nav-link has-dropdown"><i class="fa fa-upload"></i><span>Unggah KBK</span></a>
+        <a class="nav-link has-dropdown"><i class="fa fa-upload"></i><span>Layanan KBK</span></a>
         <ul class="dropdown-menu">
           <li><a class="nav-link" href="/RPS">Unggah RPS</a></li>
           <li><a class="nav-link" href="/soalUas">Unggah Soal UAS</a></li>
@@ -67,9 +64,6 @@
           <li><a class="nav-link" href="/">Verifikasi RPS</a></li>
         </ul>
       </li>
-      <li>
-        <a href="/#" class="nav-link mb-5"><i class="fas fa-users"></i><span>Pengguna</span></a>
-      </li> 
     </ul>
   </aside>
 </div>
