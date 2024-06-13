@@ -38,7 +38,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Kode RPS</th>
-                                        <th>Kode MATKUL</th>
+                                        <th>Kode Matkul</th>
                                         <th>Versi</th>
                                         <th>Dokumen</th>
                                         <th>Dosen Pengembang</th>
@@ -91,9 +91,9 @@
     </div>
 
 
-    @include('dashboard.datakbk.addModal')
-    @include('dashboard.datakbk.editModal')
-    @include('dashboard.datakbk.detailModal')
+    @include('dashboard.RPS.addModal')
+    @include('dashboard.RPS.editModal')
+    @include('dashboard.RPS.detailModal')
 
-    @include('dashboard.datakbk.scripts')
+    @include('dashboard.RPS.scripts')
 @endsection

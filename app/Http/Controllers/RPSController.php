@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ref_smt_thn_akds;
+use App\Models\ref_damatkul;
 use App\Models\RPS;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class RPSController extends Controller
 {
@@ -12,15 +16,14 @@ class RPSController extends Controller
      */
     public function index()
     {
-        return view('dashboard.RPS.index');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $ver_rps = ref_smt_thn_akds::all();
+        $damatkul = ref_damatkul::all();
+        $rps = RPS::all();
+        
+        return view('dashboard.RPS.index')->with([
+            'kode_matkul' => $damatkul,
+            'versi' => $ver_rps,
+        ]);
     }
 
     /**
@@ -28,7 +31,30 @@ class RPSController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validasi data
+        $validatedData = $request->validate([
+            'koderps' => 'required|string',
+            'kode_matkul' => [
+                'required',
+                Rule::exists('ref_damatkul', 'kode_matkul'),
+            ],
+            'versi' => [
+                'required',
+                Rule::exists('ref_smt_thn_akds', 'versi'),
+            ],
+            'dokumen' => 'nullable|file|mimes:pdf|max:2048',
+            'dosen' => 'required|string',
+        ]);
+
+        // Simpan dokumen jika ada
+        if ($request->hasFile('dokumen')) {
+            $validatedData['dokumen'] = $request->file('dokumen')->store('dokumen_rps', 'public');
+        }
+
+        // Simpan data ke database
+        $rps = RPS::create($validatedData);
+
+        return response()->json(['message' => 'Data berhasil disimpan', 'data' => $rps]);
     }
 
     /**
