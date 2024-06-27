@@ -20,6 +20,18 @@
                         </select>
                         <span id="error_jabpim"></span>
                     </div>
+
+                    <div class="form-group">
+                        <label for="prodi">Prodi</label>
+                        <select class="form-control w-100 selectpicker" id="prodi" name="prodi">
+                            <option value="">Pilih Jurusan</option>
+                            @foreach ($prodi as $item)
+                                <option value="{{ $item->id }}">{{ $item->prodi }}</option>
+                            @endforeach
+                        </select>
+                        <span id="error_prodi"></span>
+                    </div>
+
                     <div class="form-group">
                         <label for="nama">Nama:</label>
                         <div class="selectpicker">
@@ -32,16 +44,7 @@
                             <span id="error_nama"></span>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="jurusan">Jurusan</label>
-                        <select class="form-control w-100 selectpicker" id="jurusan" name="jurusan">
-                            <option value="">Pilih Jurusan</option>
-                            @foreach ($jurusan as $item)
-                                <option value="{{ $item->id }}">{{ $item->jurusan }}</option>
-                            @endforeach
-                        </select>
-                        <span id="error_jurusan"></span>
-                    </div>
+                    
                     <div class="form-group">
                         <label for="periode_start">Periode Mulai</label>
                         <div class="selectpicker">
@@ -68,6 +71,7 @@
                             <span id="error_periode_end" class="text-danger"></span>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label for="status">Status</label>
                         <select class="form-control w-100 selectpicker" id="status" name="status">

@@ -21,7 +21,11 @@
             </div>
         </div>
         <ul class="navbar-nav ms-auto">
-            @auth
+            <li class="nav-item">
+                <a href="/login" class="btn btn-primary text-white rounded-0 py-4 px-lg-4 d-none d-lg-block nav-link {{ Request::is('active') === 'login' ? 'active' : '' }}">Login<i
+                        class=" fas fa-arrow-right ms-3"></i></a>
+            </li>
+            {{-- @auth
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
@@ -38,11 +42,7 @@
                     </ul>
                 </li>
             @else
-                <li class="nav-item">
-                    <a href="/login" class="btn btn-primary text-white rounded-0 py-4 px-lg-4 d-none d-lg-block nav-link {{ Request::is('active') === 'login' ? 'active' : '' }}">Login<i
-                            class=" fas fa-arrow-right ms-3"></i></a>
-                </li>
-            @endauth
+            @endauth --}}
         </ul>
     </div>
 </nav>

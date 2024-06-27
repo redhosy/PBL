@@ -14,54 +14,41 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h3>Data Jurusan</h3>
                         <div class="card-header-form">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text" id="searchInput" class="form-control" placeholder="Search">
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-primary" id="searchButton"><i
-                                                class="fas fa-search"></i></button>
-                                    </div>
-                                    {{-- tambah --}}
-                                    <button class="btn btn-success ml-2" type="button" data-toggle="modal" id="modalAdd"><i
-                                            class="fas fa-plus"></i></button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                     <div class="card-body p-3 rounded">
                         <div class="table-responsive">
-                            <div class="alert alert-success d-none" id="success-alert">
-                                Berhasil
+                            <div class="alert alert-success d-none text-light" id="success-alert">
                             </div>
-                            <table class="table table-striped table-bordered">
-                                <thead>
+                            <table class="table table-striped table-bordered" id="dataTable" class="display">
+                                <thead class="bg-primary">
                                     <tr>
-                                        <th>No</th>
-                                        <th>Kode Jurusan</th>
-                                        <th>Nama Jurusan</th>
-                                        <th>Action</th>
+                                        <th class="text-light">No</th>
+                                        <th class="text-light">Kode Jurusan</th>
+                                        <th class="text-light">Nama Jurusan</th>
+                                        <th class="text-light">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="datatable">
+                                <tbody>
                                     @foreach ($data_jur as $item)
                                         <tr id="data{{ $item->id }}">
-                                            <td>{{ $data_jur->firstItem() + $loop->index }}</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->kode_jurusan }}</td>
                                             <td>{{ $item->jurusan }}</td>
-                                            <td>
-                                                <button class="btn btn-icon btn-warning editBtn"
-                                                    data-id="{{ $item->id }}"><i class="far fa-edit"></i></button>
+                                            <td class="d-flex justify-content-around">
+                                                {{-- <button class="btn btn-icon btn-warning editBtn"
+                                                    data-id="{{ $item->id }}"><i class="far fa-edit"></i></button> --}}
                                                 <button class="btn btn-icon btn-info detailBtn"
                                                     data-id="{{ $item->id }}"><i
                                                         class="fas fa-info-circle"></i></button>
-                                                <button class="btn btn-danger deleteBtn" data-toggle="modal"
-                                                    data-id="{{ $item->id }}"><i class="fas fa-trash"></i></button>
+                                                {{-- <button class="btn btn-danger deleteBtn" data-toggle="modal"
+                                                    data-id="{{ $item->id }}"><i class="fas fa-trash"></i></button> --}}
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $data_jur->links() }}
+                            {{-- {{ $data_jur->links() }} --}}
                         </div>
                     </div>
                 </div>
@@ -87,7 +74,7 @@
             </div>
         </div>
     </div>
+    @include('dashboard.dajur.detailModal')
 @endsection
-@include('dashboard.dajur.detailModal')
-@include('dashboard.dajur.addModal')
-@include('dashboard.dajur.editModal')
+{{-- @include('dashboard.dajur.addModal')
+@include('dashboard.dajur.editModal') --}}

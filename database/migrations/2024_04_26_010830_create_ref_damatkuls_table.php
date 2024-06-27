@@ -12,18 +12,18 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ref_damatkuls', function (Blueprint $table) {
-            $table->id()->nullable(false);
-            $table->string('kode_matakuliah')->default(null);
-            $table->string('nama_matakuliah')->default(null);
+            $table->id();
+            $table->string('kode_matakuliah');
+            $table->string('nama_matakuliah');
             $table->enum('TP', ['T', 'P', 'T/P'])->comment('Bentuk perkuliahan');
-            $table->integer('sks')->nullable()->default(null);
-            $table->integer('jam')->nullable(false);
-            $table->integer('sks_teori')->nullable(false);
-            $table->integer('sks_praktek')->nullable(false);
-            $table->integer('jam_teori')->nullable(false);
-            $table->integer('jam_praktek')->nullable(false);
-            $table->integer('semester')->nullable()->default(null);
-            $table->integer('id_kurikulum')->nullable()->default(null);
+            $table->integer('sks');
+            $table->integer('jam');
+            $table->integer('sks_teori');
+            $table->integer('sks_praktek');
+            $table->integer('jam_teori');
+            $table->integer('jam_praktek');
+            $table->integer('semester');
+            $table->integer('id_kurikulum');
             $table->timestamps();
         });
     }

@@ -35,6 +35,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\CheckUserSession::class,
         ],
 
         'api' => [
@@ -64,6 +65,11 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'role' => \App\Http\Middleware\RoleCheck::class,
+        'admin' => \App\Http\Middleware\RoleCheck::class,
+        'super-admin' => \App\Http\Middleware\RoleCheck::class,
+        'dosen-pengampu' => \App\Http\Middleware\RoleCheck::class,
+        'web' => \App\Http\Middleware\LogActivity::class,
+        'checkUserSession' => \App\Http\Middleware\CheckUserSession::class,
     ];
     // app/Http/Kernel.php
 }

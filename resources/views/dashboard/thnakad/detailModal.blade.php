@@ -9,6 +9,7 @@
                 </button>
             </div>
             <div class="modal-body table-responsive">
+                <input type="hidden" id="editDataId">
                 <table class="table table-striped table-bordered no-margin">
                     <tr>
                         <th>Semester Tahun Akademik :</th>
@@ -16,10 +17,7 @@
                     </tr>
                     <tr>
                         <th>Status :</th>
-                        <td><span id="detailstatus"
-                            class="badge rounded-pill {{ $item->status ? 'bg-danger text-white' : 'bg-success text-white' }} py-2 px-4">
-                            {{ $item->status ? 'Tidak Aktif' : ' Aktif' }}
-                        </span></td>
+                        <td><span id="detailstatus"></span></td>
                     </tr>
                 </table>
             </div>

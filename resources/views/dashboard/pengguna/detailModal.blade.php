@@ -9,17 +9,19 @@
                 </button>
             </div>
             <div class="modal-body table-responsive">
+                <input type="hidden" id="detailDataId" name="id">
                 <table class="table table-striped table-bordered no-margin">
                     <tr>
-                        <th>Semester Tahun Akademik :</th>
-                        <td><span id="detailsemta"></span></td>
+                        <th>Nama :</th>
+                        <td><span id="detailnama"></span></td>
                     </tr>
                     <tr>
-                        <th>Status :</th>
-                        {{-- <td><span id="detailstatus"
-                            class="badge rounded-pill {{ $item->status ? 'bg-danger text-white' : 'bg-success text-white' }} py-2 px-4">
-                            {{ $item->status ? 'Tidak Aktif' : ' Aktif' }}
-                        </span></td> --}}
+                        <th>Email :</th>
+                        <td><span id="detailemail"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Role :</th>
+                        <td><span id="detailrole"></span></td>
                     </tr>
                 </table>
             </div>

@@ -11,13 +11,31 @@
                 <div class="modal-body">
                     <input type="hidden" id="editDataId" name="id">
                     <div class="form-group">
-                        <label for="editkodejurusan">Kode Jurusan:</label>
-                        <input type="text" class="form-control" id="editkodejurusan" name="editkodejurusan" required>
+                        <label for="editnama">Nama:</label>
+                        <input type="text" class="form-control" id="editnama" name="editnama" required>
                     </div>
                     <div class="form-group">
-                        <label for="editjurusan">Nama Jurusan:</label>
-                        <input type="text" class="form-control" id="editjurusan" name="editjurusan" required>
+                        <label for="editemail">Email:</label>
+                        <input type="email" class="form-control" id="editemail" name="editemail" required>
                     </div>
+                    <div class="form-group">
+                        <label for="editperan">peran:</label>
+                        <select class="form-control" id="editperan" name="editperan" required>
+                            <option value="super admin">Super Admin</option>
+                            <option value="admin">Admin</option>
+                            <option value="pimpinan jurusan">Pimpinan Jurusan</option>
+                            <option value="pimpinan program studi">Pimpinan Program Studi</option>
+                            <option value="dosen pengampu">Dosen Pengampu</option>
+                            <option value="pengurus kbk">Pengurus KBK</option>
+                            <option value="dosen kbk">Dosen KBK</option>
+                        </select>
+                    </div>
+                    
+                    {{-- <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" value="{{ old('randomPassword') }}" readonly>
+                        <span id="error_password"></span>
+                    </div> --}}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

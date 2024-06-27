@@ -14,12 +14,13 @@ class RoleCheck
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, $role): Response
     {
-        if(!auth()->check() || !auth()->user()->role){
-            abort(403);
-        }
+        $role = explode('|', $role);
 
-        return $next($request);
+        if (in_array($request->user()->role, $role)) {
+            return $next($request);
+        }
+        abort(403, "Kamu butuh Izin");
     }
 }

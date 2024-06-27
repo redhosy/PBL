@@ -56,10 +56,10 @@
                                     <button class="btn btn-outline-dark px-5 py-2" type="submit">Masuk</button>
                                 </div>
                             </form>
-                            <div>
+                            {{-- <div>
                                 <p class="mb-0 small text-dark">Belum Punya Akun? <a href="/register"
                                         class="text-dark-50 fw-bold">Daftar</a></p>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

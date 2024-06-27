@@ -23,72 +23,73 @@ class RegisterController extends Controller
      */
     public function index()
     {
-        $kbk_jur = ref_jurusans::all();
-        $kbk_pro = ref_prodis::all();
-        // $dosenkbk = RefDosenkbk::latest()->paginate(10);
-        $statuses = [
-            '1' => 'Aktif',
-            '0' => 'Tidak-Aktif'
-        ];
-        return view('register')->with([
-            'data_jur' => $kbk_jur,
-            'data_pro' => $kbk_pro,
-            'statuses' => $statuses
-        ]);
+        // $kbk_jur = ref_jurusans::all();
+        // $kbk_pro = ref_prodis::all();
+        // // $dosenkbk = RefDosenkbk::latest()->paginate(10);
+    
+        // return view('register')->with([
+        //     'data_jur' => $kbk_jur,
+        //     'data_pro' => $kbk_pro,
+        // ]);
     }
     /**
      * Show the form for creating a new resource.
      */
-    public function create($data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'role' => $data['role'],
-        ]);
-    }
+    // public function create($data)
+    // {
+    //     return User::create([
+    //         'name' => $data['name'],
+    //         'email' => $data['email'],
+    //         'gender' => $data['gender'],
+    //         'password' => Hash::make($data['password']),
+    //         'role' => $data['role'],
+    //     ]);
+    // }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'nip' => 'required|string|max:18',
-            'name' => 'required|string|max:255',
-            'email' => 'required|email:dns|unique:users|max:255',
-            'password' => ['required', 'string', 'max:8', Password::min(8)->mixedCase()->letters()->numbers()->symbols()->uncompromised()],
-            'captcha' => 'required|captcha'
-        ], [
-            'captcha.required' => 'Captcha wajib diisi.',
-            'captcha.captcha' => 'Captcha tidak valid.'
-        ]);
+        // $user = [
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        //     'gender' => $request->gender,
+        //     'password' => bcrypt($request->password),
+        //     'email_verified_at'=>now()
+        // ];
+
+        // $validated = $request->validate([
+        //     // 'nip' => 'required|string|max:18',
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|email:dns|unique:users|max:255',
+        //     'gender' => 'required|string|max:255',
+        //     'password' => ['required', 'string', 'max:8', Password::min(8)->mixedCase()->letters()->numbers()->symbols()->uncompromised()],
+        //     'captcha' => 'required|captcha'
+        // ], [
+        //     'captcha.required' => 'Captcha wajib diisi.',
+        //     'captcha.captcha' => 'Captcha tidak valid.'
+        // ]);
 
         // $validated['password'] = Hash::make($validated['password']);
         // $validated['email_verified_at'] = now();
         // $validated['remember_token'] = Str::random(10);
-        $user = [
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'email_verified_at'=>now()
-        ];
+        
 
-        $dosen = [
-            'nip' => $request->nip,
-            'nama' => $request->name,
-            'nidn' => $request->nidn,
-            'jurusan' => $request->id_jurusan,
-            'prodi' => $request->id_prodi,
-            'gender' => $request->gender,
-            'email' => $request->email
-        ];
+        // $dosen = [
+        //     'nip' => $request->nip,
+        //     'nama' => $request->name,
+        //     'nidn' => $request->nidn,
+        //     'jurusan' => $request->id_jurusan,
+        //     'prodi' => $request->id_prodi,
+        //     'gender' => $request->gender,
+        //     'email' => $request->email
+        // ];
 
-        User::create($user);
-        ref_dosen::create($dosen);
+        // User::create($user);
+        // // ref_dosen::create($dosen);
 
-        return redirect('/login')->with('success', 'Registration successful. Please login.');
+        // return redirect('/login')->with('success', 'Registration successful. Please login.');
     }
 
     /**

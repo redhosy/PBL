@@ -1,10 +1,5 @@
 <script>
-    if (typeof jQuery !== 'undefined') {
-        console.log("jQuery is loaded");
-    } else {
-        console.error("jQuery is not loaded");
-    }
-
+    // Add Data
     $(document).ready(function() {
         // Setup CSRF token for AJAX requests
         $.ajaxSetup({
@@ -13,51 +8,172 @@
             }
         });
 
-        //    detail
-        $(document).on('click', '.detailBtn', function() {
-            let itemId = $(this).data('id');
 
-            console.log("Button clicked, data ID:", itemId);
-            // $.ajax({
-            //     type: "GET",
-            //     url: "{{ url('dajur') }}/" + itemId,
-            //     dataType: "json",
-            //     success: function (response) {
-            //         console.log(response)
-            //     }
-            // });
-            $.get("{{ url('dapro') }}/" + itemId, function(response) {
-                console.log(response);
-                $('#detailModal').modal('show');
+        $('#modalAdd').on('click', function() {
+            $('#addModal').modal('show');
+        });
 
-                // Assuming response.data contains the needed data
-                $('#editDataId').text(response.data.id);
-                $('#detailsemta').text(response.data.smt_thn_akd);
+        $('#saveKbk').click(function() {
+            $.ajax({
+                url: "{{ route('pengguna.store') }}",
+                type: "POST",
+                data: $('#addUserForm').serialize(),
+                success: function(response) {
+                    $('#addModal').modal('hide');
+                    // alert('User berhasil ditambahkan! Email dengan password sementara telah dikirim.');
+                    // Reset form jika perlu
+                    $('#success-alert').removeClass('d-none').text(
+                        'User berhasil ditambahkan! Email dengan password sementara telah dikirim.'
+                    );
 
-                // Handle status badge
-                const statusBadge = $('#detailstatus');
-                const isActive = response.data.status;
-                if (isActive) {
-                    statusBadge.text('Tidak Aktif');
-                    statusBadge.removeClass('bg-success').addClass('bg-danger text-white');
-                } else {
-                    statusBadge.text('Aktif');
-                    statusBadge.removeClass('bg-danger').addClass('bg-success text-white');
+                    // Hide alert after 3 seconds
+                    setTimeout(function() {
+                        $('#success-alert').addClass('d-none');
+                    }, 8000);
+
+                    // $('#dataPengguna').DataTable().ajax.reload();
+                    location.reload();
+
+                    $('#addUserForm')[0].reset();
+                },
+                error: function(error) {
+                    console.log(error);
+                    var errors = error.responseJSON.errors;
+                    if (errors) {
+                        $('#error_nama').text(errors.nama ? errors.nama[0] : '');
+                        $('#error_email').text(errors.email ? errors.email[0] : '');
+                        $('#error_peran').text(errors.peran ? errors.peran[0] : '');
+                        $('#error_password').text(errors.password ? errors.password[0] :
+                            '');
+                    }
                 }
-
-            }).fail(function() {
-                console.error('Failed to fetch data');
             });
         });
 
-        // Pencarian
-        $('#searchButton').on('click', function() {
-            let value = $('#searchInput').val().toLowerCase();
-            $("#dataTable tr").filter(function() {
-                var smt_thn_akd = $(this).find('td:nth-child(2)').text().toLowerCase();
-                // var nama = $(this).find('td:nth-child(3)').text().toLowerCase();
+        // Detail
+        $(document).on('click', '.detailBtn', function() {
+            $('#detailModal').modal('show');
 
-                $(this).toggle(smt_thn_akd.indexOf(value) > -1);
+            var userId = $(this).data('id');
+
+            $.ajax({
+                type: "GET",
+                url: "pengguna/" + userId,
+                dataType: "json",
+                success: function(response) {
+                    console.log(response);
+                    $('#detailDataId').text(response
+                    .id); // Pastikan properti sesuai dengan response dari server
+                    $('#detailnama').text(response.name);
+                    $('#detailemail').text(response.email);
+                    $('#detailrole').text(response.role);
+                },
+                error: function(error) {
+                    console.log(error);
+                    alert('Failed to fetch user details.');
+                }
+            });
+        });
+
+
+        //edit
+        $(document).on('click', '.editBtn', function() {
+            let itemId = $(this).data('id');
+
+            $.ajax({
+                type: "get",
+                url: "pengguna/" + itemId + "/edit",
+                dataType: "json",
+                success: function(response) {
+                    if (response.data) {
+                        $('#editModal').modal('show');
+                        $('#editDataId').val(response.data.id);
+                        $('#editemail').val(response.data.email);
+                        $('#editnama').val(response.data.name);
+                        $('#editperan').val(response.data.role);
+                    } else {
+                        console.error('Data not found');
+                    }
+                },
+                error: function(error) {
+                    console.error('Failed to fetch data', error);
+                }
+            });
+        });
+
+
+        $('#editDataForm').on('submit', function(e) {
+            e.preventDefault();
+            let dataId = $('#editDataId').val();
+            let formData = $(this).serialize(); // Serialize form data
+            $.ajax({
+                url: "{{ url('pengguna') }}/" + dataId,
+                method: 'PUT',
+                data: formData,
+                success: function(response) {
+                    $('#editModal').modal('hide');
+                    $('#success-alert').removeClass('d-none').text(
+                        'User berhasil ditambahkan! Email dengan password sementara telah dikirim.'
+                    );
+
+                    // Hide alert after 3 seconds
+                    setTimeout(function() {
+                        $('#success-alert').addClass('d-none');
+                    }, 6000);
+
+                    // $('#dataPengguna').DataTable().ajax.reload();
+                    location.reload();
+
+                },
+                error: function(xhr) {
+                    let errors = xhr.responseJSON.errors;
+                    console.log(xhr)
+                }
+            });
+        });
+
+
+        //tooltip
+        $('[data-toggle="tooltip"]').tooltip();
+
+
+        $('#dataTable').DataTable();
+        var table = $('#dataTable').DataTable();
+
+        $('#searchInput').on('keyup', function() {
+            table.search(this.value).draw();
+        });
+
+        //  Delete
+        $(document).on('click', '.deleteBtn', function() {
+            // alert('lll')
+            let dataId = $(this).data('id');
+            $('#modalDelete').modal('show');
+            $('#confirmDelete').data('id', dataId);
+        });
+
+        // Confirm deletion
+        $('#confirmDelete').click(function() {
+            var dataId = $(this).data('id');
+            $.ajax({
+                url: "{{ url('pengguna') }}/" + dataId,
+                method: 'DELETE',
+                success: function(res) {
+                    console.log(res);
+                    $('#data' + dataId).remove();
+                    $('#modalDelete').modal('hide');
+                    $('#success-alert').removeClass('d-none').text(
+                        'Data berhasil dihapus!');
+
+                    // Hide alert after 3 seconds
+                    setTimeout(function() {
+                        $('#success-alert').addClass('d-none');
+                    }, 3000);
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                    alert('Failed to delete data');
+                }
             });
         });
     });

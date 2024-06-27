@@ -23,14 +23,17 @@
                         <td><span id="detaildosen"></span></td>
                     </tr>
                     <tr>
-                        <th>Priode :</th>
-                        <td><span id="detailprodi"></span></td>
+                        <th>Periode :</th>
+                        <td><span id="detailperiode"></span></td>
                     </tr>
                     <tr>
                         <th>Status :</th>
-                        <td><span class="badge rounded-pill {{ $item->status ? 'bg-success  text-white' : 'bg-danger text-white' }} py-2 px-4">
-                            {{ $item->status ? 'Aktif' : 'Tidak Aktif' }}
-                        </span>  </td>
+                        <td>
+                            <span
+                                class="badge rounded-pill {{ $item->status ? 'bg-success text-white' : 'bg-danger text-white' }} py-2 px-4">
+                                {{ $item->status ? 'Aktif' : ' Tidak Aktif ' }}
+                            </span>
+                        </td>
                     </tr>
                 </table>
             </div>

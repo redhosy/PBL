@@ -11,7 +11,7 @@ class RefDamatkulController extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-        $data_damat=ref_damatkul::latest()->paginate(10);
+        $data_damat=ref_damatkul::all();
         return view('dashboard.matkul.index',compact('data_damat'));
     }  
 
@@ -36,7 +36,7 @@ class RefDamatkulController extends Controller
      * Display the specified resource.
      */
     public function show($id) {
-        $data = ref_damatkul::with(['id_kurikulum'])->find($id);
+        $data = ref_damatkul::with(['kurikulum'])->find($id);
         return response()->json([
             'data' => $data,
             'status' => 200

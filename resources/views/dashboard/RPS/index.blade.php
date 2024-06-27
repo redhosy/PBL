@@ -1,6 +1,10 @@
 @extends('dashboard.layouts.app')
 
-@section('title', 'Data Soal UAS')
+@section('title', 'Data RPS')
+
+@section('scriptpages')
+    @include('dashboard.RPS.scripts')
+@endsection
 
 @section('content')
     <div class="container mt-5">
@@ -10,32 +14,19 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h3>Data RPS</h3>
                         <div class="card-header-form">
-                            {{-- pencarian --}}
-                            <div class="input-group">
-                                <input type="text" id="searchInput" class="form-control"
-                                    placeholder="Cari Kode atau NamaKBK...">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary mr-2" id="searchButton"><i
-                                            class="fas fa-search"></i></button>
-                                </div>
-                                {{-- print --}}
-                                {{-- <a href="#" class="d-flex d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-2">
-                                    <i class="fas fa-download fa-sm text-white-50"></i>
-                                </a> --}}
-                                {{-- tambah --}}
-                                <button class="btn btn-success" type="button" data-toggle="modal" id="modalAdd"><i
-                                        class="fas fa-plus"></i></button>
-                            </div>
+                            @can('dosen-pengampu')
+                            {{-- tambah --}}
+                            <button class="btn btn-success ml-2  action" type="button" data-toggle="tooltip" id="modalAdd"
+                                title="Tambah Data"><i class="fas fa-plus"></i></button>
+                            @endcan
                         </div>
                     </div>
                     <div class="card-body p-3 rounded">
                         <div class="table-responsive">
-                            <div class="alert alert-success d-none" id="success-alert">
-                                Berhasil
-                            </div>
-                            <table class="table table-striped table-bordered">
-                                <thead>
+                            <table class="table table-striped table-bordered" id="dataTable" class="display">
+                                <thead class="bg-primary">
                                     <tr>
+<<<<<<< Updated upstream
                                         <th>No</th>
                                         <th>Kode RPS</th>
                                         <th>Kode MATKUL</th>
@@ -43,25 +34,50 @@
                                         <th>Dokumen</th>
                                         <th>Dosen Pengembang</th>
                                         <th>Actions</th>
+=======
+                                        <th class="text-light">No</th>
+                                        <th class="text-light">Kode RPS</th>
+                                        <th class="text-light">Dosen Pengembang</th>
+                                        <th class="text-light">Matkul</th>
+                                        <th class="text-light">Dokumen</th>
+                                        <th class="text-light">Tanggal</th>
+                                        <th class="text-light">Tahun Akademik</th>
+                                        @can('dosen-pengampu')
+                                        <th class="text-light">Actions</th>
+                                        @endcan
+>>>>>>> Stashed changes
                                     </tr>
                                 </thead>
-                                <tbody id="dataTable">
-                                    {{-- @foreach ($datakbk as $data)
+                                <tbody id="DataRPS">
+                                    @foreach ($rps as $data)
                                         <tr id="data{{ $data->id }}">
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $data->kodekbk }}</td>
-                                            <td>{{ $data->nama }}</td>
-                                            <td>{{ $data->deskripsi }}</td>
+                                            <td>{{ $data->KodeRPS }}</td>
+                                            <td>{{ $data->dosen->nama }}</td>
+                                            <td>{{ $data->kode_matkul->nama_matakuliah }}</td>
                                             <td>
-                                                <button class="btn btn-icon btn-warning editBtn" data-id="{{ $data->id }}"><i
-                                                        class="far fa-edit"></i></button>
-                                                <button class="btn btn-icon btn-info detailBtn" data-id="{{ $data->id }}"><i
-                                                        class="fas fa-info-circle"></i></button>
-                                                <button class="btn btn-danger deleteBtn" data-toggle="modal" data-id="{{ $data->id }}" ><i
-                                                        class="fas fa-trash"></i></button>
+                                                @if ($data->Dokumen)
+                                                    <a class="btn btn-primary" href="{{ asset('storage/' . $data->Dokumen) }}" target="_blank">Lihat
+                                                        Dokumen</a>
+                                                @else
+                                                    Tidak ada dokumen
+                                                @endif
                                             </td>
+                                            <td>{{ $data->Tanggal }}</td>
+                                            <td>{{ $data->thnakd->smt_thn_akd }}</td>
+                                            @can('dosen-pengampu')
+                                            <td class="d-flex justify-content-around">
+                                                <button class="btn btn-icon btn-warning editBtn"
+                                                    data-id="{{ $data->id }}"><i class="far fa-edit"></i></button>
+                                                <button class="btn btn-icon btn-info detailBtn"
+                                                    data-id="{{ $data->id }}"><i
+                                                        class="fas fa-info-circle"></i></button>
+                                                <button class="btn btn-danger deleteBtn" data-toggle="modal"
+                                                    data-id="{{ $data->id }}"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                            @endcan
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -89,6 +105,7 @@
             </div>
         </div>
     </div>
+<<<<<<< Updated upstream
 
 
     @include('dashboard.datakbk.addModal')
@@ -96,4 +113,9 @@
     @include('dashboard.datakbk.detailModal')
 
     @include('dashboard.datakbk.scripts')
+=======
+    @include('dashboard.RPS.addModal')
+    @include('dashboard.RPS.editModal')
+    @include('dashboard.RPS.detailModal')
+>>>>>>> Stashed changes
 @endsection

@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ref_dapinprods', function (Blueprint $table) {
-            $table->id()->nullable(false);;
-            $table->unsignedBigInteger('id_jabatan_pimpinan')->constrained('jabpims');
-            $table->unsignedBigInteger('id_prodi')->constrained('ref_prodis');
-            $table->unsignedBigInteger('id_dosen')->constrained('ref_dosens');
-            $table->string('periode')->nullable(false);
+            $table->id()->nullable(false);
+            $table->unsignedBigInteger('id_jabatan_pimpinan')->constrained('jabpims')->on('jabatan_pimpinan')->onDelete('cascade');
+            $table->unsignedBigInteger('id_prodi')->constrained('ref_prodis')->on('prodi')->onDelete('cascade');
+            $table->unsignedBigInteger('id_dosen')->constrained('ref_dosens')->on('nama')->onDelete('cascade');
+            $table->string('periode');
             $table->enum('status',['1','0'])->default('1');
             $table->timestamps();
+
         });
     }
 
