@@ -1,3 +1,4 @@
+
 <script>
     $(document).ready(function() {
         // Setup CSRF token for AJAX requests

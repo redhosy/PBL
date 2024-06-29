@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\ActivityLog;
 use App\Models\ref_smt_thn_akds;
 use App\Models\ref_damatkul;
@@ -20,12 +21,14 @@ class SoalUasController extends Controller
      */
     public function index()
     {
+
         $dosen = ref_dosen::all();
         $thnakd = ref_smt_thn_akds::all();
         $damatkul = ref_damatkul::all();
         $soal = soalUas::with('kode_matkul', 'thnakd', 'dosen')->get();
         return view('dashboard.soalUas.index', compact('soal', 'dosen', 'thnakd', 'damatkul'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -40,6 +43,7 @@ class SoalUasController extends Controller
      */
     public function store(Request $request)
     {
+
         $data = $request->validate([
             'kodesoal' => 'required|string|max:10',
             'dosen_pengampu' => 'required|exists:ref_dosens,id',

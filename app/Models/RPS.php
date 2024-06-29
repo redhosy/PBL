@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RPS extends Model
 {
     protected $table = 'r_p_s';
+  
     protected $guarded = ['id'];
 
     public function kode_matkul()
@@ -25,3 +26,4 @@ class RPS extends Model
         return $this->belongsTo(ref_dosen::class, 'id_dosen');
     }
 }
+    

@@ -9,6 +9,7 @@ class soalUas extends Model
 {
     protected $table = 'soal_uas';
     
+
     protected $guarded = ['id'];
 
     public function kode_matkul()
