@@ -32,6 +32,24 @@ class DatabaseSeederJabpim extends Seeder
                 'kode_jabatan_pimpinan' => 'KAPRODI',
                 'status' => '1'
             ],
+            [
+                'id' => 4,
+                'jabatan_pimpinan' => 'Ketua KBK',
+                'kode_jabatan_pimpinan' => 'KAKBK',
+                'status' => '1'
+            ],
+            [
+                'id' => 5,
+                'jabatan_pimpinan' => 'Sekretaris KBK',
+                'kode_jabatan_pimpinan' => 'SEKKBK',
+                'status' => '1'
+            ],
+            [
+                'id' => 6,
+                'jabatan_pimpinan' => 'Anggota KBK',
+                'kode_jabatan_pimpinan' => 'ANGKBK',
+                'status' => '1'
+            ],
         ]);
     }
 }

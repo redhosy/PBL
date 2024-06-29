@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ref_dapinprod;
 use App\Models\ref_dosen;
 use App\Models\jabpims;
+use App\Models\ref_prodis;
 use Illuminate\Http\Request;
 
 class RefDapinprodController extends Controller
@@ -15,10 +16,11 @@ class RefDapinprodController extends Controller
     public function index(Request $request)
     {
         $dosen = ref_dosen::all();
+        $prodi = ref_prodis::all();
         $jabpim = jabpims::all();
-        $data_pim = ref_dapinprod::with([ 'dosen', 'jabpim'])->paginate(5);
+        $data_pim = ref_dapinprod::with(['prodi', 'dosen', 'jabpim'])->paginate(5);
         $years = range(date('Y') - 50, date('Y') + 10);
-        return view('dashboard.dapinprod.index', compact('data_pim', 'years', 'dosen','jabpim'));
+        return view('dashboard.dapinprod.index', compact('data_pim', 'years', 'dosen', 'prodi','jabpim'));
     }
 
     /**
@@ -37,6 +39,7 @@ class RefDapinprodController extends Controller
         $validated = $request->validate([
             'jabpim' => 'required',
             'nama' => 'required',
+            'prodi' => 'required',
             'periode_start' => 'required',
             'periode_end' => 'required',
             'status' => 'required',
@@ -47,6 +50,7 @@ class RefDapinprodController extends Controller
         $data = new ref_dapinprod();
         $data->id_jabatan_pimpinan = $validated['jabpim'];
         $data->id_dosen = $validated['nama'];
+        $data->id_prodi = $validated['prodi'];
         $data->periode = $periode;
         $data->status = $validated['status'];
         $data->save();
@@ -59,7 +63,7 @@ class RefDapinprodController extends Controller
      */
     public function show($id)
     {
-        $data = ref_dapinprod::with(['jabpim', 'dosen'])->find($id);
+        $data = ref_dapinprod::with(['jabpim', 'dosen', 'prodi'])->find($id);
         return response()->json([
             'data' => $data,
             'status' => 200
@@ -86,6 +90,7 @@ class RefDapinprodController extends Controller
         $validated = $request->validate([
             'jabpim' => 'required',
             'nama' => 'required',
+            'prodi' => 'required',
             'periode' => 'required',
             'status' => 'required',
         ]);

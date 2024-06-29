@@ -13,51 +13,33 @@
             }
         });
 
+        $('#dataTable').DataTable();
+        var table = $('#dataTable').DataTable();
+
         //    detail
         $(document).on('click', '.detailBtn', function() {
             let itemId = $(this).data('id');
 
             console.log("Button clicked, data ID:", itemId);
-            // $.ajax({
-            //     type: "GET",
-            //     url: "{{ url('dajur') }}/" + itemId,
-            //     dataType: "json",
-            //     success: function (response) {
-            //         console.log(response)
-            //     }
-            // });
-            $.get("{{ url('dapro') }}/" + itemId, function(response) {
-                console.log(response);
-                $('#detailModal').modal('show');
 
-                // Assuming response.data contains the needed data
-                $('#editDataId').text(response.data.id);
-                $('#detailsemta').text(response.data.smt_thn_akd);
+            $.ajax({
+                type: "GET",
+                url: "{{ url('thnakad') }}/" + itemId,
+                dataType: "json",
+                success: function(response) {
+                    console.log("Server Response:", response);
+                    $('#detailModal').modal('show');
+                    $('#editDataId').text(response.data.id);
+                    $('#detailsemta').text(response.data.smt_thn_akd);
 
-                // Handle status badge
-                const statusBadge = $('#detailstatus');
-                const isActive = response.data.status;
-                if (isActive) {
-                    statusBadge.text('Tidak Aktif');
-                    statusBadge.removeClass('bg-success').addClass('bg-danger text-white');
-                } else {
-                    statusBadge.text('Aktif');
-                    statusBadge.removeClass('bg-danger').addClass('bg-success text-white');
+                    let status = response.data.status;
+                    $('#detailstatus').attr('class', 'badge rounded-pill ' + (status == 1 ? 'bg-danger text-light' : 'bg-success text-light'))
+                        .text(status == 1 ? 'Tidak Aktif' : 'Aktif');
+                },
+                error: function(error) {
+                    console.error('Failed to fetch data:', error);
+                    alert('Failed to fetch data.');
                 }
-
-            }).fail(function() {
-                console.error('Failed to fetch data');
-            });
-        });
-
-        // Pencarian
-        $('#searchButton').on('click', function() {
-            let value = $('#searchInput').val().toLowerCase();
-            $("#dataTable tr").filter(function() {
-                var smt_thn_akd = $(this).find('td:nth-child(2)').text().toLowerCase();
-                // var nama = $(this).find('td:nth-child(3)').text().toLowerCase();
-
-                $(this).toggle(smt_thn_akd.indexOf(value) > -1);
             });
         });
     });

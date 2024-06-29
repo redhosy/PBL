@@ -11,26 +11,28 @@
             <div class="modal-body table-responsive">
                 <table class="table table-striped table-bordered no-margin">
                     <tr>
-                        <th>Kode RPS :</th>
-                        <td><span id="detailRps"></span></td>
+                        <th>Kode RPS:</th>
+                        <td><span id="detailkoderps"></span></td>
                     </tr>
                     <tr>
-                        <th>Kode Matkul :</th>
-                        <td><span id="detailMatkul"></span></td>
+                        <th>Dosen Pengembang:</th>
+                        <td><span id="detaildosen_pengembang"></span></td>
                     </tr>
                     <tr>
-                        <th>Versi :</th>
-                        <td><span id="detailVersi"></span></td>
+                        <th>Mata Kuliah:</th>
+                        <td><span id="detailkode_matkul"></span></td>
                     </tr>
-
                     <tr>
-                        <th>Dokumen :</th>
-                        <td><span id="detailDokumen"></span></td>
+                        <th>Dokumen:</th>
+                        <td><span id="detaildokumen"></span></td>
                     </tr>
-
                     <tr>
-                        <th>Dosen Pengembang :</th>
-                        <td><span id="detailDosen"></span></td>
+                        <th>Tanggal:</th>
+                        <td><span id="detailtanggal"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Tahun Akademik:</th>
+                        <td><span id="detailthnakd"></span></td>
                     </tr>
                 </table>
             </div>

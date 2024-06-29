@@ -14,32 +14,23 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h3>Data Tahun Akademik</h3>
                         <div class="card-header-form">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text" id="searchInput" class="form-control" placeholder="Search">
-                                    <div class="input-group-append">
-                                        <button type="button" id="searchButton" class="btn btn-primary"><i
-                                                class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                     </div>
                     <div class="card-body p-3 rounded">
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered">
-                                <thead>
+                            <table class="table table-striped table-bordered" id="dataTable" class="display">
+                                <thead class="bg-primary">
                                     <tr>
-                                        <th>No</th>
-                                        <th>Semester Tahun Akademik</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th class="text-light">No</th>
+                                        <th class="text-light">Semester Tahun Akademik</th>
+                                        <th class="text-light">Status</th>
+                                        <th class="text-light">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="dataTable">
+                                <tbody>
                                     @foreach ($data_smtakad as $item)
                                         <tr id="data{{ $item->id }}">
-                                            <td>{{ $data_smtakad->firstItem() + $loop->index }}</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $item->smt_thn_akd }}</td>
                                             <td>
                                                 <span
@@ -47,7 +38,7 @@
                                                     {{ $item->status ? 'Tidak Aktif' : ' Aktif' }}
                                                 </span>
                                             </td>
-                                            <td>
+                                            <td class="d-flex justify-content-around">
                                                 <button class="btn btn-icon btn-info detailBtn" data-id="{{ $item->id }}"><i
                                                     class="fas fa-info-circle"></i></button>
                                              </td>
@@ -61,5 +52,5 @@
             </div>
         </div>
     </div>
+    @include('dashboard.thnakad.detailModal')
 @endsection
-@include('dashboard.thnakad.detailModal')

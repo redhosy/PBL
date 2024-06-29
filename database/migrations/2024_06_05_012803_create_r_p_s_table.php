@@ -14,11 +14,17 @@ return new class extends Migration
         Schema::create('r_p_s', function (Blueprint $table) {
             $table->id();
             $table->string('KodeRPS')->unique();
-            $table->string('KodeMatkul')->unique();
-            $table->string('Versi');
+            $table->unsignedBigInteger('id_dosen');
+            $table->unsignedBigInteger('id_KodeMatkul');
             $table->string('Dokumen')->nullable();
-            $table->string('Dosen');
+            $table->date('Tanggal');
+            $table->unsignedBigInteger('id_smt_thn_akd')->constrained('ref_smt_thn_akds');
             $table->timestamps();
+
+            // Tambahkan foreign key constraints
+            $table->foreign('id_kodeMatkul')->references('id')->on('ref_damatkuls')->onDelete('cascade');
+            $table->foreign('id_dosen')->references('id')->on('ref_dosens')->onDelete('cascade');
+            $table->foreign('id_smt_thn_akd')->references('id')->on('ref_smt_thn_akds')->onDelete('cascade');
         });
     }
 

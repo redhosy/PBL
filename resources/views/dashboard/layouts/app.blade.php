@@ -10,6 +10,8 @@
     <script src="assets/modules/jquery.min.js"></script>
     <link rel="stylesheet" href="assets/modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/modules/fontawesome/css/all.min.css">
+    
+
 
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="assets/modules/jqvmap/dist/jqvmap.min.css">
@@ -20,8 +22,10 @@
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link href="assets/css/datatables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/components.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <!-- Start GA -->
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
@@ -81,8 +85,7 @@
     <script src="assets/modules/moment.min.js"></script>
     <script src="assets/js/stisla.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-    @yield('scriptpages')
-    
+
 
     <!-- JS Libraries -->
     <script src="assets/modules/jquery.sparkline.min.js"></script>
@@ -90,6 +93,8 @@
     <script src="assets/modules/owlcarousel2/dist/owl.carousel.min.js"></script>
     <script src="assets/modules/summernote/summernote-bs4.js"></script>
     <script src="assets/modules/chocolat/dist/js/jquery.chocolat.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
+    <script src="assets/js/datatables.min.js"></script>
 
     <!-- Page Specific JS File -->
     <script src="assets/js/page/index.js"></script>
@@ -102,6 +107,8 @@
     <!-- Additional JS Libraries -->
     <script src="assets/js/page/modules-chartjs.js"></script>
     <script src="assets/js/page/bootstrap-modal.js"></script>
+    @yield('scriptpages')
+
 </body>
 
 </html>

@@ -20,4 +20,8 @@ class ref_dosen extends Model
     {
         return $this->belongsTo(ref_prodis::class, 'id_prodi');
     }
+
+    public function matkulkbk(){
+        return $this->hasMany(ref_matakuliahkbk::class, 'id_dosen');
+    }
 }

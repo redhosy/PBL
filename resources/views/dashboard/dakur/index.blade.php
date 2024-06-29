@@ -14,42 +14,34 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h3>Data Kurikulum Program Studi</h3>
                         <div class="card-header-form">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text" id="searchInput"  class="form-control" placeholder="Search">
-                                    <div class="input-group-append">
-                                        <button type="button" id="searchButton"  class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                     </div>
                     <div class="card-body p-3 rounded">
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered">
-                                <thead>
+                            <table class="table table-striped table-bordered" id="dataTable" class="display">
+                                <thead class="bg-primary">
                                     <tr>
-                                        <th>No</th>
-                                        <th>Nama Kurikulum</th>
-                                        <th>Tahun</th>
-                                        <th>Prodi</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th class="text-light">No</th>
+                                        <th class="text-light">Nama Kurikulum</th>
+                                        <th class="text-light">tahun</th>
+                                        <th class="text-light">Prodi</th>
+                                        <th class="text-light">Status</th>
+                                        <th class="text-light">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody id="dataTable">
                                         @foreach ( $data_kur as $item)
                                     <tr id="data{{ $item->id }}">
-                                        <td>{{ $data_kur->firstItem()+$loop->index }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $item->nama_kurikulum}}</td>
                                         <td>{{ $item->tahun }}</td>
-                                        <td>{{ $item->prodi?->prodi}}</td>
+                                        <td>{{ $item->prodi->prodi}}</td>
                                         <td>
                                             <span class="badge rounded-pill {{ $item->status ? 'bg-success  text-white' : 'bg-danger text-white' }} py-2 px-4">
                                                 {{ $item->status ? 'Aktif' : 'Tidak Aktif' }}
                                             </span>     
                                         </td>
-                                        <td>
+                                        <td class="d-flex justify-content-around">
                                             <button class="btn btn-icon btn-info detailBtn" data-id="{{ $item->id }}"><i
                                                 class="fas fa-info-circle"></i></button>
                                         </td>
@@ -57,13 +49,13 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $data_kur->links() }} 
+                            {{-- {{ $data_kur->links() }}  --}}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @include('dashboard.dakur.detailModal')
 @endsection
-@include('dashboard.dakur.detailModal')
 

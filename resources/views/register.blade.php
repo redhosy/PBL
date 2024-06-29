@@ -61,12 +61,12 @@
                                         <hr class="mb-4">
 
 
-                                        <div class="form-group mb-3">
+                                        {{-- <div class="form-group mb-3">
                                             <label for="nip" class="mb-2">NIP:</label>
                                             <input type="text" class="form-control" id="nip" name="nip"
                                                 placeholder="Masukan NIP Anda" required data-parsley-group="block-1"
                                                 maxlength="18">
-                                        </div>
+                                        </div> --}}
 
 
                                         <div class="form-group mb-3">
@@ -75,12 +75,12 @@
                                                 placeholder="Masukan Nama Anda" required data-parsley-group="block-1">
                                         </div>
 
-                                        <div class="form-group mb-3">
+                                        {{-- <div class="form-group mb-3">
                                             <label for="nidn" class="mb-2">NIDN:</label>
                                             <input type="text" class="form-control" id="nidn" name="nidn"
                                                 placeholder="Masukan NIDN Anda" required data-parsley-group="block-1"
                                                 maxlength="18">
-                                        </div>
+                                        </div> --}}
 
                                         <div class="form-group">
                                             <label for="gender">Gender</label>

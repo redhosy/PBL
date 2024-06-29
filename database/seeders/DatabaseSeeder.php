@@ -5,19 +5,24 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
     /**
      * Seed the application's database.
      */
-    public function run(): void
+    public function run()
     {
-        // User::factory(10)->create();
+        // Buat super admin secara default
+        User::create([
+            'name' => 'super admin',
+            'email' => 'admin@gmail.com', // Ganti dengan email super admin yang diinginkan
+            'password' => Hash::make('#Redho99'), // Ganti dengan password super admin yang diinginkan
+            'role' => 'super admin', // Sesuaikan dengan role yang Anda tetapkan untuk super admin
+        ]);
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Tampilkan informasi ketika seeder dijalankan
+        $this->command->info('super admin created: admin@gmail.com');
     }
 }

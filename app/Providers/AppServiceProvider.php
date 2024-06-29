@@ -31,33 +31,45 @@ class AppServiceProvider extends ServiceProvider
 
         $this->registerPolicies();
 
-        Gate::define('super-admin', function (User $user) {
-            return $user->role;
+        Gate::define('view-activity-log', function ($user) {
+            dd($user->roles); 
+            return $user->hasRole('super-admin'); // Pastikan pengguna memiliki peran 'super-admin'
         });
 
         Gate::define('admin', function (User $user) {
-            return $user->role;
+            return $user->role == 'admin';
         });
 
+        Gate::define('super-admin', function (User $user) {
+            return $user->role == 'super admin';
+        });
 
         Gate::define('pimpinan-jurusan', function (User $user) {
-            return $user->role;
+            return $user->role == 'pimpinan jurusan';
         });
 
         Gate::define('pimpinan-prodi', function (User $user) {
-            return $user->role;
+            return $user->role == 'pimpinan program studi';
         });
 
         Gate::define('dosen-pengampu', function (User $user) {
-            return $user->role;
+            return $user->role == 'dosen pengampu';
         });
 
         Gate::define('pengurus-kbk', function (User $user) {
-            return $user->role;
+            return $user->role == 'pengurus kbk';
         });
 
-        Gate::define('dosen-kbk', function (User $user) {
-            return $user->role;
+        Gate::define('access-admin-routes', function ($user) {
+            return $user->role == 'admin' || $user->role == 'dosen pengampu';
+        });
+
+        Gate::define('access-dosen-routes', function ($user) {
+            return $user->role == 'dosen pengampu' || $user->role == 'pengurus kbk';
+        });
+
+        Gate::define('access-petinggi-routes', function ($user) {
+            return $user->role == 'pengurus kbk' || $user->role == 'pimpinan program studi' ||  $user->role == 'dosen pengampu' || $user->role == 'pimpinan jurusan';
         });
     }
 }

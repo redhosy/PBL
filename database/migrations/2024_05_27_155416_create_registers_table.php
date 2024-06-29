@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('registers', function (Blueprint $table) {
             $table->id();
-            $table->integer('nip');
+            // $table->integer('nip');
             $table->string('nama');
-            $table->string('nidn');
+            // $table->string('nidn');
             $table->string('email');
-            $table->string('jurusan');
-            $table->string('prodi');
+            $table->string('gender');
+            $table->string('password');
+            // $table->string('jurusan');
+            // $table->string('prodi');
             $table->timestamps();
         });
     }

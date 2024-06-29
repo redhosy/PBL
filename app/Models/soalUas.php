@@ -10,24 +10,20 @@ class soalUas extends Model
     protected $table = 'soal_uas';
     
 
-    public static function validate(array $data)
-    {
-        return validator()->make($data, [
-            'kodesoal' => 'required',
-            'kode_matkul' => 'required',
-            'tahunakademik' => 'required',
-            'dokumen' => 'nullable|file|mimes:pdf|max:2048',
-            'dosen' => 'required',
-        ]);
-    }
+    protected $guarded = ['id'];
 
     public function kode_matkul()
     {
-        return $this->belongsTo(ref_damatkuls  ::class, 'id_kode_matakuliah');
+        return $this->belongsTo(ref_damatkul  ::class, 'id_kodeMatkul');
     }
 
-    public function tahunakademik()
+    public function thnakd()
     {
         return $this->belongsTo(ref_smt_thn_akds  ::class, 'id_smt_thn_akd');
+    }
+
+    public function dosen()
+    {
+        return $this->belongsTo(ref_dosen  ::class, 'id_dosen');
     }
 }

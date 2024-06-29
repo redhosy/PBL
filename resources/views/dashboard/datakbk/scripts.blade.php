@@ -7,6 +7,7 @@
             }
         });
 
+      
         // response invalid
         function clearErrorMsg() {
             $('#deskripsi').removeClass('is-invalid');
@@ -19,6 +20,9 @@
             $('#error_kode').html(``)
 
         }
+
+        //tooltip
+        $('[data-toggle="tooltip"]').tooltip();
 
         // Add Data
         $('#modalAdd').on('click', function() {
@@ -38,15 +42,16 @@
                     $('#success-alert').removeClass('d-none').text(
                         'Data berhasil ditambahkan!');
 
-                        // Hide alert after 3 seconds
-                        setTimeout(function() {
-                            $('#success-alert').removeClass('d-none');
-                        }, 50000);
-                        
-                        location.reload();
+                    // Hide alert after 3 seconds
+                    setTimeout(function() {
+                        $('#success-alert').removeClass('d-none');
+                    }, 5000);
+
+                    location.reload();
                 },
                 error: function(errors) {
                     const error = errors.responseJSON.errors;
+                    console.log(errors)
                     clearErrorMsg();
                     if (error.deskripsi) {
                         $('#deskripsi').addClass('is-invalid');
@@ -74,7 +79,6 @@
         $(document).on('click', '.editBtn', function() {
             let dataId = $(this).data('id');
             $.get("{{ url('datakbk') }}/" + dataId + "/edit", function(response) {
-                console.log(response)
                 $('#editDataId').val(response.data.id);
                 $('#editKodekbk').val(response.data.kodekbk);
                 $('#editNama').val(response.data.nama);
@@ -83,42 +87,36 @@
             });
         });
 
+        // Form submit for update
         $('#editDataForm').on('submit', function(e) {
             e.preventDefault();
             let dataId = $('#editDataId').val();
             let formData = $(this).serialize(); // Serialize form data
             $.ajax({
                 url: "{{ url('datakbk') }}/" + dataId,
-                method: 'PUT',
+                method: 'PUT', // Menggunakan metode PUT untuk update
                 data: formData,
                 success: function(response) {
+                    console.log(response)
                     $('#editModal').modal('hide');
-                    $('#data' + response.data.id).html(
-                        '<td>' + response.data.id + '</td>' +
-                        '<td>' + response.data.kodekbk + '</td>' +
-                        '<td>' + response.data.nama + '</td>' +
-                        '<td>' + response.data.deskripsi + '</td>' +
-                        '<td><button class="btn btn-primary editBtn" data-id="' +
-                        response.data.id + '">Edit</button> ' +
-                        '<button class="btn btn-danger deleteBtn" data-id="' + response
-                        .data.id + '">Delete</button></td>'
-                    );
-                    alert('Data berhasil diupdate');
+                    $('#success-alert').removeClass('d-none').text(
+                        'Data berhasil diperbarui.');
+
+                    // Hide alert after 3 seconds
+                    setTimeout(function() {
+                        $('#success-alert').addClass('d-none');
+                    }, 3000);
+
+                    location.reload();
+                    // $('#dataTable').DataTable().ajax.reload(null, false);
                 },
                 error: function(xhr) {
+                    console.log(xhr)
                     let errors = xhr.responseJSON.errors;
-                    if (errors) {
-                        $.each(errors, function(key, value) {
-                            $('#edit' + key.charAt(0).toUpperCase() + key.slice(1))
-                                .removeClass('is-invalid');
-                            $('#edit' + key.charAt(0).toUpperCase() + key.slice(1) +
-                                '-error').text(value[0]);
-                        });
-                    }
+                    console.log(errors); // Handle errors appropriately
                 }
             });
         });
-
 
         //    detail
         $(document).on('click', '.detailBtn', function() {
@@ -134,23 +132,15 @@
             });
         });
 
-        // pencarian
-        $(document).ready(function() {
-            $('#searchButton').on('click', function() {
-                var value = $('#searchInput').val().toLowerCase();
-                $("#dataTable tr").filter(function() {
-                    // Get the text content of the 'nama' and 'kodekbk' columns
-                    var kodekbk = $(this).find('td:nth-child(2)').text().toLowerCase();
-                    var nama = $(this).find('td:nth-child(3)').text().toLowerCase();
+        // pencarian 
+        var table = $('#dataTable').DataTable();
+        $('#dataTable').DataTable();
 
-                    // Check if the search value matches either 'nama' or 'kodekbk'
-                    $(this).toggle(nama.indexOf(value) > -1 || kodekbk.indexOf(value) >
-                        -1);
-                });
-            });
+        $('#searchInput').on('keyup', function() {
+            table.search(this.value).draw();
         });
 
-      
+
 
         $(document).on('click', '.deleteBtn', function() {
             let dataId = $(this).data('id');
@@ -169,14 +159,14 @@
                     $('#data' + dataId).remove();
                     $('#modalDelete').modal('hide');
                     $('#success-alert').removeClass('d-none').text(
-                    'Data berhasil dihapus!');
+                        'Data berhasil dihapus!');
 
                     // Hide alert after 3 seconds
                     setTimeout(function() {
                         $('#success-alert').addClass('d-none');
                     }, 3000);
                 },
-                error: function(xhr, status, error){
+                error: function(xhr, status, error) {
                     console.log(xhr.responseText);
                     alert('Failed to delete data');
                 }

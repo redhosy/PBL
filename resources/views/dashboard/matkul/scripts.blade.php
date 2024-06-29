@@ -1,6 +1,5 @@
 <script>
-
-if (typeof jQuery !== 'undefined') {
+    if (typeof jQuery !== 'undefined') {
         console.log("jQuery is loaded");
     } else {
         console.error("jQuery is not loaded");
@@ -19,14 +18,7 @@ if (typeof jQuery !== 'undefined') {
             let itemId = $(this).data('id');
 
             console.log("Button clicked, data ID:", itemId);
-            // $.ajax({
-            //     type: "GET",
-            //     url: "{{ url('dajur') }}/" + itemId,
-            //     dataType: "json",
-            //     success: function (response) {
-            //         console.log(response)
-            //     }
-            // });
+
             $.get("{{ url('matkul') }}/" + itemId, function(response) {
                 console.log(response);
                 $('#detailModal').modal('show');
@@ -44,20 +36,69 @@ if (typeof jQuery !== 'undefined') {
                 $('#detailsemester').text(response.data.semester);
                 $('#detailNakur').text(response.data.kurikulum.nama_kurikulum);
                 // $('#detailModal').modal('show');
-            }).fail(function() {
+            }).fail(function(error) {
                 console.error('Failed to fetch data');
+                console.log(error)
             });
         });
 
         // Pencarian
-        $('#searchButton').on('click', function() {
-            let value = $('#searchInput').val().toLowerCase();
-            $("#dataTable tr").filter(function() {
-                var nama_matakuliah = $(this).find('td:nth-child(3)').text().toLowerCase();
-                // var nama = $(this).find('td:nth-child(3)').text().toLowerCase();
+        $('#dataTable').DataTable();
 
-                $(this).toggle(nama_matakuliah.indexOf(value) > -1);
-            });
+        var table = $('#dataTable').DataTable();
+
+        $('#searchInput').on('keyup', function() {
+            table.search(this.value).draw();
         });
+        // $('#searchButton').on('click', function() {
+        //     let value = $('#searchInput').val().toLowerCase();
+        //     $("#dataTable tr").filter(function() {
+        //         var nama_matakuliah = $(this).find('td:nth-child(3)').text().toLowerCase();
+        //         // var nama = $(this).find('td:nth-child(3)').text().toLowerCase();
+
+        //         $(this).toggle(nama_matakuliah.indexOf(value) > -1);
+        //     });
+        // });
+
+        //     $('#dataTable').DataTable({
+        //     "processing": true,
+        //     "paging": true,
+        //     "searching": true,
+        //     "responsive": true,
+        //     "language": {
+        //         "search": "cari"
+        //     },
+        //     "ajax": {
+        //         "url": "getMataKuliah", // Ganti dengan URL endpoint Anda
+        //         "type": "GET"
+        //     },
+        //     "columns": [
+        //         {
+        //             "data": null,
+        //             "render": function (_data, _type, _row, meta) {
+        //                 return meta.row + 1; // Nomor urut otomatis berdasarkan posisi baris
+        //             },
+        //             "orderable": false
+        //         },
+        //         { "data": "TP", "orderable": true },
+        //         { "data": "id_kurikulum", "orderable": true },
+        //         { "data": "id_matakuliah", "orderable": true },
+        //         { "data": "jam", "orderable": true },
+        //         { "data": "jam_praktek", "orderable": true },
+        //         { "data": "jam_teori", "orderable": true },
+        //         { "data": "kode_matakuliah", "orderable": true },
+        //         { "data": "nama_matakuliah", "orderable": true },
+        //         { "data": "semester", "orderable": true },
+        //         { "data": "sks", "orderable": true },
+        //         { "data": "sks_praktek", "orderable": true },
+        //         { "data": "sks_teori", "orderable": true },
+        //     ]
+        // });
+
+        //     var table = $('#dataTable').DataTable();
+
+        //     $('#searchInput').on('keyup', function() {
+        //         table.search(this.value).draw();
+        //     });
     });
 </script>

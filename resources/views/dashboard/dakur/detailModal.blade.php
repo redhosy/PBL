@@ -27,13 +27,9 @@
                         <td><span id="detailprodi"></span></td>
                     </tr>
                     <tr>
-                        <th>Status :</th>
-                        <td>
-                            <span  class="badge rounded-pill {{ $item->status ? 'bg-success  text-white' : 'bg-danger text-white' }} py-2 px-4" id="detailstatus">
-                                {{ $item->status ? 'Aktif' : 'Tidak Aktif' }} 
-                            </span>   
-                        </td>
-                    </tr>
+                        <th>Status:</th>
+                        <td><span id="detailstatus"></span></td>
+                    </tr>                    
                 </table>
             </div>
         </div>

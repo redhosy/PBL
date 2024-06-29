@@ -14,18 +14,6 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h3>Data Pimpinan Jurusan</h3>
                         <div class="card-header-form">
-                            <form>
-                                <div class="input-group">
-                                    <input type="text" id="searchInput" class="form-control" placeholder="Search">
-                                    <div class="input-group-append">
-                                        <button type="button" id="searchButton" class="btn btn-primary"><i
-                                                class="fas fa-search"></i></button>
-                                    </div>
-                                    {{-- tambah --}}
-                                    <button class="btn btn-success ml-2" type="button" data-toggle="modal"
-                                        id="modalAdd"><i class="fas fa-plus"></i></button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                     <div class="card-body p-3 rounded">
@@ -33,22 +21,22 @@
                             <div class="alert alert-success d-none" id="success-alert">
                                 Berhasil
                             </div>
-                            <table class="table table-striped table-bordered">
-                                <thead>
+                            <table class="table table-striped table-bordered" id="dataTable" class="display">
+                                <thead class="bg-primary">
                                     <tr>
-                                        <th>No</th>
-                                        <th class="text-nowrap">Jabatan Pimpinan</th>
-                                        <th>Nama</th>
-                                        <th>Jurusan</th>
-                                        <th>Periode</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
+                                        <th class="text-light">No</th>
+                                        <th class="text-nowrap text-light">Jabatan Pimpinan</th>
+                                        <th class="text-light">Nama</th>
+                                        <th class="text-light">Jurusan</th>
+                                        <th class="text-light">Periode</th>
+                                        <th class="text-light">Status</th>
+                                        <th class="text-light">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody id="dataTable">
+                                <tbody>
                                     @foreach ($data_pim as $item)
                                         <tr id="data{{ $item->id }}">
-                                            <td>{{ $data_pim->firstItem() + $loop->index }}</td>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td class="text-nowrap">{{ $item->jabpim->jabatan_pimpinan }}</td>
                                             <td class="text-nowrap">{{ $item->dosen->nama }}</td>
                                             <td class="text-nowrap">{{ $item->jurusan->jurusan }}</td>
@@ -61,9 +49,9 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex justify-content-around">
-                                                    <button class="btn btn-icon btn-warning editBtn ml-2" data-id="{{ $item->id }}"><i class="far fa-edit"></i></button>
+                                                    {{-- <button class="btn btn-icon btn-warning editBtn ml-2" data-id="{{ $item->id }}"><i class="far fa-edit"></i></button> --}}
                                                     <button class="btn btn-icon btn-info detailBtn ml-2" data-id="{{ $item->id }}"><i class="fas fa-info-circle"></i></button>
-                                                    <button class="btn btn-danger deleteBtn ml-2" data-toggle="modal" data-id="{{ $item->id }}"><i class="fas fa-trash"></i></button>
+                                                    {{-- <button class="btn btn-danger deleteBtn ml-2" data-toggle="modal" data-id="{{ $item->id }}"><i class="fas fa-trash"></i></button> --}}
                                                 </div>
                                             </td>
                                             
@@ -71,7 +59,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $data_pim->links() }}
+                            {{-- {{ $data_pim->links() }} --}}
                         </div>
                     </div>
                 </div>
@@ -96,7 +84,7 @@
             </div>
         </div>
     </div>
+    @include('dashboard.dapinjur.detailModal')
 @endsection
-@include('dashboard.dapinjur.detailModal')
-@include('dashboard.dapinjur.addModal')
-@include('dashboard.dapinjur.editModal')
+{{-- @include('dashboard.dapinjur.addModal')
+@include('dashboard.dapinjur.editModal') --}}

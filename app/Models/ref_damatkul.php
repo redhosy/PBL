@@ -18,4 +18,8 @@ class ref_damatkul extends Model
     {
         return $this->belongsTo(ref_dakur::class, 'id_kurikulum');
     }
+
+    public function beritaacara(){
+        return $this->hasMany(BeritaAcaraRPS::class, 'id_matakuliah');
+    }
 }

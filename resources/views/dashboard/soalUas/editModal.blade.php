@@ -8,46 +8,62 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="form-group">
-                    <label for="kodesoal">Kode Soal:</label>
-                    <input type="text" class="form-control" id="kodesoal" name="kodesoal" required>
-                    <span id="error_kodesoal"></span>
-                </div>
-                <div class="input-group mb-3">
-                    <label for="kode_matkul" class="mb-2">Kode Matkul:</label>
-                    <select class="form-select w-100 px-2 py-2" name="kode_matkul" id="kode_matkul"
-                        aria-label="Example select with button addon" required data-parsley-group="block-0">
-                        <option selected disabled value="">Pilih Kode Matkul</option>
-                        @foreach ($kode_matkul as $item)
-                            <option class="dropdown-item" id="kode_matakuliah" value="{{ $item->kode_matkul }}">
-                                {{ $item->kode_matakuliah }}</option>
-                        @endforeach
-                    </select>
-                    <span id="error_kode_matkul"></span>
-                </div>
-                <div class="form-group">
-                    <label for="dosen">Dosen Pengampu:</label>
-                    <input type="text" class="form-control" id="dosen" name="dosen" required>
-                    <span id="error_dosen"></span>
-                </div>
-
-                <div class="form-group">
-                    <label for="dokumen">Dokumen:</label>
-                    <input type="file" class="form-control-file" id="dokumen" name="dokumen" accept="application/pdf">
-                    <span id="error_dokumen"></span>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="editkodesoal">Kode Soal:</label>
+                        <input type="text" class="form-control" id="editkodesoal" name="kodesoal" required>
                     </div>
-                    
-                    <div class="input-group mb-3">
-                        <label for="tahunakademik" class="mb-2">Tahun Akademik:</label>
-                        <select class="form-select w-100 px-2 py-2" name="tahunakademik" id="tahunakademik"
-                            aria-label="Example select with button addon" required data-parsley-group="block-0">
-                            <option selected disabled value="">Pilih tahunakademik</option>
-                            @foreach ($tahunakademik as $item)
-                                <option class="dropdown-item" id="smt_thn_akd" value="{{ $item->tahunakademik }}">
-                                    {{ $item->smt_thn_akd }}</option>
-                            @endforeach
-                        </select>
-                        <span id="error_tahunakademik"></span>
+
+                    <div class="form-group">
+                        <label for="editdosen_pengampu">Dosen Pengampu:</label>
+                        <div class="selectpicker">
+                            <select data-live-search="true" class="form-control w-100" id="editdosen_pengampu"
+                                name="dosen_pengampu">
+                                <option value="">Pilih Dosen Pengampu: </option>
+                                @foreach ($dosen as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editkode_matkul">Mata Kuliah:</label>
+                        <div class="selectpicker">
+                            <select data-live-search="true" class="form-control w-100" id="editkode_matkul"
+                                name="kode_matkul" required>
+                                <option value="">Pilih Mata Kuliah</option>
+                                @foreach ($damatkul as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_matakuliah }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editdokumen">Dokumen (PDF):</label>
+                        <div class="dokumen_preview"></div>
+                        <input type="file" class="form-control-file" id="editdokumen" name="dokumen"
+                            accept="application/pdf">
+                        <small class="form-text text-muted">Maksimal ukuran file: 2 MB</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edittanggal">Tanggal:</label>
+                        <input type="date" class="form-control" id="edittanggal" name="tanggal" required>
+                    </div>
+
+                    <div class="form-group"> 
+                        <label for="editthnakd">Tahun Akademik:</label>
+                        <div class="selectpicker">
+                            <select data-live-search="true" class="form-control w-100" id="editthnakd" name="thnakd"
+                                required>
+                                <option value="">Pilih Tahun Akademik</option>
+                                @foreach ($thnakd as $item)
+                                    <option value="{{ $item->id }}">{{ $item->smt_thn_akd }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

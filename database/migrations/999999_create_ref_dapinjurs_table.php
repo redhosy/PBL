@@ -12,15 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('ref_dapinjurs', function (Blueprint $table) {
-            $table->id()->nullable(false);
+            $table->id();
             $table->foreignId('id_jabatan_pimpinan')->constrained('jabpims');
             $table->foreignId('id_jurusan')->constrained('ref_jurusans');
             $table->foreignId('id_dosen')->constrained('ref_dosens');
-            $table->string('periode')->nullable(false);
+            $table->string('periode');
             $table->enum('status',['1','0'])->default('1');
             $table->timestamps();
         });
     }
+    
 
     /**
      * Reverse the migrations.

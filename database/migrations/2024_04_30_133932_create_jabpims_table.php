@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('jabpims', function (Blueprint $table) {
             $table->id();
-            $table->string('jabatan_pimpinan')->nullable(false);
-            $table->string('kode_jabatan_pimpinan')->nullable(false);
+            $table->string('jabatan_pimpinan');
+            $table->string('kode_jabatan_pimpinan');
             $table->enum('status',['1','0'])->default('0');
             $table->timestamps();
         });

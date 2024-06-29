@@ -18,12 +18,13 @@ return new class extends Migration
             $table->string('nidn')->unique();
             $table->string('nip')->unique();
             $table->string('gender');
-            $table->integer('id_jurusan');
-            $table->integer('id_prodi');
+            $table->unsignedBigInteger('id_jurusan')->nullable()->constrained('ref_jurusans')->on('jurusan')->onDelete('cascade');
+            $table->unsignedBigInteger('id_prodi')->nullable()->constrained('ref_prodis')->on('prodi')->onDelete('cascade');
             $table->string('email')->unique();
-            $table->string('image');
-            $table->enum('status', ['0','1'])->default('1')->nullable(false);
+            $table->enum('status', ['0','1'])->default('1');
             $table->timestamps();
+
+            //foreignkey
         });
     }
 

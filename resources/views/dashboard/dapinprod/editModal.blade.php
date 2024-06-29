@@ -18,8 +18,8 @@
                         <input type="text" class="form-control" id="editnama" name="editnama" required>
                     </div>
                     <div class="form-group">
-                        <label for="editjurusan">Jurusan:</label>
-                        <input type="text" class="form-control" id="editjurusan" name="editjurusan" required>
+                        <label for="editprodi">Prodi:</label>
+                        <input type="text" class="form-control" id="editprodi" name="editprodi" required>
                     </div>
                     <div class="form-group">
                         <label for="editperiode">Periode:</label>

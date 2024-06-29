@@ -18,7 +18,7 @@ class RefDapinjurController extends Controller
         $jurusan = ref_jurusans::all();
         $dosen = ref_dosen::all();
         $jabpim = jabpims::all();
-        $data_pim = ref_dapinjurs::with(['jurusan', 'dosen', 'jabpim'])->paginate(5);
+        $data_pim = ref_dapinjurs::with(['jurusan', 'dosen', 'jabpim'])->get();
         $years = range(date('Y') - 50, date('Y') + 10);
         return view('dashboard.dapinjur.index', compact('data_pim', 'jurusan', 'years', 'dosen','jabpim'));
     }

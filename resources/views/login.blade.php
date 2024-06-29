@@ -26,9 +26,9 @@
                             <img src="assets/img/logoig.png" alt="logo" style="max-width: 100px; height: auto;">
                             <h3 class="text-dark mb-4 mt-3">Masuk Ke Akun</h3>
                             <!-- Display error message -->
-                            @if (session('error'))
+                            @if (session('message'))
                                 <div class="alert alert-danger">
-                                    {{ session('error') }}
+                                    {{ session('message') }}
                                 </div>
                             @endif
                             <form class="form-signin" method="POST" action="{{ route('login') }}">
@@ -50,16 +50,12 @@
                                             dengan <br>
                                             <a href="/terms">syarat dan ketentuan</a></label>
                                     </div>
-                                    <a class="text-dark-50 small" href="#!">Forgot password?</a>
+                                    <a class="text-dark-50 small" href="/forgotPassword">Forgot password?</a>
                                 </div>
                                 <div class="d-grid gap-2 mt-4 mb-3">
                                     <button class="btn btn-outline-dark px-5 py-2" type="submit">Masuk</button>
                                 </div>
                             </form>
-                            <div>
-                                <p class="mb-0 small text-dark">Belum Punya Akun? <a href="/register"
-                                        class="text-dark-50 fw-bold">Daftar</a></p>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,5 +63,4 @@
         </div>
     </div>
 </body>
-
 </html>
