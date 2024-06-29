@@ -17,11 +17,22 @@
 
         // Save form data
         $('#saveRps').click(function() {
+            var data = new FormData();
+            data.append('koderps', $('#koderps').val());
+            data.append('dosen_pengembang', $('#dosen_pengembang').val());
+            data.append('kode_matkul', $('#kode_matkul').val());
+            data.append('dokumen', $('#dokumen')[0].files[0]);
+            data.append('tanggal', $('#tanggal').val());
+            data.append('thnakd', $('#thnakd').val());
+
             $.ajax({
                 url: "{{ route('RPS.store') }}",
                 type: "POST",
-                data: $('#addPostForm').serialize(),
+                data: data,
+                processData : false,
+                contentType : false,
                 success: function(response) {
+                    console.log(response);
                     $('#addModal').modal('hide');
                     $('#success-alert').removeClass('d-none').text(
                         'Data berhasil ditambahkan!');
@@ -29,7 +40,7 @@
                         $('#success-alert').addClass('d-none');
                     }, 5000);
 
-                    $('#DataRPS').DataTable().ajax.reload();
+                   location.reload();
 
                     $('#addUserForm')[0].reset();
                 },
@@ -51,13 +62,14 @@
         // Edit Data
         $(document).on('click', '.editBtn', function() {
             let dataId = $(this).data('id');
-            $.get("{{ url('RPS') }}/" + dataId + "/edit", function(response) {
-                $('#editkoderps').val(response.data.koderps);
-                $('#editdosen_pengembang').val(response.data.dosen_pengembang);
-                $('#editkode_matkul').val(response.data.kode_matkul);
-                $('#editdokumen').val(response.data.dokumen);
-                $('#edittanggal').val(response.data.tanggal);
-                $('#editthnakd').val(response.data.thnakd);
+            $.get("/RPS/" + dataId + "/edit", function(response) {
+                console.log(response)
+                $('#editkoderps').val(response.data.KodeRPS);
+                $('#editdosen_pengembang').selectpicker('val',response.data.id_dosen);
+                $('#editkode_matkul').selectpicker('val', response.data.id_KodeMatkul);
+                $('.dokumen_preview').html(`<a class="btn btn-primary mb-2" href="/storage/dokumen/${response.data.Dokumen}" target="_blank">View Dokumen</a>`);
+                $('#edittanggal').val(response.data.Tanggal);
+                $('#editthnakd').selectpicker('val', response.data.id_smt_thn_akd);
                 $('#editModal').modal('show');
             });
         });
@@ -113,11 +125,11 @@
             $.get("{{ url('RPS') }}/" + itemId, function(response) {
                 console.log(response);
                 $('#detailModal').modal('show');
-                $('#detailkoderps').text(response.data[0].koderps);
-                $('#detaildosen_pengembang').text(response[0].data.dosen.nama);
+                $('#detailkoderps').text(response.data[0].KodeRPS);
+                $('#detaildosen_pengembang').text(response.data[0].dosen.nama);
                 $('#detailkode_matkul').text(response.data[0].kode_matkul.nama_matakuliah);
-                $('#detaildokumen').text(response.data[0].dokumen);
-                $('#detailtanggal').text(response.data[0].tanggal);
+                $('#detaildokumen').html(`<a href="/storage/dokumen/${response.data[0].Dokumen}" target="_blank" class="btn btn-primary">View Dokumen</a>`);
+                $('#detailtanggal').text(response.data[0].Tanggal);
                 $('#detailthnakd').text(response.data[0].thnakd.smt_thn_akd);
             }).fail(function(error) {
                 console.error('Failed to fetch data');

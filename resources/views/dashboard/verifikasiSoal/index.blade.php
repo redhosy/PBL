@@ -15,22 +15,24 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h3>Berita Acara Soal UAS</h3>
                         <div class="d-flex justify-content-around align-items-center">
-                            <div class="form-group mb-0">
-                                <!-- Filter -->
-                                <select class="form-control selectpicker w-auto" id="filterTanggal" name="filterTanggal">
-                                    <option value="">Filter Tanggal</option>
-                                    @foreach ($tanggalList as $tanggal)
-                                        <option value="{{ $tanggal->tanggal }}">{{ $tanggal->tanggal }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group mb-0">
-                                <!-- Print -->
-                                <button class="btn btn-primary" type="button" data-toggle="tooltip" id="cetakBeritaAcara"
-                                    title="Cetak Berita Acara">
-                                    <i class="fas fa-print"></i>
-                                </button>
-                            </div>
+                            <form action="/cetakSOAL" method="get" target="_blank">
+                                <div class="form-group mb-0 d-flex align-items-center">
+                                    <!-- Filter -->
+                                    <select class="form-control selectpicker w-auto mr-2" id="filterTanggal" name="tanggal">
+                                        <option value="">Pilih Tanggal</option>
+                                        @foreach ($tanggalList as $tanggal)
+                                            <option value="{{ $tanggal->tanggal }}">{{ $tanggal->tanggal }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <!-- Print -->
+                                    <button class="btn btn-primary" type="submit" data-toggle="tooltip"
+                                        title="Cetak Berita Acara">
+                                        <i class="fas fa-print"></i>
+                                    </button>
+                                </div>
+                            </form>
+                            @can('pengurus-kbk')
                             <div class="form-group mb-0">
                                 <!-- Add -->
                                 <button class="btn btn-success ml-2" type="button" data-toggle="tooltip" id="modalAdd"
@@ -38,6 +40,7 @@
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </div>
+                            @endcan
                         </div>
 
                     </div>
@@ -52,7 +55,9 @@
                                         <th class="text-light">Validasi Isi</th>
                                         <th class="text-light">Tanggal</th>
                                         <th class="text-light">Ruang</th>
+                                        @can('pengurus-kbk')
                                         <th class="text-light">Actions</th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody id="dataTableBody">
@@ -64,6 +69,7 @@
                                                 <td>{{ $item->validasi_isi }}</td>
                                                 <td>{{ $item->tanggal }}</td>
                                                 <td>{{ $item->ruang }}</td>
+                                                @can('pengurus-kbk')
                                                 <td class="d-flex justify-content-around">
                                                     <button class="btn btn-warning editBtn" data-toggle="modal"
                                                         data-target="#editModal" data-id="{{ $item->id }}"><i
@@ -72,6 +78,7 @@
                                                         data-target="#deleteModal" data-id="{{ $item->id }}"><i
                                                             class="fas fa-trash-alt"></i></button>
                                                 </td>
+                                                @endcan
                                             </tr>
                                         @endforeach
                                 </tbody>

@@ -22,31 +22,27 @@ class BeritaAcaraRPSController extends Controller
         return view('dashboard.verifikasiRPS.index', compact('beritaRPS', 'matkul', 'tanggalList'));
     }
 
-    public function cetakBeritaAcara(Request $request)
-    {
-        $query = BeritaAcaraRPS::query();
-
-        if ($request->has('tanggal') && $request->tanggal) {
-            $query->where('tanggal', $request->get('tanggal'));
-        }
-
-        $data = $query->with('matakuliah')->get();
-
-        // Debugging: Tambahkan ini untuk melihat data yang diambil
+    public function cetakRPS(){
+        
+        $data = BeritaAcaraRPS::with('matakuliah')->where('tanggal', request('tanggal'))->get();
         if ($data->isEmpty()) {
-            return response()->json(['status' => 404, 'message' => 'Data not found', 'requested_date' => $request->get('tanggal')]);
+            return response()->json(['status' => 404, 'message' => 'Data not found']);
         }
 
         // Ambil tanggal dan ruang dari salah satu item karena diasumsikan sama untuk semua item yang difilter
         $tanggal = $data->first()->tanggal;
         $ruang = $data->first()->ruang;
 
-        // Debugging: Tambahkan ini untuk memeriksa data sebelum mengirim ke tampilan
-        dd($data, $tanggal, $ruang);
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Cetak PDF',
+            'description' => 'Cetak data berita acara RPS',
+        ]);
 
         $pdf = FacadePdf::loadView('pdf_view_rps', compact('data', 'tanggal', 'ruang'));
-        return $pdf->download('berita_acara.pdf');
+        return $pdf->download('berita_acara_pdf.pdf');
     }
+
 
 
 
@@ -96,7 +92,7 @@ class BeritaAcaraRPSController extends Controller
      */
     public function show(string $id)
     {
-        $data = BeritaAcaraRPS::find($id);
+        $data = BeritaAcaraRPS::with('matakuliah')->find($id);
         return response()->json([
             'status' => 200,
             'data' => $data
@@ -125,19 +121,22 @@ class BeritaAcaraRPSController extends Controller
             'tanggal' => 'required|date',
             'ruang' => 'required|string|max:50',
         ]);
-        // Muat data dari database
-        $data = BeritaAcaraRPS::findOrFail($id)->update($validated);
+
+        // Muat data dari database dan perbarui
+        $data = BeritaAcaraRPS::findOrFail($id);
+        $data->update($validated);
 
         // Catat aktivitas
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'UPDATE',
-            'description' => 'Update data baru: ' . $data
+            'description' => 'Update data: ' . $data->id
         ]);
 
         // Kembalikan respons (redirect dengan pesan sukses)
-        return response()->json(['data' => $data]);
+        return response()->json(['status' => 'success', 'data' => $data]);
     }
+
 
     /**
      * Remove the specified resource from storage.

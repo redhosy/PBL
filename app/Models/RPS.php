@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class RPS extends Model
 {
-<<<<<<< Updated upstream
-    use HasFactory;
-=======
     protected $table = 'r_p_s';
     protected $guarded = ['id'];
 
@@ -27,5 +24,4 @@ class RPS extends Model
     {
         return $this->belongsTo(ref_dosen::class, 'id_dosen');
     }
->>>>>>> Stashed changes
 }

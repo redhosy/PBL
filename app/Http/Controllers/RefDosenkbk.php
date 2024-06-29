@@ -73,7 +73,7 @@ class RefDosenkbk extends Controller
         $dosen = ref_dosen::findOrFail($validated['dosen_id']);
 
         $data = new ref_dosenkbk();
-        $data->id_dosen = $dosen->id; 
+        $data->id_dosen = $dosen->id;
         $data->nama = $dosen->nama;
         $data->nip = $dosen->nip;
         $data->email = $dosen->email;
@@ -107,7 +107,7 @@ class RefDosenkbk extends Controller
 
     public function edit(string $id)
     {
-        $data = ref_dosenkbk::with(['dosen', 'kbk', 'prodi','jurusan','jabatan'])->find($id);
+        $data = ref_dosenkbk::with(['dosen', 'kbk', 'prodi', 'jurusan', 'jabatan'])->find($id);
         return response()->json([
             'status' => 200,
             'data' => $data
@@ -117,7 +117,7 @@ class RefDosenkbk extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'dosen_id' => 'required|exists:ref_dosens,id',
+            'editdosen' => 'required|exists:ref_dosens,id',
             'jurusan' => 'required|exists:ref_jurusans,id',
             'prodi' => 'required|exists:ref_prodis,id',
             'kbk' => 'required|exists:ref_datakbks,id',
@@ -125,17 +125,32 @@ class RefDosenkbk extends Controller
             'status' => 'required|in:0,1',
         ]);
 
-        $dosen = ref_dosen::findOrFail($validated['dosen_id']);
+        $data = [
+            'id_dosen' => $request->editdosen,
+            'id_jurusan' => $request->jurusan,
+            'id_prodi' => $request->prodi,
+            'id_datakbk' => $request->kbk,
+            'id_jabatan' => $request->jabatan,
+            'status' => $request->status,
+        ];
 
-        // Catat aktivitas
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'action' => 'UPDATE',
-            'description' => 'Update data baru: ' . $dosen,
-        ]);
+        $dosenkbk = ref_dosenkbk::where('id_dosen', $request->editdosen)->first();
+        if ($dosenkbk) {
+            $dosenkbk->update($data);
 
-        return response()->json(['data' => $dosen]);
+            // Catat aktivitas
+            ActivityLog::create([
+                'user_id' => Auth::id(),
+                'action' => 'UPDATE',
+                'description' => 'Updated data for dosen: ' . $request->editdosen,
+            ]);
+
+            return response()->json(['message' => 'success', 'data' => $data]);
+        } else {
+            return response()->json(['message' => 'error'], 400);
+        }
     }
+
 
 
     public function destroy(string $id)

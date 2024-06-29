@@ -20,8 +20,6 @@
                 data: $('#addUserForm').serialize(),
                 success: function(response) {
                     $('#addModal').modal('hide');
-                    // alert('User berhasil ditambahkan! Email dengan password sementara telah dikirim.');
-                    // Reset form jika perlu
                     $('#success-alert').removeClass('d-none').text(
                         'User berhasil ditambahkan! Email dengan password sementara telah dikirim.'
                     );

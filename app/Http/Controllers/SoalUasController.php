@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< Updated upstream
-use App\Models\soalUas;
-use Illuminate\Http\Request;
-=======
 use App\Models\ActivityLog;
 use App\Models\ref_smt_thn_akds;
 use App\Models\ref_damatkul;
 use App\Models\ref_dosen;
+use App\Models\RPS;
 use App\Models\soalUas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
->>>>>>> Stashed changes
 
 class SoalUasController extends Controller
 {
@@ -24,15 +20,11 @@ class SoalUasController extends Controller
      */
     public function index()
     {
-<<<<<<< Updated upstream
-        return view('dashboard.soalUAs.index');
-=======
         $dosen = ref_dosen::all();
         $thnakd = ref_smt_thn_akds::all();
         $damatkul = ref_damatkul::all();
         $soal = soalUas::with('kode_matkul', 'thnakd', 'dosen')->get();
         return view('dashboard.soalUas.index', compact('soal', 'dosen', 'thnakd', 'damatkul'));
->>>>>>> Stashed changes
     }
 
     /**
@@ -48,44 +40,43 @@ class SoalUasController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< Updated upstream
-        //
-=======
-        // Validasi data
-        $validated = $request->validate([
+        $data = $request->validate([
             'kodesoal' => 'required|string|max:10',
             'dosen_pengampu' => 'required|exists:ref_dosens,id',
             'kode_matkul' => 'required|exists:ref_damatkuls,id',
-            'dokumen' => 'nullable|file|mimes:pdf|max:2048',
+            'dokumen' => 'required|file|mimes:pdf|max:2048',
             'tanggal' => 'required|date',
             'thnakd' => 'required|exists:ref_smt_thn_akds,id',
         ]);
 
-        $data = new soalUas();
-        $data->KodeSoal = $validated['kodesoal'];
-        $data->id_dosen = $validated['dosen_pengampu'];
-        $data->id_KodeMatkul = $validated['kode_matkul'];
-        $data->tanggal = $validated['tanggal'];
-        $data->id_smt_thn_akd = $validated['thnakd'];
+        $data = [
+            'kodeSoal' => $request->kodesoal,
+            'id_dosen' => $request->dosen_pengampu,
+            'id_kodeMatkul' => $request->kode_matkul,
+            'tanggal' => $request->tanggal,
+            'id_smt_thn_akd' => $request->thnakd
+        ];
 
-        // Simpan dokumen jika ada
+        $fileName = '';
         if ($request->hasFile('dokumen')) {
-            $validated['dokumen'] = $request->file('dokumen')->store('dokumen_soal', 'public');
-            $data->Dokumen = $validated['dokumen']; // Pastikan sesuai dengan nama kolom di tabel
+            $file = $request->file('dokumen');
+            $fileName = now()->format('YmdHis') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $filePath = $file->storeAs('public/dokumentSoal', $fileName);
+            $data['document'] = $fileName;
         }
 
         // Simpan data ke database
-        $data->save();
+        $soal = soalUas::create($data);
+
 
         // Catat aktivitas
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'INSERT',
-            'description' => 'Menambahkan data Soal UAS baru: ' . $data->KodeSoal,
+            'description' => 'Menambahkan data RPS baru: ' . $request->KodeSoal,
         ]);
 
-        return response()->json(['data' => $data]);
->>>>>>> Stashed changes
+        return response()->json(['data' => $fileName]);
     }
 
 
@@ -127,34 +118,37 @@ class SoalUasController extends Controller
             'thnakd' => 'required|exists:ref_smt_thn_akds,id',
         ]);
 
-        $data = soalUas::findOrFail($id);
+        $soal = soalUas::findOrFail($id);
 
         $changes = [];
         foreach ($validated as $key => $value) {
-            if ($data[$key] != $value) {
+            if ($soal[$key] != $value) {
                 $changes[$key] = [
-                    'old' => $data[$key],
+                    'old' => $soal[$key],
                     'new' => $value
                 ];
             }
         }
 
-        // Simpan dokumen jika ada
         if ($request->hasFile('dokumen')) {
-            $filePath = $request->file('dokumen')->store('dokumen_soal', 'public');
-            $validated['dokumen'] = $filePath;
+            $file = $request->file('dokumen');
+            $fileName = now()->format('YmdHis') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $filePath = $file->storeAs('public/dokumentSoal', $fileName);
 
-            if ($data->Dokumen != $filePath) {
+            if ($soal->document != $fileName) {
+                Storage::disk('public')->delete('dokumentSoal/' . $soal->document);
                 $changes['dokumen'] = [
-                    'old' => $data->Dokumen,
-                    'new' => $filePath
+                    'old' => $soal->document,
+                    'new' => $fileName
                 ];
             }
+
+            $validated['document'] = $fileName;
         }
 
-        $data->update($validated);
+        $soal->update($validated);
 
-        $description = 'Updated Soal UAS: ' . $data->KodeSoal;
+        $description = 'Updated RPS: ' . $soal->kodeSoal;
         if (!empty($changes)) {
             $description .= ' | Changes: ';
             foreach ($changes as $field => $change) {
@@ -169,7 +163,7 @@ class SoalUasController extends Controller
             'description' => $description
         ]);
 
-        return response()->json(['data' => $data]);
+        return response()->json(['data' => $soal]);
     }
 
 

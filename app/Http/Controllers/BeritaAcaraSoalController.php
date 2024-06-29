@@ -22,22 +22,24 @@ class BeritaAcaraSoalController extends Controller
         return view('dashboard.verifikasiSoal.index', compact('beritaSoal', 'matkul', 'tanggalList'));
     }
 
-    public function cetak(Request $request)
+    public function cetakSOAL()
     {
-        $query = BeritaAcaraSoal::query();
-
-        if ($request->has('tanggal') && $request->tanggal) {
-            $query->where('tanggal', $request->get('tanggal'));
-        }
-
-        $data = $query->get();
-
-        // Debugging
+        $data = BeritaAcaraSoal::with('matkul')->where('tanggal', request('tanggal'))->get();
         if ($data->isEmpty()) {
-            return response()->json(['status' => 404, 'message' => 'Data not found', 'requested_date' => $request->get('tanggal')]);
+            return response()->json(['status' => 404, 'message' => 'Data not found']);
         }
 
-        $pdf = FacadePdf::loadView('pdf_view_soal', compact('data'));
+        // Ambil tanggal dan ruang dari salah satu item karena diasumsikan sama untuk semua item yang difilter
+        $tanggal = $data->first()->tanggal;
+        $ruang = $data->first()->ruang;
+
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'Cetak PDF',
+            'description' => 'Cetak data berita acara SOAL',
+        ]);
+
+        $pdf = FacadePdf::loadView('pdf_view_soal', compact('data', 'tanggal', 'ruang'));
         return $pdf->download('berita_acara_Soal.pdf');
     }
 

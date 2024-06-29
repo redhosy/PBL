@@ -18,6 +18,9 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h3>Dosen Matakuliah</h3>
                     <div class="card-header-form">
+                         {{-- export --}}
+                         <a href="{{ route('dosenmatkul.export.excel') }}" class="btn btn-primary ml-2  action" type="button" data-toggle="tooltip"
+                         id="export" title="Export Data"><i class="fas fa-file-export"></i></a>
                     </div>
                 </div>
                 <div class="card-body p-3 rounded">
@@ -26,7 +29,7 @@
                             <thead class="bg-primary">
                                 <tr>
                                     <th class="text-light">No</th>
-                                    <th class="text-light text-nowrap">Nama</th>
+                                    <th class="text-light text-nowrap">Nama Dosen</th>
                                     <th class="text-light">Matakuliah</th>
                                     <th class="text-light">Kelas</th>
                                     <th class="text-light">Semester</th>
@@ -50,7 +53,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{-- {{ $data_damat->links() }} --}}
                     </div>
                 </div>
             </div>

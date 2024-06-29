@@ -21,24 +21,25 @@
             let itemId = $(this).data('id');
 
             console.log("Button clicked, data ID:", itemId);
-            $.get("{{ url('thnakad') }}/" + itemId, function(response) {
-                console.log("Server Response:", response);
 
-                if (response && response.data) {
+            $.ajax({
+                type: "GET",
+                url: "{{ url('thnakad') }}/" + itemId,
+                dataType: "json",
+                success: function(response) {
+                    console.log("Server Response:", response);
                     $('#detailModal').modal('show');
                     $('#editDataId').text(response.data.id);
                     $('#detailsemta').text(response.data.smt_thn_akd);
 
                     let status = response.data.status;
-                    $('#detailstatus').attr('class', 'badge rounded-pill ' + (status == 1 ?
-                            'bg-success text-light' : 'bg-danger text-light'))
-                        .text(status == 1 ? 'Aktif' : 'Tidak Aktif');
-                } else {
-                    console.error("Invalid response structure");
+                    $('#detailstatus').attr('class', 'badge rounded-pill ' + (status == 1 ? 'bg-danger text-light' : 'bg-success text-light'))
+                        .text(status == 1 ? 'Tidak Aktif' : 'Aktif');
+                },
+                error: function(error) {
+                    console.error('Failed to fetch data:', error);
+                    alert('Failed to fetch data.');
                 }
-            }).fail(function(jqXHR, textStatus, errorThrown) {
-                console.error('Failed to fetch data:', textStatus, errorThrown);
-                console.log(jqXHR.responseText);
             });
         });
     });

@@ -56,6 +56,7 @@
             let dataId = $(this).data('id');
             $.get("{{ url('matkulkbk') }}/" + dataId + "/edit", function(response) {
                 console.log(response);
+                
                 $('#editModal').modal('show');
                 $('#editDataId').val(response.data.id);
                 $('#edit_kode_matkul').val(response.data.kode_matkul);
@@ -117,10 +118,10 @@
                 $('#detailNamaMatkul').text(response.data[0].nama_matkul);
                 $('#detailSemester').text(response.data[0].semester);
                 $('#detailTp').text(response.data[0].ket);
-                $('#detailKbk').text(response.data[0].id_datakbk);
-                $('#detailProdi').text(response.data[0].id_prodi);
+                $('#detailKbk').text(response.data[0].kbk.kodekbk);
+                $('#detailProdi').text(response.data[0].prodi.prodi);
                 $('#detailJumlahSks').text(response.data[0].jumlah_sks);
-                $('#detailPengampu').text(response.data[0].id_dosen);
+                $('#detailPengampu').text(response.data[0].dosen.nama);
             }).fail(function(error) {
                 console.error('Failed to fetch data');
                 console.log(error);

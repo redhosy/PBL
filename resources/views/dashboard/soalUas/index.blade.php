@@ -26,15 +26,6 @@
                             <table class="table table-striped table-bordered" id="dataTable" class="display">
                                 <thead class="bg-primary">
                                     <tr>
-<<<<<<< Updated upstream
-                                        <th>No</th>
-                                        <th>Kode Soal</th>
-                                        <th>Kode MATKUL</th>
-                                        <th>Dosen Pengampu</th>
-                                        <th>Dokumen</th>
-                                        <th>Tahun Akademik</th>
-                                        <th>Actions</th>
-=======
                                         <th class="text-light">No</th>
                                         <th class="text-light text-nowrap">Kode Soal</th>
                                         <th class="text-light">Dosen Pengampu</th>
@@ -45,10 +36,9 @@
                                         @can('dosen-pengampu')
                                         <th class="text-light">Actions</th>
                                         @endcan
->>>>>>> Stashed changes
                                     </tr>
                                 </thead>
-                                <tbody id="dataTable">
+                                <tbody>
                                     @foreach ($soal as $data)
                                         <tr id="data{{ $data->id }}">
                                             <td>{{ $loop->iteration }}</td>
@@ -56,14 +46,14 @@
                                             <td class="text-nowrap">{{ $data->dosen->nama }}</td>
                                             <td class="text-nowrap">{{ $data->kode_matkul->nama_matakuliah }}</td>
                                             <td>
-                                                @if ($data->Dokumen)
-                                                    <a class="btn btn-primary" href="{{ asset('storage/' . $data->Dokumen) }}" target="_blank">Lihat
-                                                        Dokumen</a>
+                                                @if ($data->document)
+                                                <a class="btn btn-primary" href="{{ asset('storage/dokumentSoal/' . $data->document) }}" target="_blank">Lihat
+                                                    Dokumen</a>
                                                 @else
                                                     Tidak ada dokumen
                                                 @endif
                                             </td>
-                                            <td>{{ $data->tanggal }}</td>
+                                            <td class="text-nowrap">{{ $data->tanggal }}</td>
                                             <td class="text-nowrap">{{ $data->thnakd->smt_thn_akd }}</td>
                                             @can('dosen-pengampu')
                                             <td class="d-flex justify-content-around">
@@ -104,17 +94,8 @@
             </div>
         </div>
     </div>
-<<<<<<< Updated upstream
 
-
-    @include('dashboard.datakbk.addModal')
-    @include('dashboard.datakbk.editModal')
-    @include('dashboard.datakbk.detailModal')
-
-    @include('dashboard.datakbk.scripts')
-=======
     @include('dashboard.soalUas.addModal')
     @include('dashboard.soalUas.editModal')
     @include('dashboard.soalUas.detailModal')
->>>>>>> Stashed changes
 @endsection

@@ -23,7 +23,7 @@ class Ref_matakuliahkbkController extends Controller
         $dosen = ref_dosen::all();
         $kbk = ref_datakbk::all();
         $prodi = ref_prodis::all();
-        $matkulkbk = ref_matakuliahkbk::with('dosen','kbk', 'prodi')->get();
+        $matkulkbk = ref_matakuliahkbk::with('dosen', 'kbk', 'prodi')->get();
         return view('dashboard.matkulkbk.index', compact('matkulkbk', 'dosen', 'prodi', 'kbk'));
     }
 
@@ -70,16 +70,16 @@ class Ref_matakuliahkbkController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kode_matkul' => 'required|string|max:10', 
+            'kode_matkul' => 'required|string|max:10',
             'nama_matkul' => 'required|string|max:255',
-            'semester' => 'required|integer|between:1,8', 
-            'ket' => 'required|integer|in:1,2,3', 
-            'kbk' => 'required|exists:ref_datakbks,id', 
-            'prodi' => 'required|exists:ref_prodis,id', 
-            'jumlah_sks' => 'required|integer|max:99', 
-            'pengampu' => 'required|exists:ref_dosens,id', 
+            'semester' => 'required|integer|between:1,8',
+            'ket' => 'required|integer|in:T,P,T/P',
+            'kbk' => 'required|exists:ref_datakbks,id',
+            'prodi' => 'required|exists:ref_prodis,id',
+            'jumlah_sks' => 'required|integer|max:99',
+            'pengampu' => 'required|exists:ref_dosens,id',
         ]);
-        
+
 
         $data = new ref_matakuliahkbk();
         $data->kode_matkul = $validated['kode_matkul'];
@@ -92,15 +92,14 @@ class Ref_matakuliahkbkController extends Controller
         $data->id_dosen = $validated['pengampu'];
         $data->save();
 
-         // Catat aktivitas
-         ActivityLog::create([
+        // Catat aktivitas
+        ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'INSERT',
             'description' => 'Menambahkan data baru: ' . $data->nama,
         ]);
-    
-        return response()->json(['data' => $data]);
 
+        return response()->json(['data' => $data]);
     }
 
     /**
@@ -108,7 +107,7 @@ class Ref_matakuliahkbkController extends Controller
      */
     public function show(string $id)
     {
-        $data = ref_matakuliahkbk::with(['dosen','kbk','prodi'])->where('id', $id)->get();
+        $data = ref_matakuliahkbk::with(['dosen', 'kbk', 'prodi'])->where('id', $id)->get();
         return response()->json([
             'data' => $data,
             'status' => 200
@@ -120,7 +119,7 @@ class Ref_matakuliahkbkController extends Controller
      */
     public function edit(string $id)
     {
-        $data = ref_matakuliahkbk::with(['dosen','kbk','prodi'])->find($id);
+        $data = ref_matakuliahkbk::with(['dosen', 'kbk', 'prodi'])->find($id);
         return response()->json([
             'status' => 200,
             'data' => $data
@@ -143,16 +142,33 @@ class Ref_matakuliahkbkController extends Controller
             'dosen' => 'required|exists:ref_dosens',
         ]);
 
-        $ref_matakuliahkbk = ref_matakuliahkbk::find($id)->update($validated);
+        $data = [
+            'kode_matkul' => $request->kode_matkul,
+            'nama_matkul' => $request->nama_matkul,
+            'semester' => $request->semester,
+            'ket' => $request->ket,
+            'id_datakbk' => $request->datakbk,
+            'id_prodi' => $request->prodi,
+            'jumlah_sks' => $request->jumlahsks,
+            'id_dosen' => $request->dosen,
+        ];
 
-        // Catat aktivitas
-        ActivityLog::create([
-            'user_id' => Auth::id(),
-            'action' => 'UPDATE',
-            'description' => 'Update data baru: ' . $ref_matakuliahkbk
-        ]);
+        $matkulkbk = ref_matakuliahkbk::where('kode_matkul', $request->kode_matkul)->first();
+        if ($matkulkbk) {
+            $matkulkbk->update($data);
 
-        return response()->json(['data' => $ref_matakuliahkbk]);
+            // Catat aktivitas
+            ActivityLog::create([
+                'user_id' => Auth::id(),
+                'action' => 'UPDATE',
+                'description' => 'Update data baru: ' . $request->kode_matkul,
+            ]);
+            // $ref_matakuliahkbk = ref_matakuliahkbk::find($id)->update($validated);
+
+            return response()->json(['message' => 'success', 'data' => $data]);
+        } else {
+            return response()->json(['message' => 'Data tidak ditemukan'], 400);
+        }
     }
 
 
@@ -161,7 +177,7 @@ class Ref_matakuliahkbkController extends Controller
      */
     public function destroy(string $id)
     {
-        
+
         $kbk = ref_matakuliahkbk::find($id);
         ActivityLog::create([
             'user_id' => Auth::id(),
@@ -175,4 +191,3 @@ class Ref_matakuliahkbkController extends Controller
         return  response()->json(['status' => 404, 'message' => 'something went wrong']);
     }
 }
-

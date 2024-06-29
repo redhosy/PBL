@@ -18,6 +18,8 @@
 
             </a>
             <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-title text-center">{{ Auth::user()->role }}</div>
+                <hr>
                 <a href="/profile" class="dropdown-item has-icon">
                     <i class="far fa-user"></i> Profile
                 </a>

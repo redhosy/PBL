@@ -12,7 +12,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="editkoderps">Kode RPS:</label>
-                        <span type="text" class="form-control" id="editkoderps" name="koderps" required>
+                        <input type="text" class="form-control" id="editkoderps" name="editkoderps" required>
                     </div>
 
                     <div class="form-group">
@@ -43,6 +43,7 @@
 
                     <div class="form-group">
                         <label for="editdokumen">Dokumen (PDF):</label>
+                        <div class="dokumen_preview"></div>
                         <input type="file" class="form-control-file" id="editdokumen" name="dokumen"
                             accept="application/pdf">
                         <small class="form-text text-muted">Maksimal ukuran file: 2 MB</small>
@@ -50,7 +51,7 @@
 
                     <div class="form-group">
                         <label for="edittanggal">Tanggal:</label>
-                        <span type="date" class="form-control" id="edittanggal" name="tanggal" required>
+                        <input type="date" class="form-control" id="edittanggal" name="edittanggal" required>
                     </div>
 
                     <div class="form-group">

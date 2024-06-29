@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class soalUas extends Model
 {
-<<<<<<< Updated upstream
-    use HasFactory;
-=======
     protected $table = 'soal_uas';
     
     protected $guarded = ['id'];
@@ -28,5 +25,4 @@ class soalUas extends Model
     {
         return $this->belongsTo(ref_dosen  ::class, 'id_dosen');
     }
->>>>>>> Stashed changes
 }

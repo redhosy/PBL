@@ -102,25 +102,6 @@
         //dropdownsearch
         $('.selectpicker select').selectpicker();
 
-        // Detail
-        // $(document).on('click', '.detailBtn', function() {
-        //     let itemId = $(this).data('id');
-        //     console.log("Button clicked, data ID:", itemId);
-
-        //     $.get("{{ url('soalUas') }}/" + itemId, function(response) {
-        //         console.log(response);
-        //         $('#detailModal').modal('show');
-        //         $('#detailsoal').text(response.data[0].kodeSoal);
-        //         $('#detaildosen_Pengampu').text(response[0].data.dosen.nama);
-        //         $('#detailkode_matkul').text(response.data[0].kode_matkul.nama_matakuliah);
-        //         $('#detaildokumen').text(response.data[0].dokumen);
-        //         $('#detailtanggal').text(response.data[0].tanggal);
-        //         $('#detailthnakd').text(response.data[0].thnakd.smt_thn_akd);
-        //     }).fail(function(error) {
-        //         console.error('Failed to fetch data');
-        //         console.log(error);
-        //     });
-        // });
 
         $(document).on('click', '.deleteBtn', function() {
             let dataId = $(this).data('id');
@@ -151,19 +132,6 @@
                     alert('Failed to delete data');
                 }
             });
-        });
-
-        // Filter by tanggal
-        $('#filterTanggal').on('change', function() {
-            var selectedDate = $(this).val();
-            var table = $('#dataTable1').DataTable();
-            table.column(4).search(selectedDate).draw();
-        });
-
-        // Print
-        $('#cetakBeritaAcara').on('click', function() {
-            var selectedDate = $('#filterTanggal').val();
-            window.location.href = "/verifikasiRPS/cetak?tanggal=" + selectedDate;
         });
     });
 </script>

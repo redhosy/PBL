@@ -7,19 +7,6 @@
             }
         });
 
-        // Filter by tanggal
-        $('#filterTanggal').on('change', function() {
-            var selectedDate = $(this).val();
-            var table = $('#dataTable1').DataTable();
-            table.column(4).search(selectedDate).draw();
-        });
-
-        // Print
-        $('#cetakBeritaAcara').on('click', function() {
-            var selectedDate = $('#filterTanggal').val();
-            window.location.href = "/verifikasiRPS/cetak?tanggal=" + selectedDate;
-        });
-
 
         // Tooltip
         $('[data-toggle="tooltip"]').tooltip();
@@ -64,11 +51,11 @@
         // Show Edit Modal
         $(document).on('click', '.editBtn', function() {
             let dataId = $(this).data('id');
-            console.log(response);
-            $.get("{{ url('verifikasiRPS') }}/" + dataId + "/edit", function(response) {
-                $('#editDataId').val(response.data.id);
-                $('#editsemester').val(response.data.semester);
-                $('#editmatakuliah').val(response.data.matakuliah); // Sesuaikan ini dengan struktur data Anda
+            $.get("/verifikasiRPS/" + dataId + "/edit", function(response) {
+                console.log(response);
+                $('#editsemester').selectpicker('val', response.data.semester);
+                $('#editmatakuliah').selectpicker('val', response.data
+                    .id_matakuliah); // Sesuaikan ini dengan struktur data Anda
                 $('#editevaluasi').val(response.data.evaluasi);
                 $('#editruang').val(response.data.ruang);
                 $('#edittanggal').val(response.data.tanggal);
@@ -98,9 +85,13 @@
                 error: function(xhr) {
                     let errors = xhr.responseJSON.errors;
                     console.log(errors);
+                    // Tampilkan error di form (optional)
+                    $('#error-alert').removeClass('d-none').text(
+                        'Error updating data. Please check the form.');
                 }
             });
         });
+
 
 
         // pencarian

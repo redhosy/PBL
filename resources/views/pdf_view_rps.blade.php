@@ -35,6 +35,7 @@
                 @endforeach
             </tbody>
         </table>
+        <br><br><br>
         <div class="signature">
             <div>
                 <p>Menyetujui,<br>Ketua Program Studi<br><br><br><br>(......................................)</p>

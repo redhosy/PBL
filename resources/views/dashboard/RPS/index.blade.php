@@ -26,15 +26,6 @@
                             <table class="table table-striped table-bordered" id="dataTable" class="display">
                                 <thead class="bg-primary">
                                     <tr>
-<<<<<<< Updated upstream
-                                        <th>No</th>
-                                        <th>Kode RPS</th>
-                                        <th>Kode MATKUL</th>
-                                        <th>Versi</th>
-                                        <th>Dokumen</th>
-                                        <th>Dosen Pengembang</th>
-                                        <th>Actions</th>
-=======
                                         <th class="text-light">No</th>
                                         <th class="text-light">Kode RPS</th>
                                         <th class="text-light">Dosen Pengembang</th>
@@ -45,25 +36,24 @@
                                         @can('dosen-pengampu')
                                         <th class="text-light">Actions</th>
                                         @endcan
->>>>>>> Stashed changes
                                     </tr>
                                 </thead>
-                                <tbody id="DataRPS">
+                                <tbody>
                                     @foreach ($rps as $data)
                                         <tr id="data{{ $data->id }}">
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $data->KodeRPS }}</td>
-                                            <td>{{ $data->dosen->nama }}</td>
+                                            <td class="text-nowrap">{{ $data->dosen->nama }}</td>
                                             <td>{{ $data->kode_matkul->nama_matakuliah }}</td>
                                             <td>
                                                 @if ($data->Dokumen)
-                                                    <a class="btn btn-primary" href="{{ asset('storage/' . $data->Dokumen) }}" target="_blank">Lihat
+                                                    <a class="btn btn-primary" href="{{ asset('storage/dokumen/' . $data->Dokumen) }}" target="_blank">Lihat
                                                         Dokumen</a>
                                                 @else
                                                     Tidak ada dokumen
                                                 @endif
                                             </td>
-                                            <td>{{ $data->Tanggal }}</td>
+                                            <td class="text-nowrap">{{ $data->Tanggal }}</td>
                                             <td>{{ $data->thnakd->smt_thn_akd }}</td>
                                             @can('dosen-pengampu')
                                             <td class="d-flex justify-content-around">
@@ -105,17 +95,7 @@
             </div>
         </div>
     </div>
-<<<<<<< Updated upstream
-
-
-    @include('dashboard.datakbk.addModal')
-    @include('dashboard.datakbk.editModal')
-    @include('dashboard.datakbk.detailModal')
-
-    @include('dashboard.datakbk.scripts')
-=======
     @include('dashboard.RPS.addModal')
     @include('dashboard.RPS.editModal')
     @include('dashboard.RPS.detailModal')
->>>>>>> Stashed changes
 @endsection

@@ -42,6 +42,7 @@
 
                     <div class="form-group">
                         <label for="editdokumen">Dokumen (PDF):</label>
+                        <div class="dokumen_preview"></div>
                         <input type="file" class="form-control-file" id="editdokumen" name="dokumen"
                             accept="application/pdf">
                         <small class="form-text text-muted">Maksimal ukuran file: 2 MB</small>
@@ -52,7 +53,7 @@
                         <input type="date" class="form-control" id="edittanggal" name="tanggal" required>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group"> 
                         <label for="editthnakd">Tahun Akademik:</label>
                         <div class="selectpicker">
                             <select data-live-search="true" class="form-control w-100" id="editthnakd" name="thnakd"

@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< Updated upstream
-use App\Models\RPS;
-use Illuminate\Http\Request;
-=======
+
 use App\Models\ActivityLog;
 use App\Models\ref_smt_thn_akds;
 use App\Models\ref_damatkul;
@@ -15,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
->>>>>>> Stashed changes
 
 class RPSController extends Controller
 {
@@ -25,8 +21,11 @@ class RPSController extends Controller
 
     public function index()
     {
-<<<<<<< Updated upstream
-        return view('dashboard.RPS.index');
+        $dosen = ref_dosen::all();
+        $thnakd = ref_smt_thn_akds::all();
+        $damatkul = ref_damatkul::all();
+        $rps = RPS::with('kode_matkul', 'thnakd', 'dosen')->get();
+        return view('dashboard.RPS.index', compact('rps', 'dosen', 'thnakd', 'damatkul'));
     }
 
     /**
@@ -34,8 +33,6 @@ class RPSController extends Controller
      */
     public function create()
     {
-        //
-=======
         // echo 'tt';
         $dosen = ref_dosen::all();
         $thnakd = ref_smt_thn_akds::all();
@@ -43,7 +40,6 @@ class RPSController extends Controller
         $rps = RPS::with('kode_matkul', 'thnakd', 'dosen')->get();
         return view('dashboard.RPS.index', compact('rps', 'dosen', 'thnakd', 'damatkul'));
         // dd($matkulkbk);
->>>>>>> Stashed changes
     }
 
     /**
@@ -51,42 +47,44 @@ class RPSController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< Updated upstream
-        //
-=======
         $validated = $request->validate([
             'koderps' => 'required|string|max:10',
             'dosen_pengembang' => 'required|exists:ref_dosens,id',
             'kode_matkul' => 'required|exists:ref_damatkuls,id',
-            'dokumen' => 'nullable|file|mimes:pdf|max:2048',
+            'dokumen' => 'required|file|mimes:pdf|max:2048',
             'tanggal' => 'required|date',
             'thnakd' => 'required|exists:ref_smt_thn_akds,id',
         ]);
 
-        $data = new RPS();
-        $data->KodeRPS = $validated['koderps'];
-        $data->id_dosen = $validated['dosen_pengembang'];
-        $data->id_KodeMatkul = $validated['kode_matkul'];
-        $data->Tanggal = $validated['tanggal'];
-        $data->id_smt_thn_akd = $validated['thnakd'];
+        $data = [
+            'KodeRPS' => $request->koderps,
+            'id_dosen' => $request->dosen_pengembang,
+            'id_KodeMatkul' => $request->kode_matkul,
+            'Tanggal' => $request->tanggal,
+            'id_smt_thn_akd' => $request->thnakd
+        ];
 
+        $fileName = '';
         if ($request->hasFile('dokumen')) {
-            $validated['dokumen'] = $request->file('dokumen')->store('dokumen_rps', 'public');
+            // $validated['dokumen'] = $request->file('dokumen')->store('dokumen_rps', 'public');
+            $file = $request->file('dokumen');
+            $fileName = now()->format('YmdHis') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $filePath = $file->storeAs('public/dokumen', $fileName);
+            $data['Dokumen'] = $fileName;
         }
 
         // Simpan data ke database
-        $rps = RPS::create($validated);
+        $rps = RPS::create($data);
 
 
         // Catat aktivitas
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'INSERT',
-            'description' => 'Menambahkan data RPS baru: ' . $data->KodeRPS,
+            'description' => 'Menambahkan data RPS baru: ' . $request->koderps,
         ]);
 
-        return response()->json(['data' => $rps]);
->>>>>>> Stashed changes
+        return response()->json(['data' => $fileName]);
     }
 
     /**
@@ -119,11 +117,11 @@ class RPSController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'koderps' => 'required|string|max:10',
+            'editkoderps' => 'required|string|max:10',
             'dosen_pengembang' => 'required|exists:ref_dosens,id',
             'kode_matkul' => 'required|exists:ref_damatkuls,id',
-            'dokumen' => 'nullable|file|mimes:pdf|max:2048',
-            'tanggal' => 'required|date',
+            'dokumen' => 'required|file|mimes:pdf|max:2048',
+            'edittanggal' => 'required|date',
             'thnakd' => 'required|exists:ref_smt_thn_akds,id',
         ]);
 

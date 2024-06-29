@@ -1,6 +1,6 @@
 @extends('dashboard.layouts.app')
 
-@section('title', 'Data verifikasi RPS')
+@section('title', 'Data Verifikasi RPS')
 
 @section('scriptpages')
     @include('dashboard.verifikasiRPS.scripts')
@@ -15,31 +15,33 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h3>Berita Acara RPS</h3>
                         <div class="d-flex justify-content-around align-items-center">
-                            <div class="form-group mb-0">
-                                <!-- Filter -->
-                                <select class="form-control selectpicker w-auto" id="filterTanggal" name="filterTanggal">
-                                    <option value="">Filter Tanggal</option>
-                                    @foreach ($tanggalList as $tanggal)
-                                        <option value="{{ $tanggal->tanggal }}">{{ $tanggal->tanggal }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="form-group mb-0">
-                                <!-- Print -->
-                                <button class="btn btn-primary" type="button" data-toggle="tooltip" id="cetakBeritaAcara"
-                                    title="Cetak Berita Acara">
-                                    <i class="fas fa-print"></i>
-                                </button>
-                            </div>
+                            <form action="/cetakRPS" method="get" target="_blank">
+                                <div class="form-group mb-0 d-flex align-items-center">
+                                    <!-- Filter -->
+                                    <select class="form-control selectpicker w-auto mr-2" id="filterTanggal" name="tanggal">
+                                        <option value="">Pilih Tanggal</option>
+                                        @foreach ($tanggalList as $tanggal)
+                                            <option value="{{ $tanggal->tanggal }}">{{ $tanggal->tanggal }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <!-- Print -->
+                                    <button class="btn btn-primary" type="submit" data-toggle="tooltip"
+                                        title="Cetak Berita Acara">
+                                        <i class="fas fa-print"></i>
+                                    </button>
+                                </div>
+                            </form>
+                            @can('pengurus-kbk')
                             <div class="form-group mb-0">
                                 <!-- Add -->
-                                <button class="btn btn-success ml-2" type="button" data-toggle="tooltip" id="modalAdd"
+                                <a class="btn btn-success ml-2" type="button" data-toggle="tooltip" id="modalAdd"
                                     title="Tambah Data">
                                     <i class="fas fa-plus"></i>
-                                </button>
+                                </a>
                             </div>
+                            @endcan
                         </div>
-
                     </div>
                     <div class="card-body p-3 rounded">
                         <div class="table-responsive">
@@ -52,7 +54,9 @@
                                         <th class="text-light">Evaluasi</th>
                                         <th class="text-light">Tanggal</th>
                                         <th class="text-light">Ruang</th>
+                                        @can('pengurus-kbk')
                                         <th class="text-light">Actions</th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody id="dataTableBody">
@@ -64,14 +68,18 @@
                                             <td>{{ $item->evaluasi }}</td>
                                             <td>{{ $item->tanggal }}</td>
                                             <td>{{ $item->ruang }}</td>
+                                            @can('pengurus-kbk')
                                             <td class="d-flex justify-content-around">
                                                 <button class="btn btn-warning editBtn" data-toggle="modal"
-                                                    data-target="#editModal" data-id="{{ $item->id }}"><i
-                                                        class="fas fa-edit"></i></button>
+                                                    data-target="#editModal" data-id="{{ $item->id }}">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
                                                 <button class="btn btn-danger deleteBtn" data-toggle="modal"
-                                                    data-target="#deleteModal" data-id="{{ $item->id }}"><i
-                                                        class="fas fa-trash-alt"></i></button>
+                                                    data-target="#deleteModal" data-id="{{ $item->id }}">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
                                             </td>
+                                            @endcan
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -83,6 +91,7 @@
         </div>
     </div>
 
+    <!-- Delete Modal -->
     <div class="modal fade" id="modalDelete">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -94,6 +103,8 @@
                 </div>
                 <div class="modal-body modal-footer mt-5">
                     <form action="" id="formDelete" method="POST">
+                        @csrf
+                        @method('DELETE')
                         <button class="btn btn-default" data-dismiss="modal">Cancel</button>
                         <button class="btn btn-danger" type="button" id="confirmDelete">Hapus</button>
                     </form>
@@ -104,5 +115,5 @@
 
     @include('dashboard.verifikasiRPS.addModal')
     @include('dashboard.verifikasiRPS.editModal')
-    {{-- @include('dashboard.verifikasiRPS.detailModal')  --}}
+    {{-- @include('dashboard.verifikasiRPS.detailModal') --}}
 @endsection

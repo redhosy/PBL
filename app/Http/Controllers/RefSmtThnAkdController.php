@@ -38,9 +38,12 @@ class RefSmtThnAkdController extends Controller
     public function show(string $id)
     {
         $data = ref_smt_thn_akds::find($id);
-        return response()->json([
-            'status' => 200,
-            'data' => $data]);
+        
+        if ($data) {
+            return response()->json(['data' => $data], 200);
+        } else {
+            return response()->json(['message' => 'Data not found'], 404);
+        }
     }
 
     public function edit(string $id)

@@ -14,7 +14,7 @@
         <h4 class="text-center">BERITA ACARA VERIFIKASI SOAL<br>UJIAN AKHIR SEMESTER GANJIL TAHUN AJARAN 2022/2023<br>PROGRAM STUDI TEKNOLOGI REKAYASA PERANGKAT LUNAK</h4>
         <p>Telah dilaksanakan rapat verifikasi dan validasi soal ujian Akhir Semester besama
             KBK dan Kaprodi yang dilaksanakan pada :</p>
-        <p>Tanggal: {{ $tanggal }} <br>Tempat: {{ $ruang }} </p>
+            <p>Tanggal: {{ $tanggal }} <br>Tempat: {{ $ruang }} </p>
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -25,16 +25,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($beritaRPS as  $item)
+                @foreach($data as  $item)
                     <tr>
                         <td>{{ $loop->iteration}}</td>
                         <td>{{ $item->semester }}</td>
-                        <td>{{ $item->matakuliah->nama_matakuliah }}</td>
-                        <td>{{ $item->validasi }}</td>
+                        <td>{{ $item->matkul->nama_matakuliah }}</td>
+                        <td>{{ $item->validasi_isi }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        <br><br><br>
         <div class="signature">
             <div>
                 <p>Menyetujui,<br>Ketua Program Studi<br><br><br><br>(......................................)</p>
