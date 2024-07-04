@@ -111,16 +111,14 @@
 <!-- About Start -->
 <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
     <div class="container about px-lg-0">
-        <div class="row g-0 mx-lg-0">
-            <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
-                <div class="position-relative h-100">
-                    <video class="position-absolute video-fluid w-100 h-100" autoplay loop muted>
-                        <source src="img/logo_3.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
+        {{-- <div class="row g-0 mx-lg-0"> --}}
+            <div class="col-lg-12 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px; display: flex; justify-content: center; align-items: center;">
+                {{-- <div class="position-relative h-100" style=""> --}}
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/bGO3sTlNusk?si=POUc9ZqEgMck6HBQ" allow="autoplay; encrypted-media" frameborder="0" allowfullscreen autoplay loop muted>
+                    </iframe>
+                {{-- </div> --}}
             </div>
-            <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
+            {{-- <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
                 <div class="p-lg-5 pe-lg-0">
                     <h6 class="text-primary">About</h6>
                     <h1 class="mb-4"> Sistem Informasi KBK (Kelompok Bidang Keahlian)</h1>
@@ -129,10 +127,10 @@
                     <p><i class="fa fa-check-circle text-primary me-3"></i>Manajemen Data Matkul dan Dosen KBK</p>
                     <p><i class="fa fa-check-circle text-primary me-3"></i>Integrasi Data dan Pelaporan</p>
                     <p><i class="fa fa-check-circle text-primary me-3"></i>Pemantauan Kinerja dan Evaluasi Berkelanjutan</p>
-                    {{-- <a href="" class="btn btn-primary rounded-pill py-3 px-5 mt-3">Explore More</a> --}}
+                    <a href="" class="btn btn-primary rounded-pill py-3 px-5 mt-3">Explore More</a>
                 </div>
-            </div>
-        </div>
+            </div> --}}
+        {{-- </div> --}}
     </div>
 </div>
 <!-- About End -->
