@@ -3,7 +3,7 @@
     <a class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
         <div class="d-flex align-items-center">
             <img src="assets/img/logo2.png" alt="Logo" style="max-height: 50px; width: auto;">
-            <h5 class="mb-0 ms-2" style="font-size: 1.25rem;">SIKABEKA</h5>
+            <h5 class="mb-0 ms-2 text-success" style="font-size: 1.50rem;">SIKABEKA</h5>
         </div>
     </a>    
     
@@ -22,10 +22,11 @@
                 </div>
             </div>
         </div>
-        <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-                <a href="/login" class="btn btn-primary text-white rounded-0 py-4 px-lg-4 d-none d-lg-block nav-link {{ Request::is('active') === 'login' ? 'active' : '' }}">Login<i
-                    class=" fas fa-arrow-right ms-3"></i></a>
+        <ul class="navbar-nav ms-auto flex-row">
+            <li class="nav-item ms-auto">
+                <a href="/login" class="btn btn-primary text-white rounded-0 py-4 px-lg-4 d-none d-lg-block nav-link {{ Request::is('active') === 'login' ? 'active' : '' }}">
+                    Login<i class="fas fa-arrow-right ms-3"></i>
+                </a>
             </li>
         </ul>
     </div>

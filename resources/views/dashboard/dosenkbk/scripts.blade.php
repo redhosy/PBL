@@ -14,11 +14,16 @@
              var nama = selectedDosen.data('nama'); // Ambil nilai data-nama dari option yang dipilih
              var nip = selectedDosen.data('nip'); // Ambil nilai data-nip dari option yang dipilih
              var email = selectedDosen.data('email'); // Ambil nilai data-email dari option yang dipilih
+             var prodi = selectedDosen.data('prodi'); // Ambil nilai data-email dari option yang dipilih
+             var jurusan = selectedDosen.data(
+                 'jurusan'); // Ambil nilai data-email dari option yang dipilih
 
              // Setel nilai input dengan nilai yang diambil dari option yang dipilih
              $('#nama').val(nama);
              $('#nip').val(nip);
              $('#email').val(email);
+             $('#prodi').val(prodi);
+             $('#jurusan').val(jurusan);
          });
 
          //tooltip
@@ -67,40 +72,46 @@
              let dataId = $(this).data('id');
              $.get("{{ url('dosenkbk') }}/" + dataId + "/edit", function(response) {
                  console.log(response);
-                 
+
                  $('#editModal').modal('show');
                  $('#editDataId').val(response.data.id);
                  $('#editnama').val(response.data.dosen.nama);
                  $('#editnip').val(response.data.dosen.nip);
                  $('#editemail').val(response.data.dosen.email);
+                 $('#editprodi').val(response.data.dosen.prodi.prodi);  
+                 $('#editjurusan').val(response.data.dosen.jurusan.jurusan); 
                  $('#editdosen').selectpicker('val', response.data.id_dosen);
-                 $('#editjurusan').selectpicker('val', response.data.id_jurusan);
-                 $('#editprodi').selectpicker('val', response.data.id_prodi);
                  $('#editkbk').selectpicker('val', response.data.id_datakbk);
                  $('#editjabatan').selectpicker('val', response.data.id_jabatan);
                  $('#editstatus').selectpicker('val', response.data.status);
              });
          });
 
-         // Update Data - Mengirim data yang sudah diubah ke backend
          $('#editPostForm').on('submit', function(e) {
              e.preventDefault();
-             console.log($('#editDataId').val());
              let dataId = $('#editDataId').val();
-             let formData = $(this).serialize(); // Serialize form data
+             let formData = {
+                 editdosen: $('#editdosen').val(),
+                 jurusan: $('#editjurusan').val(),
+                 prodi: $('#editprodi').val(),
+                 kbk: $('#editkbk').val(),
+                 jabatan: $('#editjabatan').val(),
+                 status: $('#editstatus').val()
+             };
+
              $.ajax({
                  url: "{{ url('dosenkbk') }}/" + dataId,
                  method: 'PUT',
                  data: formData,
                  success: function(response) {
-                     console.log(response)
+                     console.log(response);
                      $('#editModal').modal('hide');
                      $('#success-alert').removeClass('d-none').text(
                          'Data berhasil diupdate!');
                      // Hide alert after 3 seconds
                      setTimeout(function() {
                          $('#success-alert').addClass('d-none').text(
-                             'Data berhasil diperbarui.');;
+                             'Data berhasil diperbarui.');
                      }, 3000);
 
                      location.reload(); // Reload halaman untuk menampilkan perubahan
@@ -108,9 +119,11 @@
                  error: function(xhr) {
                      console.log(xhr);
                      let errors = xhr.responseJSON.errors;
+                     // Handle errors
                  }
              });
          });
+
 
 
          // Detail

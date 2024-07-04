@@ -88,11 +88,8 @@
                 <div class="row g-0 mx-lg-0">
                     <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
                         <div class="position-relative h-100">
-                            <video class="position-absolute video-fluid w-100 h-100" autoplay loop muted>
-                                <source src="img/logo_3.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
+                            <img class="position-absolute img-fluid w-100 h-100" src="img/dashboard.png" alt="Descriptive Alt Text" style="object-fit: cover;">
+                        </div>                        
                     </div>
                     <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
                         <div class="p-lg-5 pe-lg-0">
