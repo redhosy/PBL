@@ -63,8 +63,6 @@ class RefDosenkbk extends Controller
     {
         $validated = $request->validate([
             'dosen_id' => 'required|exists:ref_dosens,id',
-            'jurusan' => 'required|exists:ref_jurusans,id',
-            'prodi' => 'required|exists:ref_prodis,id',
             'kbk' => 'required|exists:ref_datakbks,id',
             'jabatan' => 'required|exists:jabpims,id',
             'status' => 'required|in:0,1',
@@ -77,8 +75,8 @@ class RefDosenkbk extends Controller
         $data->nama = $dosen->nama;
         $data->nip = $dosen->nip;
         $data->email = $dosen->email;
-        $data->id_jurusan = $validated['jurusan'];
-        $data->id_prodi = $validated['prodi'];
+        $data->id_jurusan = $dosen->id_jurusan;  // Pastikan hanya menyimpan ID
+        $data->id_prodi = $dosen->id_prodi;      // Pastikan hanya menyimpan ID
         $data->id_datakbk = $validated['kbk'];
         $data->id_jabatan = $validated['jabatan'];
         $data->status = $validated['status'];
@@ -95,10 +93,9 @@ class RefDosenkbk extends Controller
     }
 
 
-
     public function show($id)
     {
-        $data = ref_dosenkbk::with('kbk', 'dosen', 'prodi', 'jurusan', 'jabatan')->where('id', $id)->get();
+        $data = ref_dosenkbk::with(['dosen', 'prodi', 'kbk', 'jurusan', 'jabatan'])->where('id', $id)->get();
         return response()->json([
             'data' => $data,
             'status' => 200
@@ -107,7 +104,7 @@ class RefDosenkbk extends Controller
 
     public function edit(string $id)
     {
-        $data = ref_dosenkbk::with(['dosen', 'kbk', 'prodi', 'jurusan', 'jabatan'])->find($id);
+        $data = ref_dosenkbk::with(['dosen', 'prodi', 'kbk', 'jurusan', 'jabatan'])->find($id);
         return response()->json([
             'status' => 200,
             'data' => $data
@@ -126,15 +123,16 @@ class RefDosenkbk extends Controller
         ]);
 
         $data = [
-            'id_dosen' => $request->editdosen,
-            'id_jurusan' => $request->jurusan,
-            'id_prodi' => $request->prodi,
-            'id_datakbk' => $request->kbk,
-            'id_jabatan' => $request->jabatan,
-            'status' => $request->status,
+            'id_dosen' => $validated['editdosen'],
+            'id_jurusan' => $validated['jurusan'],
+            'id_prodi' => $validated['prodi'],
+            'id_datakbk' => $validated['kbk'],
+            'id_jabatan' => $validated['jabatan'],
+            'status' => $validated['status'],
         ];
 
-        $dosenkbk = ref_dosenkbk::where('id_dosen', $request->editdosen)->first();
+        $dosenkbk = ref_dosenkbk::findOrFail($id);
+
         if ($dosenkbk) {
             $dosenkbk->update($data);
 
@@ -142,10 +140,10 @@ class RefDosenkbk extends Controller
             ActivityLog::create([
                 'user_id' => Auth::id(),
                 'action' => 'UPDATE',
-                'description' => 'Updated data for dosen: ' . $request->editdosen,
+                'description' => 'Updated data for dosen: ' . $validated['editdosen'],
             ]);
 
-            return response()->json(['message' => 'success', 'data' => $data]);
+            return response()->json(['message' => 'success', 'data' => $dosenkbk]);
         } else {
             return response()->json(['message' => 'error'], 400);
         }

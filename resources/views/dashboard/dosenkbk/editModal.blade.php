@@ -1,4 +1,3 @@
-<!-- editModal.blade.php -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -24,47 +23,28 @@
                         <input type="email" class="form-control" id="editemail" name="email" readonly>
                     </div>
                     <div class="form-group">
+                        <label for="editprodi">Prodi:</label>
+                        <input type="text" class="form-control" id="editprodi" name="prodi" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="editjurusan">Jurusan:</label>
+                        <input type="text" class="form-control" id="editjurusan" name="jurusan" readonly>
+                    </div>
+                    <div class="form-group">
                         <label for="editdosen">Pilih Dosen:</label>
                         <div class="selectpicker">
-                            <select data-live-search="true" class="form-control w-100" id="editdosen" name="editdosen"
-                                required>
+                            <select data-live-search="true" class="form-control w-100" id="editdosen" name="editdosen" required>
                                 <option value="">Pilih Dosen</option>
                                 @foreach ($dosen as $dosen)
-                                    <option value="{{ $dosen->id }}">{{ $dosen->nama }} - {{ $dosen->nip }} -
-                                        {{ $dosen->email }}</option>
+                                    <option value="{{ $dosen->id }}">{{ $dosen->nama }} - {{ $dosen->nip }} - {{ $dosen->email }} - {{ $dosen->prodi->prodi }} - {{ $dosen->jurusan->jurusan }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="jurusan">Jurusan:</label>
-                        <select class="form-control w-100 selectpicker" id="editjurusan" name="jurusan" required>
-                            <option value="">Pilih Jurusan</option>
-                            @foreach ($jurusan as $item)
-                                <option value="{{ $item->id }}">{{ $item->jurusan }}</option>
-                            @endforeach
-                        </select>
-                        <span class="text-danger" id="error_jurusan"></span>
-                    </div> 
-                    <div class="form-group">
-                        <label for="prodi">Prodi:</label>
+                        <label for="editkbk">KBK:</label>
                         <div class="selectpicker">
-                            {{-- <input type="text" id="prodi"> --}}
-                            <select data-live-search="true" class="form-control w-100" id="editprodi" name="prodi"
-                                required>
-                                <option value="">Pilih Prodi</option>
-                                @foreach ($prodi as $item)
-                                    <option value="{{ $item->id }}">{{ $item->prodi }}</option>
-                                @endforeach
-                            </select>
-                            <span class="text-danger" id="error_prodi"></span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_kbk">KBK:</label>
-                        <div class="selectpicker">
-                            <select data-live-search="true" class="form-control w-100" id="editkbk" name="kbk"
-                                required>
+                            <select data-live-search="true" class="form-control w-100" id="editkbk" name="kbk" required>
                                 <option value="">Pilih KBK</option>
                                 @foreach ($datakbk as $kbk)
                                     <option value="{{ $kbk->id }}">{{ $kbk->kodekbk }}</option>
@@ -73,7 +53,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="edit_jabatan">Jabatan:</label>
+                        <label for="editjabatan">Jabatan:</label>
                         <select class="form-control w-100 selectpicker" id="editjabatan" name="jabatan" required>
                             <option value="">Pilih Jabatan</option>
                             @foreach ($jabatan as $item)
@@ -82,7 +62,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="edit_status">Status:</label>
+                        <label for="editstatus">Status:</label>
                         <select class="form-control w-100 selectpicker" id="editstatus" name="status" required>
                             <option value="">Pilih Status</option>
                             <option value="1">Aktif</option>
