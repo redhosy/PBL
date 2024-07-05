@@ -12,6 +12,14 @@
    /* color: #f666b5; */
 }
 
+table.dataTable thead>tr>th.dt-orderable-asc,
+table.dataTable thead>tr>th.dt-orderable-desc,
+table.dataTable thead>tr>td.dt-orderable-asc,
+table.dataTable thead>tr>td.dt-orderable-desc {
+    cursor: pointer;
+    text-align: center;
+}
+
 /* .btn-impor:hover{
     background-color: rgb(180, 17, 180);
 color: white;

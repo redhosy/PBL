@@ -18,7 +18,7 @@
                             <form action="/cetakRPS" method="get" target="_blank">
                                 <div class="form-group mb-0 d-flex align-items-center">
                                     <!-- Filter -->
-                                    <select class="form-control selectpicker w-auto mr-2" id="filterTanggal" name="tanggal">
+                                    <select class="form-control selectpicker w-auto mr-2" id="filterTanggal" name="tanggal">                                    
                                         <option value="">Pilih Tanggal</option>
                                         @foreach ($tanggalList as $tanggal)
                                             <option value="{{ $tanggal->tanggal }}">{{ $tanggal->tanggal }}</option>
@@ -35,10 +35,10 @@
                             @can('pengurus-kbk')
                                 <div class="form-group mb-0">
                                     <!-- Add -->
-                                    <a class="btn btn-success ml-2" type="button" data-toggle="tooltip" id="modalAdd"
+                                    <button class="btn btn-success ml-2" type="button" data-toggle="tooltip" id="modalAdd"
                                         title="Tambah Data">
                                         <i class="fas fa-plus"></i>
-                                    </a>
+                                    </button>
                                 </div>
                             @endcan
                         </div>

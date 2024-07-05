@@ -15,7 +15,7 @@
                     <h3>Matkul KBK</h3>
                     <div class="card-header-form">
                         {{-- import --}}
-                        <button class="btn btn-warning ml-2  action" type="button" data-toggle="tooltip"
+                        <button class="btn btn-import ml-2  action" type="button" data-toggle="tooltip"
                             id="import" title="Import Data"><i class="fas fa-file-import" data-toggle="modal"
                             data-target="#importModal"></i></button>
                         {{-- export --}}
@@ -80,7 +80,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Anda yakin Ingin Menghapus Data?</h5>
+                <h5 class="modal-title">Anda yakin ingin menghapus data?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -117,7 +117,7 @@
                  </div>
              </div>
              <div class="modal-footer">
-                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                 {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
                  <button type="submit" class="btn btn-primary">Import</button>
              </div>
          </form>
