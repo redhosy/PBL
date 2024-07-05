@@ -10,8 +10,6 @@
     <script src="assets/modules/jquery.min.js"></script>
     <link rel="stylesheet" href="assets/modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/modules/fontawesome/css/all.min.css">
-    
-
 
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="assets/modules/jqvmap/dist/jqvmap.min.css">
@@ -22,6 +20,7 @@
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="/css/customCss.css">
     <link href="assets/css/datatables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/components.css">
     <link rel="stylesheet"

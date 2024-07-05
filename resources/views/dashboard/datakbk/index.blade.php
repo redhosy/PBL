@@ -15,16 +15,16 @@
                         <h3>Data KBK</h3>
                         <div class="card-header-form">
                             {{-- import --}}
-                            <a class="btn btn-secondary ml-2 action" type="button" data-toggle="tooltip" id="import"
+                            <button class="btn btn-import ml-2 action" type="button" data-toggle="tooltip" id="import"
                                 title="Import Data">
                                 <i class="fas fa-file-import" data-toggle="modal"data-target="#importModal"></i>
-                            </a>
+                            </button>
 
                             {{-- export --}}
-                            <a href="{{ route('datakbk.export.excel') }}" class="btn btn-info ml-2 action" type="button"
+                            <button href="{{ route('datakbk.export.excel') }}" class="btn btn-primary ml-2 action" type="button"
                                 data-toggle="tooltip" id="export" title="Export Data">
                                 <i class="fas fa-file-export"></i>
-                            </a>
+                            </button>
 
                             {{-- tambah --}}
                             <button class="btn btn-success ml-2 action" type="button" data-toggle="tooltip" id="modalAdd"

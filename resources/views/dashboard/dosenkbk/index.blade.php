@@ -15,12 +15,12 @@
                         <h3>Dosen KBK</h3>
                         <div class="card-header-form">           
                             {{-- import --}}
-                            <a class="btn btn-secondary ml-2  action" type="button" data-toggle="tooltip"
+                            <button class="btn btn-secondary ml-2  action" type="button" data-toggle="tooltip"
                                 id="import" title="Import Data"><i class="fas fa-file-import" data-toggle="modal"
-                                data-target="#importModal"></i></a>
+                                data-target="#importModal"></i></button>
                             {{-- export --}}
-                            <a href="{{ route('dosenkbk.export.excel') }}" class="btn btn-info ml-2  action" type="button" data-toggle="tooltip"
-                                id="export" title="Export Data"><i class="fas fa-file-export"></i></a>
+                            <button href="{{ route('dosenkbk.export.excel') }}" class="btn btn-info ml-2  action" type="button" data-toggle="tooltip"
+                                id="export" title="Export Data"><i class="fas fa-file-export"></i></button>
                             {{-- tambah --}}
                             <button class="btn btn-success ml-2  action" type="button" data-toggle="tooltip"
                                 id="modalAdd" title="Tambah Data"><i class="fas fa-plus"></i></button>
