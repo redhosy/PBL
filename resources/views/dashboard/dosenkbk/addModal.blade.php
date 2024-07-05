@@ -24,6 +24,14 @@
                         <input type="email" class="form-control" id="email" name="email" readonly>
                     </div>
                     <div class="form-group">
+                        <label for="prodi">Prodi:</label>
+                        <input type="text" class="form-control" id="prodi" name="prodi" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="jurusan">Jurusan:</label>
+                        <input type="text" class="form-control" id="jurusan" name="jurusan" readonly>
+                    </div>
+                    <div class="form-group">
                         <label for="dosen_id">Pilih Dosen:</label>
                         <div class="selectpicker">
                             <select data-live-search="true" class="form-control w-100" id="dosen_id" name="dosen_id"
@@ -31,15 +39,15 @@
                                 <option value="">Pilih Dosen</option>
                                 @foreach ($dosen as $item)
                                     <option value="{{ $item->id }}" data-nama="{{ $item->nama }}"
-                                        data-nip="{{ $item->nip }}" data-email="{{ $item->email }}">
-                                        {{ $item->nama }} - {{ $item->nip }} - {{ $item->email }}
+                                        data-nip="{{ $item->nip }}" data-email="{{ $item->email }}" data-prodi="{{ $item->prodi->prodi }}" data-jurusan="{{ $item->jurusan->jurusan }}">
+                                        {{ $item->nama }} - {{ $item->nip }} - {{ $item->email }} - {{ $item->prodi->prodi }} - {{ $item->jurusan->jurusan }}
                                     </option>
                                 @endforeach
                             </select>
                             <span class="text-danger" id="error_dosen_id"></span>
                         </div>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="jurusan">Jurusan:</label>
                         <select class="form-control w-100 selectpicker" id="jurusan" name="jurusan" required>
                             <option value="">Pilih Jurusan</option>
@@ -62,7 +70,7 @@
                             </select>
                             <span class="text-danger" id="error_prodi"></span>
                         </div>
-                    </div>
+                    </div> --}}
                     
                     <div class="form-group">
                         <label for="kbk">KBK:</label>
