@@ -11,6 +11,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
+                        <input type="hidden" id="editDataId">
                         <label for="edit_kode_matkul">Kode Matkul:</label>
                         <input type="text" class="form-control" id="edit_kode_matkul" name="kode_matkul" readonly>
                     </div>
@@ -85,7 +86,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
                     <button type="submit" class="btn btn-primary">Update</button>
                     <span id="edit_error_kode"></span>
                 </div>

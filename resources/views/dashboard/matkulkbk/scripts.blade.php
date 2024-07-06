@@ -8,7 +8,7 @@
         });
 
         //selectotomatis
-        $('#id_matkul').change(function() {
+        $('#matkul_id').change(function() {
             var selectedMatkulId = $(this).val(); // Ambil nilai dari option yang dipilih
             var selectedMatkul = $(this).find('option:selected'); // Temukan option yang dipilih
             var kode_matakuliah = selectedMatkul.data('kode_matakuliah'); // Ambil nilai data-kode_matakuliah dari option yang dipilih
@@ -18,11 +18,11 @@
             var sks = selectedMatkul.data('sks'); // Ambil nilai data-sks dari option yang dipilih
 
             // Setel nilai input dengan nilai yang diambil dari option yang dipilih
-            $('#kode_matkul').val(kode_matakuliah);
-            $('#nama_matkul').val(nama_matakuliah);
+            $('#kode_matakuliah').val(kode_matakuliah);
+            $('#nama_matakuliah').val(nama_matakuliah);
             $('#semester').val(semester);
             $('#tp').val(TP);
-            $('#jumlah_sks').val(sks);
+            $('#sks').val(sks);
         });
 
 

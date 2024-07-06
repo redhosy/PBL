@@ -5,17 +5,27 @@ namespace App\Exports;
 use App\Models\RefDosenMatkul;
 use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+
 // use Maatwebsite\Excel\Concerns\WithHeadings;
 // use Maatwebsite\Excel\Concerns\WithMapping;
 
-class dosenMatkulExport implements FromCollection
+class dosenMatkulExport implements FromCollection, WithHeadings
 {
     /**
      * @return \Illuminate\Support\Collection
      */
     public function collection()
     {
-        return RefDosenMatkul::with(['dosen', 'matakuliah', 'kelas', 'semester'])->first();
+         return RefDosenMatkul::latest()->get()->map(function($data){
+            return [
+                'id'=>$data->id,
+                'nama_dosen'=>$data->dosen->nama,
+                'mata_kuliah'=>$data->matakuliah->nama_matakuliah,
+                'kelas'=>$data->kelas->nama_kelas,
+                'semester'=>$data->semester->smt_thn_akd
+            ];
+        });
     }
 
     public function headings(): array
@@ -26,17 +36,6 @@ class dosenMatkulExport implements FromCollection
             'Matakuliah',
             'Kelas',
             'Semester',
-        ];
-    }
-
-    public function map($refDosenMatkul): array
-    {
-        return [
-            $refDosenMatkul->id,
-            $refDosenMatkul->matakuliah ? $refDosenMatkul->matakuliah->nama_matakuliah : '',
-            $refDosenMatkul->dosen ? $refDosenMatkul->dosen->nama : '',
-            $refDosenMatkul->kelas ? $refDosenMatkul->kelas->nama_kelas : '',
-            $refDosenMatkul->semester ? $refDosenMatkul->semester->smt_thn_akd : '',
         ];
     }
 }

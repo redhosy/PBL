@@ -12,11 +12,11 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="kode_matkul">Kode Matkul:</label>
-                        <input type="text" class="form-control" id="kode_matkul" name="kode_matkul" readonly>
+                        <input type="text" class="form-control" id="kode_matakuliah" name="kode_matkul" readonly>
                     </div>
                     <div class="form-group">
                         <label for="nama_matkul">Nama Matkul:</label>
-                        <input type="text" class="form-control" id="nama_matkul" name="nama_matkul" readonly>
+                        <input type="text" class="form-control" id="nama_matakuliah" name="nama_matkul" readonly>
                     </div>
                     <div class="form-group">
                         <label for="semester">Semester:</label>
@@ -28,7 +28,7 @@
                     </div>
                     <div class="form-group">
                         <label for="jumlah_sks">Jumlah SKS:</label>
-                        <input type="text" class="form-control" id="jumlah_sks" name="jumlah_sks" readonly>
+                        <input type="text" class="form-control" id="sks" name="sks" readonly>
                     </div>
 
                     <div class="form-group">
