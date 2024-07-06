@@ -18,7 +18,7 @@
                             <form action="/cetakRPS" method="get" target="_blank">
                                 <div class="form-group mb-0 d-flex align-items-center">
                                     <!-- Filter -->
-                                    <select class="form-control selectpicker w-auto mr-2" id="filterTanggal" name="tanggal">
+                                    <select class="form-control selectpicker w-auto mr-2" id="filterTanggal" name="tanggal">                                    
                                         <option value="">Pilih Tanggal</option>
                                         @foreach ($tanggalList as $tanggal)
                                             <option value="{{ $tanggal->tanggal }}">{{ $tanggal->tanggal }}</option>
@@ -33,13 +33,13 @@
                                 </div>
                             </form>
                             @can('pengurus-kbk')
-                            <div class="form-group mb-0">
-                                <!-- Add -->
-                                <a class="btn btn-success ml-2" type="button" data-toggle="tooltip" id="modalAdd"
-                                    title="Tambah Data">
-                                    <i class="fas fa-plus"></i>
-                                </a>
-                            </div>
+                                <div class="form-group mb-0">
+                                    <!-- Add -->
+                                    <button class="btn btn-success ml-2" type="button" data-toggle="tooltip" id="modalAdd"
+                                        title="Tambah Data">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
                             @endcan
                         </div>
                     </div>
@@ -69,16 +69,16 @@
                                             <td>{{ $item->tanggal }}</td>
                                             <td>{{ $item->ruang }}</td>
                                             @can('pengurus-kbk')
-                                            <td class="d-flex justify-content-around">
-                                                <button class="btn btn-warning editBtn" data-toggle="modal"
-                                                    data-target="#editModal" data-id="{{ $item->id }}">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="btn btn-danger deleteBtn" data-toggle="modal"
-                                                    data-target="#deleteModal" data-id="{{ $item->id }}">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </td>
+                                                <td class="d-flex justify-content-around">
+                                                    <button class="btn btn-warning editBtn" data-toggle="modal"
+                                                        data-target="#editModal" data-id="{{ $item->id }}">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-danger deleteBtn" data-toggle="modal"
+                                                        data-target="#deleteModal" data-id="{{ $item->id }}">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </td>
                                             @endcan
                                         </tr>
                                     @endforeach
