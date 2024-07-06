@@ -75,7 +75,7 @@
                 $('#edit_semester').val(response.data.matkul.semester);
                 $('#edit_tp').val(response.data.matkul.TP);
                 $('#edit_jumlah_sks').val(response.data.matkul.sks);
-                $('#edit_matkul_id').selectpicker('val', response.data.id_matkul);
+                $('#editmatkul_id').selectpicker('val', response.data.id_matkul);
                 $('#edit_kbk').selectpicker('val', response.data.id_datakbk);
                 $('#edit_prodi').selectpicker('val', response.data.id_prodi);
                 $('#edit_pengampu').selectpicker('val', response.data.id_dosen);
@@ -126,13 +126,13 @@
 
                 // Mengisi data detail ke dalam modal
                 $('#detailDataId').text(response.data[0].id);
-                $('#detailKodeMatkul').text(response.data[0].kode_matkul);
-                $('#detailNamaMatkul').text(response.data[0].nama_matkul);
-                $('#detailSemester').text(response.data[0].semester);
-                $('#detailTp').text(response.data[0].ket);
+                $('#detailKodeMatkul').text(response.data[0].matkul.kode_matakuliah);
+                $('#detailNamaMatkul').text(response.data[0].matkul.nama_matakuliah);
+                $('#detailSemester').text(response.data[0].matkul.semester);
+                $('#detailTp').text(response.data[0].matkul.TP);
                 $('#detailKbk').text(response.data[0].kbk.kodekbk);
                 $('#detailProdi').text(response.data[0].prodi.prodi);
-                $('#detailJumlahSks').text(response.data[0].jumlah_sks);
+                $('#detailJumlahSks').text(response.data[0].matkul.sks);
                 $('#detailPengampu').text(response.data[0].dosen.nama);
             }).fail(function(error) {
                 console.error('Failed to fetch data');

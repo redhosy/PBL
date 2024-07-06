@@ -31,9 +31,9 @@
                         <input type="text" class="form-control" id="edit_jumlah_sks" name="jumlah_sks" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="edit_matkul_id">Pilih Matkul:</label>
+                        <label for="editmatkul_id">Pilih Matkul:</label>
                         <div class="selectpicker">
-                            <select data-live-search="true" class="form-control w-100" id="edit_matkul_id" name="editmatkul" required>
+                            <select data-live-search="true" class="form-control w-100" id="editmatkul_id" name="editmatkul_id" required>
                                 <option value="">Pilih Matkul</option>
                                 @foreach ($matkul as $item)
                                     <option value="{{ $item->id }}" data-kode_matakuliah="{{ $item->kode_matakuliah }}"

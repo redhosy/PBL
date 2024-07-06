@@ -13,15 +13,18 @@
         <div class="row mt-sm-4">
             <div class="col-12 col-md-12 col-lg-5 mb-3">
                 <div class="card profile-widget">
-                    <div class="profile-widget-header">
-                        @if (Auth::user()->profile_photo_path)
-                            <img alt="image" src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}" class="rounded-circle profile-widget-picture">
-                        @else
-                        <div class="initials rounded-circle profile-widget-picture">
-                            {{ getInitials(Auth::user()->name) }}
+                    <div class="profile-widget-header ml-4">
+                        <div class="rounded-circle overflow-hidden" style="width: 100px; height: 100px;">
+                            @if (Auth::user()->profile_photo_path)
+                                <img alt="image" src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}" class="w-100 h-100 rounded-circle" style="object-fit: cover;">
+                            @else
+                                <img alt="image" src="{{ Auth::user()->avatar ?? 'https://ui-avatars.com/api/?name=' . Auth::user()->name .'&background=f666b5&color=ffffff&size=150' }}" class="w-100 h-100 rounded-circle" style="object-fit: cover;">
+                            @endif
                         </div>
-                        @endif
                     </div>
+                    
+                    
+                                       
                     <div class="profile-widget-description">
                         <label for="bio"><b><i class="bi bi-file-earmark-person-fill mr-1"></i>Bio</b></label>{!! Auth::user()->bio !!}
                     </div>
