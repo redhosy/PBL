@@ -33,13 +33,13 @@
                                 </div>
                             </form>
                             @can('pengurus-kbk')
-                            <div class="form-group mb-0">
-                                <!-- Add -->
-                                <button class="btn btn-success ml-2" type="button" data-toggle="tooltip" id="modalAdd"
-                                    title="Tambah Data">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
+                                <div class="form-group mb-0">
+                                    <!-- Add -->
+                                    <button class="btn btn-success ml-2" type="button" data-toggle="tooltip" id="modalAdd"
+                                        title="Tambah Data">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
                             @endcan
                         </div>
 
@@ -56,20 +56,20 @@
                                         <th class="text-light">Tanggal</th>
                                         <th class="text-light">Ruang</th>
                                         @can('pengurus-kbk')
-                                        <th class="text-light">Actions</th>
+                                            <th class="text-light">Actions</th>
                                         @endcan
                                     </tr>
                                 </thead>
                                 <tbody id="dataTableBody">
-                                        @foreach ($beritaSoal as $item)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $item->semester }}</td>
-                                                <td>{{ $item->matkul->nama_matakuliah }}</td>
-                                                <td>{{ $item->validasi_isi }}</td>
-                                                <td>{{ $item->tanggal }}</td>
-                                                <td>{{ $item->ruang }}</td>
-                                                @can('pengurus-kbk')
+                                    @foreach ($beritaSoal as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->semester }}</td>
+                                            <td>{{ $item->matkul->nama_matakuliah }}</td>
+                                            <td>{{ $item->validasi_isi }}</td>
+                                            <td>{{ $item->tanggal }}</td>
+                                            <td>{{ $item->ruang }}</td>
+                                            @can('pengurus-kbk')
                                                 <td class="d-flex justify-content-around">
                                                     <button class="btn btn-warning editBtn" data-toggle="modal"
                                                         data-target="#editModal" data-id="{{ $item->id }}"><i
@@ -78,9 +78,9 @@
                                                         data-target="#deleteModal" data-id="{{ $item->id }}"><i
                                                             class="fas fa-trash-alt"></i></button>
                                                 </td>
-                                                @endcan
-                                            </tr>
-                                        @endforeach
+                                            @endcan
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

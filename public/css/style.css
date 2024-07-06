@@ -47,6 +47,15 @@
     transition: .5s;
 }
 
+.btn-impor{
+    background: violet;
+    color: white;
+}
+
+.btn-import:hover {
+    background-color: rgb(199, 2, 199);
+}
+
 .btn.btn-primary,
 .btn.btn-outline-primary:hover {
     color: #FFFFFF;

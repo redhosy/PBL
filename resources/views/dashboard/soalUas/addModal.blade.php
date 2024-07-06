@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
                     <button type="button" class="btn btn-primary" id="saveSoal">Save</button>
                     <span id="error_kode"></span>
                 </div>

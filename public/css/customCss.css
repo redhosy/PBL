@@ -1,0 +1,26 @@
+
+
+.btn-import{
+    background-color: violet;
+    color: white;
+    box-shadow:  0 0 6px rgba(51, 50, 50, 0.256);
+}
+
+.btn-import:hover{ 
+    background-color: rgb(223, 2, 223) !important;
+   color: white !important;
+   /* color: #f666b5; */
+}
+
+table.dataTable thead>tr>th.dt-orderable-asc,
+table.dataTable thead>tr>th.dt-orderable-desc,
+table.dataTable thead>tr>td.dt-orderable-asc,
+table.dataTable thead>tr>td.dt-orderable-desc {
+    cursor: pointer;
+    text-align: center;
+}
+
+/* .btn-impor:hover{
+    background-color: rgb(180, 17, 180);
+color: white;
+} */
