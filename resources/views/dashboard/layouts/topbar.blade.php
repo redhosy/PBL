@@ -1,3 +1,16 @@
+<style>
+
+.nav-link-user {
+    display: flex;
+    align-items: center;
+}
+
+.user-name {
+    color: #ffffff; /* Warna teks nama pengguna */
+    margin-left: 10px; /* Spasi antara gambar/inisial dan nama */
+}
+</style>
+
 <nav class="navbar navbar-expand-lg main-navbar bg-primary mb-5">
     <form class="form-inline mr-auto">
         <ul class="navbar-nav mr-3">
@@ -7,16 +20,27 @@
         </ul>
     </form>
 
+    <ul class="navbar-nav navbar-right">
+        <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                @if (Auth::user()->profile_photo_path)
+                    <img alt="image" src="{{ asset('storage/' . Auth::user()->profile_photo_path) }}" class="rounded-circle profile-navbar-picture">
+                @else
+                    <div class="initials-navbar rounded-circle">
+                        {{ getInitials(Auth::user()->name) }}
+                    </div>
+                @endif
+
         <li class="dropdown"><a href="#" data-toggle="dropdown"
                 class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                 <img alt="image" src="{{ Auth::user()->avatar ?? 'https://ui-avatars.com/api/?name=' . Auth::user()->name .'&background=f666b5&color=ffffff&size=150' }}" class="rounded-circle mr-1">
+
                 @if (Auth::check())
-                <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->name }}</div>
+                <div class="user-name">Hi, {{ Auth::user()->name }}</div>
                 @else
                     <p>Sesi Anda telah kedaluwarsa. Silakan <a href="{{ route('/login') }}">login</a> kembali.</p>
                 @endif
 
-            </>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title text-center">{{ Auth::user()->role }}</div>
                 <hr>
