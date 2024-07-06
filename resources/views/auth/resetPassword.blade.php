@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password</title>
+    <title>Reset Password</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/modules/fontawesome/css/all.min.css') }}">
@@ -27,8 +27,8 @@
                     <div class="card-body p-4 text-center">
                         <div class="mb-md-2 mt-md-2 pb-2">
                             <img src="{{ asset('assets/img/logoig.png') }}" alt="logo" style="max-width: 100px; height: auto;">
-                            <h3 class="text-dark mb-5 mt-3">Lupa Password</h3>
-                            
+                            <h3 class="text-dark mb-5 mt-3">Reset Password</h3>
+
                             <!-- Display error message -->
                             @if (session('status'))
                                 <div class="alert alert-success">
@@ -40,15 +40,29 @@
                                 </div>
                             @endif
 
-                            <form method="POST" action="{{ route('password.email') }}">
+                            <form method="POST" action="{{ route('password.update') }}">
                                 @csrf
+
+                                <input type="hidden" name="token" value="{{ $token }}">
+
                                 <div class="input-group mb-4 mt-2">
-                                    <input type="email" name="email" id="email" class="form-control"
+                                    <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}"
                                         placeholder="Email" required autofocus>
                                 </div>
+
+                                <div class="input-group mb-4 mt-2">
+                                    <input type="password" name="password" id="password" class="form-control"
+                                        placeholder="New Password" required>
+                                </div>
+
+                                <div class="input-group mb-4 mt-2">
+                                    <input type="password" name="password_confirmation" id="password_confirmation" class="form-control"
+                                        placeholder="Confirm New Password" required>
+                                </div>
+
                                 <div class="d-grid gap-2 mt-4 mb-3">
                                     <button class="btn btn-dark px-5 py-2" type="submit">
-                                         Send <i class="fas fa-paper-plane"></i>
+                                         Reset Password <i class="fas fa-key"></i>
                                     </button>
                                 </div>
 
@@ -61,7 +75,8 @@
         </div>
     </div>
 
-
+    <!-- Bootstrap JS -->
+    <script src="{{ asset('assets/modules/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 </body>
 
 </html>

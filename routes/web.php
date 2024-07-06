@@ -1,37 +1,27 @@
 <?php
 
-use App\Http\Controllers\activityController;
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\BeritaAcaraRPSController;
 use App\Http\Controllers\BeritaAcaraSoalController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\forgotPasswordController;
-use App\Http\Controllers\GetApi;
-use App\Http\Controllers\kaprodiController;
-use App\Http\Controllers\matkulKBKController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\profileController;
+use App\Http\Controllers\Ref_matakuliahkbkController;
 use App\Http\Controllers\RefDakurController;
 use App\Http\Controllers\RefDamatkulController;
 use App\Http\Controllers\RefDapinjurController;
 use App\Http\Controllers\RefDapinprodController;
 use App\Http\Controllers\RefDatakbkController;
-use App\Http\Controllers\RefKelasController;
-use App\Http\Controllers\RefJurusanController;
-use App\Http\Controllers\RefProdiController;
 use App\Http\Controllers\RefDosenController;
-use App\Http\Controllers\RefSmtThnAkdController;
-use App\Http\Controllers\RegisterController;
-
-use App\Http\Controllers\RPSController;
-use App\Http\Controllers\SoalUasController;
-
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\profileController;
-use App\Http\Controllers\Ref_matakuliahkbkController;
 use App\Http\Controllers\RefDosenkbk;
 use App\Http\Controllers\RefDosenMatkulController;
-use App\Http\Controllers\RefMatkulkbk;
+use App\Http\Controllers\RefJurusanController;
+use App\Http\Controllers\RefProdiController;
+use App\Http\Controllers\RefSmtThnAkdController;
+use App\Http\Controllers\RPSController;
+use App\Http\Controllers\SoalUasController;
 use App\Http\Controllers\UsersController;
-use App\Models\ref_dosenkbk;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -71,16 +61,19 @@ Route::get('/terms', function () {
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
-Route::get('/forgotPassword', [forgotPasswordController::class, 'index']);
+Route::get('/forgotPassword', [forgotPasswordController::class, 'index'])->name('password.request');
+Route::post('/forgotPassword', [forgotPasswordController::class, 'store'])->name('password.email');
+Route::get('/reset-password/{token}', [forgotPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::group(["middleware" => "role:super admin"], function () {
+Route::group(['middleware' => 'role:super admin'], function () {
     Route::resource('/activity', ActivityLogController::class);
     Route::resource('/pengguna', UsersController::class);
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::group(["middleware" => "role:admin"], function () {
+    Route::group(['middleware' => 'role:admin'], function () {
         Route::resource('/dajur', RefJurusanController::class);
         Route::resource('/dapro', RefProdiController::class);
         Route::resource('/dados', RefDosenController::class);
@@ -100,7 +93,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('datakbk/import/excel', [RefDatakbkController::class, 'datakbkImport'])->name('datakbk.import.excel');
     });
 
-    Route::group(["middleware" => "role:dosen pengampu"], function () {
+    Route::group(['middleware' => 'role:dosen pengampu'], function () {
         Route::resource('/soalUas', SoalUasController::class);
         Route::resource('/RPS', RPSController::class);
     });
@@ -111,7 +104,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/matkul', RefDamatkulController::class);
     });
 
-    Route::group(["middleware" => "role:pengurus kbk"], function () {
+    Route::group(['middleware' => 'role:pengurus kbk'], function () {
         Route::resource('/verifikasiSoal', BeritaAcaraSoalController::class);
         Route::resource('/verifikasiRPS', BeritaAcaraRPSController::class);
         // Route khusus untuk cetak berita acara
@@ -133,8 +126,11 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/soalUas', SoalUasController::class);
         Route::resource('/RPS', RPSController::class);
     });
-    
 });
 
 Route::resource('/dashboard/dosen', RefDosenController::class)->middleware('auth');
-Route::resource('/profile', profileController::class);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [profileController::class, 'index'])->name('profile.index');
+    Route::post('/profile/update', [profileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/reset-password', [profileController::class, 'resetPassword'])->name('profile.reset-password');
+});
