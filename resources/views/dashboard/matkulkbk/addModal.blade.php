@@ -32,9 +32,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="id_matkul">Pilih Matkul:</label>
+                        <label for="matkul_id">Pilih Matkul:</label>
                         <div class="selectpicker">
-                            <select data-live-search="true" class="form-control w-100" id="id_matkul" name="id_matkul" required>
+                            <select data-live-search="true" class="form-control w-100" id="matkul_id" name="matkul_id" required>
                                 <option value="">Pilih Matkul</option>
                                 @foreach ($matkul as $item)
                                     <option value="{{ $item->id }}"
