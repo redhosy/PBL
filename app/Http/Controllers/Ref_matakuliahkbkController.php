@@ -143,36 +143,25 @@ class Ref_matakuliahkbkController extends Controller
             'pengampu' => 'required|exists:ref_dosens,id',
         ]);
 
-        // Logging untuk memeriksa nilai ID yang diterima
-        Log::info('Update request received with ID: ' . $id);
-
         // Periksa apakah data ref_matakuliahkbk ada
-        $data = ref_matakuliahkbk::find($id);
-        if (!$data) {
+        $matkulkbk = ref_matakuliahkbk::where('id',$id)->first();
+        if (!$matkulkbk) {
             return response()->json(['error' => 'Data not found.'], 404);
         }
 
-        // Cari data ref_damatkul berdasarkan editmatkul_id
-        $matkul = ref_damatkul::findOrFail($validated['editmatkul_id']);
-
-        // Update data
-        $data->id_matkul = $matkul->id;
-        $data->kode_matakuliah = $matkul->kode_matakuliah;
-        $data->nama_matakuliah = $matkul->nama_matakuliah;
-        $data->semester = $matkul->semester;
-        $data->TP = $matkul->TP;
-        $data->sks = $matkul->jumlah_sks;
-        $data->id_datakbk = $validated['kbk'];
-        $data->id_prodi = $validated['prodi'];
-        $data->id_dosen = $validated['pengampu'];
-
-        $data->save();
+        $data = [
+            'id_matkul'=>$request->editmatkul_id,
+            'id_datakbk'=>$request->kbk,
+            'id_prodi'=>$request->prodi,
+            'id_dosen'=>$request->pengampu,
+        ];
+        $matkulkbk->update($data);
 
         // Catat aktivitas update
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'UPDATE',
-            'description' => 'Mengubah data: ' . $matkul->nama_matakuliah,
+            'description' => 'Mengubah data: ' . $matkulkbk->nama_matakuliah,
         ]);
 
         return response()->json(['data' => $data]);
