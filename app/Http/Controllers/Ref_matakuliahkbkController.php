@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Exports\matkulExport;
 use App\Imports\matkulImport;
 use App\Models\ActivityLog;
+use App\Models\ref_damatkul;
 use App\Models\ref_datakbk;
 use App\Models\ref_dosen;
 use App\Models\ref_matakuliahkbk;
 use App\Models\ref_prodis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 
 class Ref_matakuliahkbkController extends Controller
@@ -23,8 +25,9 @@ class Ref_matakuliahkbkController extends Controller
         $dosen = ref_dosen::all();
         $kbk = ref_datakbk::all();
         $prodi = ref_prodis::all();
-        $matkulkbk = ref_matakuliahkbk::with('dosen', 'kbk', 'prodi')->get();
-        return view('dashboard.matkulkbk.index', compact('matkulkbk', 'dosen', 'prodi', 'kbk'));
+        $matkul = ref_damatkul::all();
+        $matkulkbk = ref_matakuliahkbk::with('dosen', 'kbk', 'prodi', 'matkul')->get();
+        return view('dashboard.matkulkbk.index', compact('matkulkbk', 'dosen', 'prodi', 'kbk', 'matkul'));
     }
 
     public function matkulExport()
@@ -70,44 +73,44 @@ class Ref_matakuliahkbkController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kode_matkul' => 'required|string|max:10',
-            'nama_matkul' => 'required|string|max:255',
-            'semester' => 'required|integer|between:1,8',
-            'ket' => 'required|integer|in:T,P,T/P',
+            'id_matkul' => 'required|exists:ref_damatkuls,id',
             'kbk' => 'required|exists:ref_datakbks,id',
             'prodi' => 'required|exists:ref_prodis,id',
-            'jumlah_sks' => 'required|integer|max:99',
             'pengampu' => 'required|exists:ref_dosens,id',
         ]);
 
+        $matkul = ref_damatkul::findOrFail($validated['id_matkul']);
 
-        $data = new ref_matakuliahkbk();
-        $data->kode_matkul = $validated['kode_matkul'];
-        $data->nama_matkul = $validated['nama_matkul'];
-        $data->semester = $validated['semester'];
-        $data->ket = $validated['ket'];
-        $data->id_datakbk = $validated['kbk'];
-        $data->id_prodi = $validated['prodi'];
-        $data->jumlah_sks = $validated['jumlah_sks'];
-        $data->id_dosen = $validated['pengampu'];
-        $data->save();
+        $data = [
+            'id_matkul' => $matkul->id,
+            'kode_matakuliah' => $matkul->kode_matakuliah,
+            'nama_matakuliah' => $matkul->nama_matakuliah,
+            'semester' => $matkul->semester,
+            'TP' => $matkul->TP,
+            'sks' => $matkul->jumlah_sks,
+            'id_datakbk' => $validated['kbk'],
+            'id_prodi' => $validated['prodi'],
+            'id_dosen' => $validated['pengampu'],
+        ];
 
-        // Catat aktivitas
+        ref_matakuliahkbk::create($data);
+
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'INSERT',
-            'description' => 'Menambahkan data baru: ' . $data->nama,
+            'description' => 'Menambahkan data baru: ' . $matkul->nama_matakuliah,
         ]);
 
         return response()->json(['data' => $data]);
     }
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        $data = ref_matakuliahkbk::with(['dosen', 'kbk', 'prodi'])->where('id', $id)->get();
+        $data = ref_matakuliahkbk::with(['dosen', 'matkul', 'kbk', 'prodi'])->where('id', $id)->get();
         return response()->json([
             'data' => $data,
             'status' => 200
@@ -119,7 +122,7 @@ class Ref_matakuliahkbkController extends Controller
      */
     public function edit(string $id)
     {
-        $data = ref_matakuliahkbk::with(['dosen', 'kbk', 'prodi'])->find($id);
+        $data = ref_matakuliahkbk::with(['dosen', 'matkul', 'kbk', 'prodi'])->find($id);
         return response()->json([
             'status' => 200,
             'data' => $data
@@ -129,48 +132,57 @@ class Ref_matakuliahkbkController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
-    {
-        $validated = $request->validate([
-            'kode_matkul' => 'required|string',
-            'nama_matkul' => 'required|string',
-            'semester' => 'required|in:1,2,3,4,5,6,7,8',
-            'ket' => 'required|string|in:T,P,T/P',
-            'datakbk' => 'required|exists:ref_datakbks',
-            'prodi' => 'required|exists:ref_prodis',
-            'jumlahsks' => 'required|char',
-            'dosen' => 'required|exists:ref_dosens',
-        ]);
 
-        $data = [
-            'kode_matkul' => $request->kode_matkul,
-            'nama_matkul' => $request->nama_matkul,
-            'semester' => $request->semester,
-            'ket' => $request->ket,
-            'id_datakbk' => $request->datakbk,
-            'id_prodi' => $request->prodi,
-            'jumlah_sks' => $request->jumlahsks,
-            'id_dosen' => $request->dosen,
-        ];
-
-        $matkulkbk = ref_matakuliahkbk::where('kode_matkul', $request->kode_matkul)->first();
-        if ($matkulkbk) {
-            $matkulkbk->update($data);
-
-            // Catat aktivitas
-            ActivityLog::create([
-                'user_id' => Auth::id(),
-                'action' => 'UPDATE',
-                'description' => 'Update data baru: ' . $request->kode_matkul,
-            ]);
-            // $ref_matakuliahkbk = ref_matakuliahkbk::find($id)->update($validated);
-
-            return response()->json(['message' => 'success', 'data' => $data]);
-        } else {
-            return response()->json(['message' => 'Data tidak ditemukan'], 400);
-        }
-    }
-
+     public function update(Request $request, $id)
+     {
+         // Validasi input
+         $validated = $request->validate([
+             'editmatkul' => 'required|exists:ref_damatkuls,id',
+             'kbk' => 'required|exists:ref_datakbks,id',
+             'prodi' => 'required|exists:ref_prodis,id',
+             'pengampu' => 'required|exists:ref_dosens,id',
+         ]);
+     
+         // Cek apakah data yang akan diupdate ada
+         $matakuliahkbk = ref_matakuliahkbk::find($id);
+     
+         // Ambil data mata kuliah
+         $matkul = ref_damatkul::findOrFail($validated['editmatkul']);
+     
+         // Siapkan data yang akan diupdate
+         $data = [
+             'id_matkul' => $matkul->id,
+             'id_datakbk' => $validated['kbk'],
+             'id_prodi' => $validated['prodi'],
+             'id_dosen' => $validated['pengampu'],
+         ];
+     
+         // Update data
+         $matakuliahkbk->update($data);
+     
+         // Buat log aktivitas
+         ActivityLog::create([
+             'user_id' => Auth::id(),
+             'action' => 'UPDATE',
+             'description' => 'Memperbarui data: ' . $matkul->nama_matakuliah,
+         ]);
+     
+         // Tambahkan informasi tambahan dari relasi untuk response
+         $response = [
+             'id_matkul' => $matkul->id,
+             'kode_matakuliah' => $matkul->kode_matakuliah,
+             'nama_matakuliah' => $matkul->nama_matakuliah,
+             'semester' => $matkul->semester,
+             'TP' => $matkul->TP,
+             'sks' => $matkul->jumlah_sks,
+             'id_datakbk' => $validated['kbk'],
+             'id_prodi' => $validated['prodi'],
+             'id_dosen' => $validated['pengampu'],
+         ];
+     
+         return response()->json(['data' => $response]);
+     }
+     
 
     /**
      * Remove the specified resource from storage.

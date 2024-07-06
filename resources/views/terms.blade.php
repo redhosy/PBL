@@ -22,7 +22,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-title mb-4">Syarat dan Ketentuan</h2>
-
+                        <hr>
                         <ol>
                             <li>
                                 <strong>Kebijakan Privasi</strong><br>
@@ -47,6 +47,7 @@
                         </ol>
 
                         <p class="mt-4">Terima kasih telah membaca Syarat dan Ketentuan kami. Dengan melanjutkan penggunaan layanan kami, Anda menyetujui untuk terikat oleh Syarat dan Ketentuan ini.</p>
+                        <hr>
                         <div class="row justify-content-center">
                             <div class="btn btn-primary mb-2">
                                 <a href="/login" class="text-white" style="text-decoration: none;">Kembali</a>

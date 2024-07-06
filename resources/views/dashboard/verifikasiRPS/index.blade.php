@@ -56,7 +56,7 @@
                                         <th class="text-light">Ruang</th>
                                         @can('pengurus-kbk')
                                         <th class="text-light">Actions</th>
-                                        @endcan
+                                        @endcan  
                                     </tr>
                                 </thead>
                                 <tbody id="dataTableBody">

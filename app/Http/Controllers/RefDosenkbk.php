@@ -111,44 +111,42 @@ class RefDosenkbk extends Controller
         ]);
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
         $validated = $request->validate([
             'editdosen' => 'required|exists:ref_dosens,id',
-            'jurusan' => 'required|exists:ref_jurusans,id',
-            'prodi' => 'required|exists:ref_prodis,id',
             'kbk' => 'required|exists:ref_datakbks,id',
             'jabatan' => 'required|exists:jabpims,id',
             'status' => 'required|in:0,1',
         ]);
 
-        $data = [
-            'id_dosen' => $validated['editdosen'],
-            'id_jurusan' => $validated['jurusan'],
-            'id_prodi' => $validated['prodi'],
-            'id_datakbk' => $validated['kbk'],
-            'id_jabatan' => $validated['jabatan'],
-            'status' => $validated['status'],
-        ];
+        // Cari data ref_dosenkbk berdasarkan ID
+        $data = ref_dosenkbk::findOrFail($id);
 
-        $dosenkbk = ref_dosenkbk::findOrFail($id);
+        // Ambil data dosen terkait
+        $dosen = ref_dosen::findOrFail($validated['editdosen']);
 
-        if ($dosenkbk) {
-            $dosenkbk->update($data);
+        // Update atribut-atribut pada $data dengan data yang baru
+        $data->id_dosen = $dosen->id;
+        $data->nama = $dosen->nama;
+        $data->nip = $dosen->nip;
+        $data->email = $dosen->email;
+        $data->id_jurusan = $dosen->id_jurusan;  // Pastikan hanya menyimpan ID
+        $data->id_prodi = $dosen->id_prodi;      // Pastikan hanya menyimpan ID
+        $data->id_datakbk = $validated['kbk'];
+        $data->id_jabatan = $validated['jabatan'];
+        $data->status = $validated['status'];
+        $data->save();
 
-            // Catat aktivitas
-            ActivityLog::create([
-                'user_id' => Auth::id(),
-                'action' => 'UPDATE',
-                'description' => 'Updated data for dosen: ' . $validated['editdosen'],
-            ]);
+        // Catat aktivitas update
+        ActivityLog::create([
+            'user_id' => Auth::id(),
+            'action' => 'UPDATE',
+            'description' => 'Mengubah data: ' . $data->nama,
+        ]);
 
-            return response()->json(['message' => 'success', 'data' => $dosenkbk]);
-        } else {
-            return response()->json(['message' => 'error'], 400);
-        }
+        return response()->json(['data' => $data]);
     }
-
 
 
     public function destroy(string $id)
