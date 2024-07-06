@@ -111,29 +111,31 @@
 <!-- About Start -->
 <div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
     <div class="container about px-lg-0">
-        {{-- <div class="row g-0 mx-lg-0"> --}}
-            <div class="col-lg-12 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px; display: flex; justify-content: center; align-items: center;">
-                {{-- <div class="position-relative h-100" style=""> --}}
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/bGO3sTlNusk?si=POUc9ZqEgMck6HBQ" allow="autoplay; encrypted-media" frameborder="0" allowfullscreen autoplay loop muted>
-                    </iframe>
-                {{-- </div> --}}
+        <div class="row g-0 mx-lg-0">
+            <!-- Video Section -->
+            <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
+                <div class="position-relative h-100">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/bGO3sTlNusk?si=POUc9ZqEgMck6HBQ" allow="autoplay; encrypted-media" frameborder="0" allowfullscreen autoplay loop muted></iframe>
+                </div>
             </div>
-            {{-- <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
+            <!-- Text Section -->
+            <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
                 <div class="p-lg-5 pe-lg-0">
-                    <h6 class="text-primary">About</h6>
+                    <h6 class="text-primary">Video Pengenalan SIKABEKA</h6>
                     <h1 class="mb-4"> Sistem Informasi KBK (Kelompok Bidang Keahlian)</h1>
-                    <p>Sistem Informasi KBK (Kelompok Bidang Keahlian) adalah platform terintegrasi yang dirancang khusus untuk mendukung manajemen perkuliahan dan pengelolaan data yang terkait dengan kelompok bidang keahlian dosen. Sistem ini memfasilitasi berbagai fungsi penting dalam lingkup pendidikan, termasuk pengaturan RPS (Rencana Pembelajaran Semester), manajemen data mata kuliah dan dosen KBK, serta pengelolaan soal UAS (Ujian Akhir Semester).</p>
+                    <p>Temukan bagaimana SIKABEKA memudahkan manajemen perkuliahan dan pengelolaan data dosen melalui video pengenalan ini. Pelajari fitur-fitur utama seperti pengelolaan RPS, manajemen mata kuliah, dan integrasi data yang efisien.</p>
                     <p><i class="fa fa-check-circle text-primary me-3"></i>Pengelolaan RPS yang Efisien</p>
                     <p><i class="fa fa-check-circle text-primary me-3"></i>Manajemen Data Matkul dan Dosen KBK</p>
                     <p><i class="fa fa-check-circle text-primary me-3"></i>Integrasi Data dan Pelaporan</p>
                     <p><i class="fa fa-check-circle text-primary me-3"></i>Pemantauan Kinerja dan Evaluasi Berkelanjutan</p>
-                    <a href="" class="btn btn-primary rounded-pill py-3 px-5 mt-3">Explore More</a>
                 </div>
-            </div> --}}
-        {{-- </div> --}}
+            </div>
+        </div>
     </div>
 </div>
 <!-- About End -->
+
+
 
 
 <!-- Testimonial Start -->
@@ -199,35 +201,91 @@
                         </span>
                 </div>
             </div>
-
-            {{-- <div class="testimonial-item text-center">
-                <div class="testimonial-img position-relative">
-                    <img class="img-fluid rounded-circle mx-auto mb-5" src="img/testimonial-2.jpg">
-                    <div class="btn-square bg-primary rounded-circle">
-                        <i class="fa fa-quote-left text-white"></i>
-                    </div>
-                </div>
-                <div class="testimonial-text text-center rounded p-4">
-                    <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                    <h5 class="mb-1">Client Name</h5>
-                    <span class="fst-italic">Profession</span>
-                </div>
-            </div>
-            <div class="testimonial-item text-center">
-                <div class="testimonial-img position-relative">
-                    <img class="img-fluid rounded-circle mx-auto mb-5" src="img/testimonial-3.jpg">
-                    <div class="btn-square bg-primary rounded-circle">
-                        <i class="fa fa-quote-left text-white"></i>
-                    </div>
-                </div>
-                <div class="testimonial-text text-center rounded p-4">
-                    <p>Clita clita tempor justo dolor ipsum amet kasd amet duo justo duo duo labore sed sed. Magna ut diam sit et amet stet eos sed clita erat magna elitr erat sit sit erat at rebum justo sea clita.</p>
-                    <h5 class="mb-1">Client Name</h5>
-                    <span class="fst-italic">Profession</span>
-                </div>
-            </div> --}}
         </div>
     </div>
 </div>
 <!-- Testimonial End -->
+
+<!-- Feature Start -->
+<div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
+    <div class="container feature px-lg-0">
+        <div class="row g-0 mx-lg-0">
+            <div class="col-lg-6 feature-text py-5 wow fadeIn" data-wow-delay="0.1s">
+                <div class="p-lg-5 ps-lg-0">
+                    <h6 class="text-primary">Mengapa Memilih SIKABEKA!</h6>
+                    <h1 class="mb-4">Sistem Informasi KBK (Kelompok Bidang Keahlian)</h1>
+                    <p class="mb-4 pb-2">SIKABEKA adalah solusi terintegrasi untuk manajemen perkuliahan dan pengelolaan data dosen. Dengan antarmuka yang user-friendly, kami memberikan layanan terbaik untuk mendukung pendidikan berkualitas.</p>
+                    <div class="row g-4">
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="btn-lg-square bg-primary rounded-circle">
+                                    <i class="fa fa-book text-white"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <p class="mb-0">Pengelolaan</p>
+                                    <h5 class="mb-0">RPS Efisien</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="btn-lg-square bg-primary rounded-circle">
+                                    <i class="fa fa-users text-white"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <p class="mb-0">Manajemen</p>
+                                    <h5 class="mb-0">Dosen & Matkul</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="btn-lg-square bg-primary rounded-circle">
+                                    <i class="fa fa-chart-line text-white"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <p class="mb-0">Integrasi</p>
+                                    <h5 class="mb-0">Data & Pelaporan</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="btn-lg-square bg-primary rounded-circle">
+                                    <i class="fa fa-tasks text-white"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <p class="mb-0">Pemantauan</p>
+                                    <h5 class="mb-0">Kinerja</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="btn-lg-square bg-primary rounded-circle">
+                                    <i class="fa fa-bullseye text-white"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <p class="mb-0">Evaluasi</p>
+                                    <h5 class="mb-0">Berkelanjutan</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 pe-lg-0 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
+                <div class="position-relative h-100">
+                    <video class="position-absolute w-100 h-100" autoplay loop muted style="object-fit: cover;">
+                        <source src="img/logo_3.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Feature End -->
+
+
 @endsection

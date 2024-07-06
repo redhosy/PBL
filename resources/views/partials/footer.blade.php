@@ -7,10 +7,9 @@
                 <div class="row">
                     <div class="col-md-6">
                         <h5 class="text-white mb-4">Sikabeka</h5>
-                        <p class="mb-2">Sikabeka adalah sistem inovatif untuk kolaborasi dosen dalam perkuliahan, meningkatkan kualitas dan efisiensi pembelajaran.</p>
                         <p class="mb-2"><i class="fa fa-map-marker-alt me-2"> Alamat: </i>Jl. Kampus, Limau Manis, Kec. Pauh, Kota Padang, Sumatera Barat 25164</p>
                         <p class="mb-2"><i class="fa fa-phone-alt me-2"> Telepon: </i>075172590</p>
-                        <p class="mb-2"><i class="fa fa-globe me-2" style="text-decoration: none"> Situs: </i>http://www.pnp.ac.id/</p>
+                        <a class="mb-2" href="http://www.pnp.ac.id/" target="_blank"><i class="fa fa-globe me-2" style="text-decoration: none"> Situs: </i>http://www.pnp.ac.id/</a>
                     </div>
                 </div>
             </div>

@@ -13,11 +13,16 @@
     body {
         background-image: url('assets/img/background.png');
         background-size: cover;
+        height: 100vh;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 </style>
 
-<body class="d-flex align-items-center justify-content-center">
-    <div class="container m-3">
+<body>
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-md-8 col-lg-6 col-xl-4">
                 <div class="card bg-white text-white col-sm-12" style="border-radius: 2rem;">
@@ -32,7 +37,6 @@
                                 </div>
                             @endif
                             <form class="form-signin" method="POST" action="{{ route('login') }}">
-
                                 @csrf
                                 <div class="input-group">
                                     <input type="email" name="email" id="email" class="form-control"

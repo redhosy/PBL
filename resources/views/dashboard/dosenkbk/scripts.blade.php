@@ -66,20 +66,17 @@
          });
 
 
-
          // Edit Data
          $(document).on('click', '.editBtn', function() {
              let dataId = $(this).data('id');
              $.get("{{ url('dosenkbk') }}/" + dataId + "/edit", function(response) {
-                 console.log(response);
-
                  $('#editModal').modal('show');
                  $('#editDataId').val(response.data.id);
-                 $('#editnama').val(response.data.dosen.nama);
-                 $('#editnip').val(response.data.dosen.nip);
-                 $('#editemail').val(response.data.dosen.email);
-                 $('#editprodi').val(response.data.dosen.prodi.prodi);  
-                 $('#editjurusan').val(response.data.dosen.jurusan.jurusan); 
+                 $('#editnama').val(response.data.nama);
+                 $('#editnip').val(response.data.nip);
+                 $('#editemail').val(response.data.email);
+                 $('#editprodi').val(response.data.prodi.prodi);
+                 $('#editjurusan').val(response.data.jurusan.jurusan);
                  $('#editdosen').selectpicker('val', response.data.id_dosen);
                  $('#editkbk').selectpicker('val', response.data.id_datakbk);
                  $('#editjabatan').selectpicker('val', response.data.id_jabatan);
@@ -87,39 +84,32 @@
              });
          });
 
+         // Form submit for update
          $('#editPostForm').on('submit', function(e) {
              e.preventDefault();
              let dataId = $('#editDataId').val();
-             let formData = {
-                 editdosen: $('#editdosen').val(),
-                 jurusan: $('#editjurusan').val(),
-                 prodi: $('#editprodi').val(),
-                 kbk: $('#editkbk').val(),
-                 jabatan: $('#editjabatan').val(),
-                 status: $('#editstatus').val()
-             };
-
+             let formData = $(this).serialize(); // Serialize form data
              $.ajax({
                  url: "{{ url('dosenkbk') }}/" + dataId,
-                 method: 'PUT',
+                 method: 'PUT', // Menggunakan metode PUT untuk update
                  data: formData,
                  success: function(response) {
-                     console.log(response);
+                     console.log(response)
                      $('#editModal').modal('hide');
                      $('#success-alert').removeClass('d-none').text(
-                         'Data berhasil diupdate!');
+                         'Data berhasil diperbarui.');
+
                      // Hide alert after 3 seconds
                      setTimeout(function() {
-                         $('#success-alert').addClass('d-none').text(
-                             'Data berhasil diperbarui.');
+                         $('#success-alert').addClass('d-none');
                      }, 3000);
 
-                     location.reload(); // Reload halaman untuk menampilkan perubahan
+                     location.reload();
                  },
                  error: function(xhr) {
-                     console.log(xhr);
+                     console.log(xhr)
                      let errors = xhr.responseJSON.errors;
-                     // Handle errors
+                     console.log(errors); // Handle errors appropriately
                  }
              });
          });

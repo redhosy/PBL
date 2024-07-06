@@ -30,12 +30,17 @@
                         {{ getInitials(Auth::user()->name) }}
                     </div>
                 @endif
+
+        <li class="dropdown"><a href="#" data-toggle="dropdown"
+                class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                <img alt="image" src="{{ Auth::user()->avatar ?? 'https://ui-avatars.com/api/?name=' . Auth::user()->name .'&background=f666b5&color=ffffff&size=150' }}" class="rounded-circle mr-1">
+
                 @if (Auth::check())
                 <div class="user-name">Hi, {{ Auth::user()->name }}</div>
                 @else
                     <p>Sesi Anda telah kedaluwarsa. Silakan <a href="{{ route('/login') }}">login</a> kembali.</p>
                 @endif
-            </a>
+
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title text-center">{{ Auth::user()->role }}</div>
                 <hr>

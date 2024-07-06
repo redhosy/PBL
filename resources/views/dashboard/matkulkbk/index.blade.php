@@ -15,15 +15,15 @@
                     <h3>Matkul KBK</h3>
                     <div class="card-header-form">
                         {{-- import --}}
-                        <a class="btn btn-primary ml-2  action" type="button" data-toggle="tooltip"
+                        <button class="btn btn-import ml-2  action" type="button" data-toggle="tooltip"
                             id="import" title="Import Data"><i class="fas fa-file-import" data-toggle="modal"
-                            data-target="#importModal"></i></a>
+                            data-target="#importModal"></i></button>
                         {{-- export --}}
-                        <a href="{{ route('matkulkbk.export.excel') }}" class="btn btn-secondary ml-2  action" type="button" data-toggle="tooltip"
-                            id="export" title="Export Data"><i class="fas fa-file-export"></i></a>
+                        <button href="{{ route('matkulkbk.export.excel') }}" class="btn btn-primary ml-2  action" type="button" data-toggle="tooltip"
+                            id="export" title="Export Data"><i class="fas fa-file-export"></i></button>
                         {{-- tambah --}}
-                        <a class="btn btn-success ml-2  action" type="button" data-toggle="tooltip"
-                            id="modalAdd" title="Tambah Data"><i class="fas fa-plus"></i></a>
+                        <button class="btn btn-success ml-2  action" type="button" data-toggle="tooltip"
+                            id="modalAdd" title="Tambah Data"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
                 <div class="card-body p-3 rounded">
@@ -47,26 +47,26 @@
                                 @foreach ($matkulkbk as $data)
                                     <tr id="data{{ $data->id }}">
                                         <td>{{ $loop->iteration }}</td>
-                                        {{-- <td>{{ $data->kode_matkul }}</td> --}}
-                                        <td>{{ $data->nama_matkul }}</td>
-                                        <td>{{ $data->semester }}</td>
-                                        <td>{{ $data->ket}}</td>
+                                        {{-- <td>{{ $data->matkul->kode_matakuliah }}</td> --}}
+                                        <td>{{ $data->matkul->nama_matakuliah }}</td>
+                                        <td>{{ $data->matkul->semester }}</td>
+                                        <td>{{ $data->matkul->TP }}</td>
                                         <td>{{ $data->kbk->kodekbk }}</td>
                                         <td>{{ $data->prodi->prodi }}</td>
-                                        <td>{{ $data->jumlah_sks }}</td>
+                                        <td>{{ $data->matkul->sks }}</td>
                                         <td>{{ $data->dosen->nama }}</td>
                                         <td class="d-flex justify-content-around">
                                             <button class="btn btn-icon btn-warning editBtn"
                                                 data-id="{{ $data->id }}"><i class="far fa-edit"></i></button>
                                             <button class="btn btn-icon btn-info detailBtn"
-                                                data-id="{{ $data->id }}"><i
-                                                    class="fas fa-info-circle"></i></button>
+                                                data-id="{{ $data->id }}"><i class="fas fa-info-circle"></i></button>
                                             <button class="btn btn-danger deleteBtn" data-toggle="modal"
                                                 data-id="{{ $data->id }}"><i class="fas fa-trash"></i></button>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
+                            
                         </table>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Anda yakin Ingin Menghapus Data?</h5>
+                <h5 class="modal-title">Anda yakin ingin menghapus data?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -117,7 +117,7 @@
                  </div>
              </div>
              <div class="modal-footer">
-                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                 {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
                  <button type="submit" class="btn btn-primary">Import</button>
              </div>
          </form>

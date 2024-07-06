@@ -7,6 +7,26 @@
             }
         });
 
+        //selectotomatis
+        $('#id_matkul').change(function() {
+            var selectedMatkulId = $(this).val(); // Ambil nilai dari option yang dipilih
+            var selectedMatkul = $(this).find('option:selected'); // Temukan option yang dipilih
+            var kode_matakuliah = selectedMatkul.data('kode_matakuliah'); // Ambil nilai data-kode_matakuliah dari option yang dipilih
+            var nama_matakuliah = selectedMatkul.data('nama_matakuliah'); // Ambil nilai data-nama_matakuliah dari option yang dipilih
+            var semester = selectedMatkul.data('semester'); // Ambil nilai data-semester dari option yang dipilih
+            var TP = selectedMatkul.data('tp'); // Ambil nilai data-TP dari option yang dipilih
+            var sks = selectedMatkul.data('sks'); // Ambil nilai data-sks dari option yang dipilih
+
+            // Setel nilai input dengan nilai yang diambil dari option yang dipilih
+            $('#kode_matkul').val(kode_matakuliah);
+            $('#nama_matkul').val(nama_matakuliah);
+            $('#semester').val(semester);
+            $('#tp').val(TP);
+            $('#jumlah_sks').val(sks);
+        });
+
+
+
         //tooltip
         $('[data-toggle="tooltip"]').tooltip();
 
@@ -33,19 +53,10 @@
                     console.log(error);
                     var errors = error.responseJSON.errors;
                     if (errors) {
-                        $('#error_kode_matkul').text(errors.kode_matkul ? errors
-                            .kode_matkul[0] : '');
-                        $('#error_nama_matkul').text(errors.nama_matkul ? errors
-                            .nama_matkul[0] : '');
-                        $('#error_semester').text(errors.semester ? errors.semester[0] :
-                            '');
-                        $('#error_ket').text(errors.ket ? errors.ket[0] : '');
+                        $('#error_id_matkul').text(errors.id_matkul ? errors.id_matkul[0] : '');
                         $('#error_kbk').text(errors.kbk ? errors.kbk[0] : '');
                         $('#error_prodi').text(errors.prodi ? errors.prodi[0] : '');
-                        $('#error_jumlah_sks').text(errors.jumlah_sks ? errors.jumlah_sks[
-                            0] : '');
-                        $('#error_pengampu').text(errors.pengampu ? errors.pengampu[0] :
-                            '');
+                        $('#error_pengampu').text(errors.pengampu ? errors.pengampu[0] :'');
                     }
                 }
             });
@@ -56,16 +67,17 @@
             let dataId = $(this).data('id');
             $.get("{{ url('matkulkbk') }}/" + dataId + "/edit", function(response) {
                 console.log(response);
-                
+
                 $('#editModal').modal('show');
                 $('#editDataId').val(response.data.id);
-                $('#edit_kode_matkul').val(response.data.kode_matkul);
-                $('#edit_nama_matkul').val(response.data.nama_matkul);
-                $('#edit_semester').selectpicker('val', response.data.semester);
-                $('#edit_tp').selectpicker('val', response.data.ket);
+                $('#edit_kode_matkul').val(response.data.matkul.kode_matakuliah);
+                $('#edit_nama_matkul').val(response.data.matkul.nama_matakuliah);
+                $('#edit_semester').val(response.data.matkul.semester);
+                $('#edit_tp').val(response.data.matkul.TP);
+                $('#edit_jumlah_sks').val(response.data.matkul.sks);
+                $('#edit_matkul_id').selectpicker('val', response.data.id_matkul);
                 $('#edit_kbk').selectpicker('val', response.data.id_datakbk);
                 $('#edit_prodi').selectpicker('val', response.data.id_prodi);
-                $('#edit_jumlah_sks').val(response.data.jumlah_sks);
                 $('#edit_pengampu').selectpicker('val', response.data.id_dosen);
             });
         });
