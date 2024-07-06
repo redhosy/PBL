@@ -47,26 +47,26 @@
                                 @foreach ($matkulkbk as $data)
                                     <tr id="data{{ $data->id }}">
                                         <td>{{ $loop->iteration }}</td>
-                                        {{-- <td>{{ $data->kode_matkul }}</td> --}}
-                                        <td>{{ $data->nama_matkul }}</td>
-                                        <td>{{ $data->semester }}</td>
-                                        <td>{{ $data->ket}}</td>
+                                        {{-- <td>{{ $data->matkul->kode_matakuliah }}</td> --}}
+                                        <td>{{ $data->matkul->nama_matakuliah }}</td>
+                                        <td>{{ $data->matkul->semester }}</td>
+                                        <td>{{ $data->matkul->TP }}</td>
                                         <td>{{ $data->kbk->kodekbk }}</td>
                                         <td>{{ $data->prodi->prodi }}</td>
-                                        <td>{{ $data->jumlah_sks }}</td>
+                                        <td>{{ $data->matkul->sks }}</td>
                                         <td>{{ $data->dosen->nama }}</td>
                                         <td class="d-flex justify-content-around">
                                             <button class="btn btn-icon btn-warning editBtn"
                                                 data-id="{{ $data->id }}"><i class="far fa-edit"></i></button>
                                             <button class="btn btn-icon btn-info detailBtn"
-                                                data-id="{{ $data->id }}"><i
-                                                    class="fas fa-info-circle"></i></button>
+                                                data-id="{{ $data->id }}"><i class="fas fa-info-circle"></i></button>
                                             <button class="btn btn-danger deleteBtn" data-toggle="modal"
                                                 data-id="{{ $data->id }}"><i class="fas fa-trash"></i></button>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
+                            
                         </table>
                     </div>
                 </div>

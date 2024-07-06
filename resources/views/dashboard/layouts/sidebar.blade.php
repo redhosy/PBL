@@ -71,7 +71,7 @@
             @endcan
 
             <!-- Perkuliahan for dosen-pengampu -->
-            @canany(['dosen-pengampu'])
+            @canany(['pengurus-kbk', 'dosen-pengampu'])
                 <li class="dropdown">
                     <a class="nav-link has-dropdown"><i class="fas fa-landmark"></i><span>Perkuliahan</span></a>
                     <ul class="dropdown-menu">
@@ -83,7 +83,7 @@
 
 
             <!-- Perkuliahan for dosen-pengampu -->
-            @canany([ 'pengurus-kbk'])
+            @canany(['pengurus-kbk'])
                 <li class="dropdown">
                     <a class="nav-link has-dropdown"><i class="fa fa-upload"></i><span>Verifikasi</span></a>
                     <ul class="dropdown-menu">
@@ -104,7 +104,7 @@
                 </li>
             @endcan
 
-            @canany([ 'pengurus-kbk', 'pimpinan-jurusan' ,'pimpinan-prodi'])
+            @canany(['pimpinan-jurusan' ,'pimpinan-prodi'])
                 <li class="dropdown">
                     <a class="nav-link has-dropdown"><i class="fa fa-upload"></i><span>Daftar RPS dan Soal Uas</span></a>
                     <ul class="dropdown-menu">

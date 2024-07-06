@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\RefDosenMatkul;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\FromCollection;
 // use Maatwebsite\Excel\Concerns\WithHeadings;
 // use Maatwebsite\Excel\Concerns\WithMapping;
@@ -10,11 +11,11 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 class dosenMatkulExport implements FromCollection
 {
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
-        return RefDosenMatkul::with(['dosen', 'matakuliah','kelas','semester'])->get();
+        return RefDosenMatkul::with(['dosen', 'matakuliah', 'kelas', 'semester'])->first();
     }
 
     public function headings(): array
@@ -25,7 +26,6 @@ class dosenMatkulExport implements FromCollection
             'Matakuliah',
             'Kelas',
             'Semester',
-            // Add other column headings as needed
         ];
     }
 
@@ -33,11 +33,10 @@ class dosenMatkulExport implements FromCollection
     {
         return [
             $refDosenMatkul->id,
-            $refDosenMatkul->dosen->nama, // Asumsikan relasi dosen memiliki atribut nama
-            $refDosenMatkul->matakuliah->nama, // Asumsikan relasi matakuliah memiliki atribut nama
-            $refDosenMatkul->kelas,
-            $refDosenMatkul->semester,
-            // Tambahkan mapping kolom lainnya jika diperlukan
+            $refDosenMatkul->matakuliah ? $refDosenMatkul->matakuliah->nama_matakuliah : '',
+            $refDosenMatkul->dosen ? $refDosenMatkul->dosen->nama : '',
+            $refDosenMatkul->kelas ? $refDosenMatkul->kelas->nama_kelas : '',
+            $refDosenMatkul->semester ? $refDosenMatkul->semester->smt_thn_akd : '',
         ];
     }
 }

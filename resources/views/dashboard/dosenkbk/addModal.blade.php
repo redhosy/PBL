@@ -47,30 +47,6 @@
                             <span class="text-danger" id="error_dosen_id"></span>
                         </div>
                     </div>
-                    {{-- <div class="form-group">
-                        <label for="jurusan">Jurusan:</label>
-                        <select class="form-control w-100 selectpicker" id="jurusan" name="jurusan" required>
-                            <option value="">Pilih Jurusan</option>
-                            @foreach ($jurusan as $item)
-                                <option value="{{ $item->id }}">{{ $item->jurusan }}</option>
-                            @endforeach
-                        </select>
-                        <span class="text-danger" id="error_jurusan"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="prodi">Prodi:</label>
-                        <div class="selectpicker">
-                            <select data-live-search="true" class="form-control w-100" id="prodi" name="prodi"
-                                required>
-                                <option value="">Pilih Prodi</option>
-                                @foreach ($prodi as $item)
-                                    <option value="{{ $item->id }}">{{ $item->prodi }}</option>
-                                @endforeach
-                            </select>
-                            <span class="text-danger" id="error_prodi"></span>
-                        </div>
-                    </div> --}}
                     
                     <div class="form-group">
                         <label for="kbk">KBK:</label>
