@@ -1,11 +1,10 @@
-@extends('dashboard.layouts.app')
+    @extends('dashboard.layouts.app')
 
-@section('title', 'Dashboard')
-@section('content')
+    @section('title', 'Dashboard')
 
-    <!-- Main Content -->
-    <div class="">
-        <section class="section">
+    @section('content')
+        <!-- Main Content -->
+        <div class="section">
             <div class="section-header">
                 <h1>Dashboard</h1>
             </div>
@@ -243,8 +242,10 @@
                     </div>
                 </div>
             </div>
-            
         </div>
-    </section>
-</div>
-@endsection
+    @endsection
+
+    @push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ asset('js/modules-chartjs.js') }}"></script>
+@endpush

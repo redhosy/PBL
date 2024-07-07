@@ -33,9 +33,7 @@
                                         <th class="text-light">Dokumen</th>
                                         <th class="text-light">Tanggal</th>
                                         <th class="text-light">Tahun Akademik</th>
-                                        @can('dosen-pengampu')
-                                        <th class="text-light">Actions</th>
-                                        @endcan
+                                        <th class="text-light">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -47,8 +45,7 @@
                                             <td>{{ $data->kode_matkul->nama_matakuliah }}</td>
                                             <td>
                                                 @if ($data->Dokumen)
-                                                    <a class="btn btn-primary" href="{{ asset('storage/dokumen/' . $data->Dokumen) }}" target="_blank">Lihat
-                                                        Dokumen</a>
+                                                    <a class="btn btn-primary" href="{{ asset('storage/dokumen/' . $data->Dokumen) }}" target="_blank">Lihat Dokumen</a>
                                                 @else
                                                     Tidak ada dokumen
                                                 @endif

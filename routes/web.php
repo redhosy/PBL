@@ -24,25 +24,21 @@ use App\Http\Controllers\SoalUasController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 Route::get('/', function () {
     return view('home');
 });
 
 Route::middleware(['auth', 'checkUserSession'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-});
 
+    Route::get('/dashboard/barChartData', [DashboardController::class, 'getBarChartData'])
+        ->middleware('role:admin|pengurus kbk|pimpinan jurusan|pimpinan program studi|dosen-pengampu')
+        ->name('dashboard.barChartData');
+
+    Route::get('/dashboard/pieChartData', [DashboardController::class, 'getPieChartData'])
+        ->middleware('role:admin|pengurus kbk|pimpinan jurusan|pimpinan program studi|dosen-pengampu')
+        ->name('dashboard.pieChartData');
+});
 Route::get('/team', function () {
     return view('team');
 });
@@ -64,7 +60,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::get('/forgotPassword', [forgotPasswordController::class, 'index'])->name('password.request');
 Route::post('/forgotPassword', [forgotPasswordController::class, 'store'])->name('password.email');
 Route::get('/reset-password/{token}', [forgotPasswordController::class, 'showResetForm'])->name('password.reset');
-Route::post('/reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');
+Route::post('/reset-password', [forgotPasswordController::class, 'resetPassword'])->name('password.update');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'role:super admin'], function () {
@@ -107,9 +103,8 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['middleware' => 'role:pengurus kbk'], function () {
         Route::resource('/verifikasiSoal', BeritaAcaraSoalController::class);
         Route::resource('/verifikasiRPS', BeritaAcaraRPSController::class);
-        // Route khusus untuk cetak berita acara
-        route::get('/cetakRPS', [BeritaAcaraRPSController::class, 'cetakRPS']);
-        route::get('/cetakSOAL', [BeritaAcaraSoalController::class, 'cetakSOAL']);
+        Route::get('/cetakRPS', [BeritaAcaraRPSController::class, 'cetakRPS']);
+        Route::get('/cetakSOAL', [BeritaAcaraSoalController::class, 'cetakSOAL']);
     });
 
     Route::group(['middleware' => ['can:access-dosen-routes']], function () {
@@ -120,9 +115,8 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['middleware' => ['can:access-petinggi-routes']], function () {
         Route::resource('/verifikasiSoal', BeritaAcaraSoalController::class);
         Route::resource('/verifikasiRPS', BeritaAcaraRPSController::class);
-        // Route khusus untuk cetak berita acara
-        route::get('/cetakRPS', [BeritaAcaraRPSController::class, 'cetakRPS']);
-        route::get('/cetakSOAL', [BeritaAcaraSoalController::class, 'cetakSOAL']);
+        Route::get('/cetakRPS', [BeritaAcaraRPSController::class, 'cetakRPS']);
+        Route::get('/cetakSOAL', [BeritaAcaraSoalController::class, 'cetakSOAL']);
         Route::resource('/soalUas', SoalUasController::class);
         Route::resource('/RPS', RPSController::class);
     });

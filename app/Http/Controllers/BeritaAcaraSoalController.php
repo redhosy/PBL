@@ -19,7 +19,7 @@ class BeritaAcaraSoalController extends Controller
         $matkul = ref_damatkul::all();
         $beritaSoal = BeritaAcaraSoal::with(['matkul'])->get();
         $tanggalList = BeritaAcaraSoal::select('tanggal')->distinct()->get();
-        return view('dashboard.verifikasiSoal.index', compact('beritaSoal', 'matkul', 'tanggalList'));
+        return view('dashboard.beritaSoal.index', compact('beritaSoal', 'matkul', 'tanggalList'));
     }
 
     public function cetakSOAL()

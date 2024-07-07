@@ -2,61 +2,79 @@
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form id="addPostForm">
-                @csrf
+            <form id="addPostForm" enctype="multipart/form-data">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tambah Verifikasi Berita Acara RPS</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Tambahkan Data</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="semester">Semester:</label>
-                        <select class="form-control selectpicker w-100" id="semester" name="semester">
-                            <option value="">Pilih Semester</option>
-                            @for ($i = 1; $i <= 8; $i++)
-                                <option value="{{ $i }}">Semester {{ $i }}</option>
-                            @endfor
-                        </select>
-                        <span id="error_semester" class="text-danger"></span>
+                        <label for="koderps">Kode RPS:</label>
+                        <input type="text" class="form-control" id="koderps" name="koderps" required>
+                        <span id="error_koderps" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">
-                        <label for="matakuliah">Matakuliah:</label>
+                        <label for="dosen_pengembang">Dosen Pengembang:</label>
                         <div class="selectpicker">
-                            <select data-live-search="true" class="form-control w-100" id="matakuliah"
-                                name="matakuliah">
-                                <option value="">Pilih Matakuliah</option>
-                                @foreach ($matkul as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama_matakuliah }}</option>
+                            <select data-live-search="true" class="form-control w-100" id="dosen_pengembang" name="dosen_pengembang">
+                                <option value="">Pilih Dosen Pengembang: </option>
+                                @foreach ($dosen as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                 @endforeach
                             </select>
-                            <span id="error_matakuliah" class="text-danger"></span>
+                            <span id="error_dosen_pengembang" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="evaluasi">Evaluasi:</label>
-                        <textarea class="form-control" id="evaluasi" name="evaluasi" rows="3"></textarea>
-                        <span id="error_evaluasi" class="text-danger"></span>
+                        <label for="kode_matkul">Mata Kuliah:</label>
+                        <div class="selectpicker">
+                            <select data-live-search="true" class="form-control w-100" id="kode_matkul"
+                                name="kode_matkul" required>
+                                <option value="">Pilih MataKuliah</option>
+                                @foreach ($damatkul as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama_matakuliah }}</option>
+                                @endforeach 
+                            </select>
+                            <span id="error_kode_matkul" class="text-danger"></span>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="ruang">Ruang:</label>
-                        <input type="text" class="form-control" id="ruang" name="ruang"></input>
-                        <span id="error_ruang" class="text-danger"></span>
+                        <label for="dokumen">Dokumen (PDF):</label>
+                        <input type="file" class="form-control-file" id="dokumen" name="dokumen"
+                            accept="application/pdf">
+                        <span id="error_dokumen" class="text-danger"></span>
+                        <small class="form-text text-muted">Maksimal ukuran file: 2 MB</small>
                     </div>
 
                     <div class="form-group">
                         <label for="tanggal">Tanggal:</label>
-                        <input type="date" class="form-control" id="tanggal" name="tanggal"></input>
+                        <input type="date" class="form-control" id="tanggal" name="tanggal" required>
                         <span id="error_tanggal" class="text-danger"></span>
+                    </div>                    
+
+                    <div class="form-group">
+                        <label for="thnakd">Tahun Akademik:</label>
+                        <div class="selectpicker">
+                            <select data-live-search="true" class="form-control w-100" id="thnakd"
+                                name="thnakd" required>
+                                <option value="">Pilih Tahun Akademik</option>
+                                @foreach ($thnakd as $item)
+                                    <option value="{{ $item->id }}">{{ $item->smt_thn_akd }}</option>
+                                @endforeach
+                            </select>
+                            <span id="error_thnakd" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-                    <button type="submit" class="btn btn-primary" id="saveBeritaAcara">Tambahkan</button>
+                    <button type="button" class="btn btn-primary" id="saveRps">Save</button>
+                    <span id="error_kode"></span>
                 </div>
             </form>
         </div>

@@ -2,32 +2,29 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\ActivityLog;
 use App\Models\ref_smt_thn_akds;
 use App\Models\ref_damatkul;
 use App\Models\ref_dosen;
-use App\Models\soalUas;
+use App\Models\verifikasi_soal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
-class SoalUasController extends Controller
+class verifikasiSoal extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
         $dosen = ref_dosen::all();
         $thnakd = ref_smt_thn_akds::all();
         $damatkul = ref_damatkul::all();
-        $soal = soalUas::with('kode_matkul', 'thnakd', 'dosen')->get();
-        return view('dashboard.soalUas.index', compact('soal', 'dosen', 'thnakd', 'damatkul'));
+        $soal = verifikasi_soal::with('kode_matkul', 'thnakd', 'dosen')->get();
+        return view('dashboard.verifikasiSoal.index', compact('soal', 'dosen', 'thnakd', 'damatkul'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -42,7 +39,6 @@ class SoalUasController extends Controller
      */
     public function store(Request $request)
     {
-
         $data = $request->validate([
             'kodesoal' => 'required|string|max:10',
             'dosen_pengampu' => 'required|exists:ref_dosens,id',
@@ -64,12 +60,12 @@ class SoalUasController extends Controller
         if ($request->hasFile('dokumen')) {
             $file = $request->file('dokumen');
             $fileName = now()->format('YmdHis') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $filePath = $file->storeAs('public/dokumentSoal', $fileName);
+            $filePath = $file->storeAs('public/dokumentVerifikasiHasilSoal', $fileName);
             $data['document'] = $fileName;
         }
 
         // Simpan data ke database
-        $soal = soalUas::create($data);
+        $soal = verifikasi_soal::create($data);
 
 
         // Catat aktivitas
@@ -82,13 +78,12 @@ class SoalUasController extends Controller
         return response()->json(['data' => $fileName]);
     }
 
-
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        $data = soalUas::with('dosen', 'kode_matkul', 'thnakd')->where('id', $id)->get();
+        $data = verifikasi_soal::with('dosen', 'kode_matkul', 'thnakd')->where('id', $id)->get();
         return response()->json([
             'data' => $data,
             'status' => 200
@@ -100,7 +95,7 @@ class SoalUasController extends Controller
      */
     public function edit(string $id)
     {
-        $data = soalUas::find($id);
+        $data = verifikasi_soal::find($id);
         return response()->json([
             'status' => 200,
             'data' => $data
@@ -121,7 +116,7 @@ class SoalUasController extends Controller
             'thnakd' => 'required|exists:ref_smt_thn_akds,id',
         ]);
 
-        $soal = soalUas::findOrFail($id);
+        $soal = verifikasi_soal::findOrFail($id);
 
         $changes = [];
         foreach ($validated as $key => $value) {
@@ -169,13 +164,12 @@ class SoalUasController extends Controller
         return response()->json(['data' => $soal]);
     }
 
-
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        $kbk = soalUas::find($id);
+        $kbk = verifikasi_soal::find($id);
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'DELETE',
