@@ -32,18 +32,15 @@ class RPSController extends Controller
      */
     public function create()
     {
-        // echo 'tt';
+      
         $dosen = ref_dosen::all();
         $thnakd = ref_smt_thn_akds::all();
         $damatkul = ref_damatkul::all();
         $rps = RPS::with('kode_matkul', 'thnakd', 'dosen')->get();
         return view('dashboard.RPS.index', compact('rps', 'dosen', 'thnakd', 'damatkul'));
-        // dd($matkulkbk);
+        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -119,46 +116,37 @@ class RPSController extends Controller
             'editkoderps' => 'required|string|max:10',
             'dosen_pengembang' => 'required|exists:ref_dosens,id',
             'kode_matkul' => 'required|exists:ref_damatkuls,id',
-            'dokumen' => 'required|file|mimes:pdf|max:2048',
+            'dokumen' => 'nullable|file|mimes:pdf|max:2048',
             'edittanggal' => 'required|date',
             'thnakd' => 'required|exists:ref_smt_thn_akds,id',
         ]);
 
-        $RPS = RPS::findOrFail($id);
+        $RPS = RPS::where('id',$id)->first();
 
-        $changes = [];
-        foreach ($validated as $key => $value) {
-            if ($RPS[$key] != $value) {
-                $changes[$key] = [
-                    'old' => $RPS[$key],
-                    'new' => $value
-                ];
-            }
-        }
+        $data = [
+            'KodeRPS' => $request->editkoderps,
+            'id_dosen' => $request->dosen_pengembang,
+            'id_KodeMatkul' => $request->kode_matkul,
+            'Dokumen' => $request->dokumen,
+            'Tanggal' => $request->edittanggal,
+            'id_smt_thn_akd' => $request->thnakd
+        ];
+        $uploadOk = false;
 
         if ($request->hasFile('dokumen')) {
             $file = $request->file('dokumen');
-            $filePath = $file->store('dokumen', 'public'); // Menyimpan file di direktori storage/app/public/dokumen
-            $validated['dokumen'] = $filePath;
-
-            if ($RPS->Dokumen != $filePath) {
-                $changes['dokumen'] = [
-                    'old' => $RPS->Dokumen,
-                    'new' => $filePath
-                ];
-            }
+            $fileName = now()->format('YmdHis') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+             $file->storeAs('public/dokumen', $fileName);
+            $data['Dokumen'] = $fileName;
         }
 
-        $RPS->update($validated);
+        if($uploadOk){
+            Storage::delete('public/dokumen/'. $RPS->Dokumen);
+            $file->store('dokumen', $fileName);    
+        }
+        $RPS->update($data);
 
         $description = 'Updated RPS: ' . $RPS->KodeRPS;
-        if (!empty($changes)) {
-            $description .= ' | Changes: ';
-            foreach ($changes as $field => $change) {
-                $description .= "$field: from '{$change['old']}' to '{$change['new']}', ";
-            }
-            $description = rtrim($description, ', ');
-        }
 
         ActivityLog::create([
             'user_id' => Auth::id(),

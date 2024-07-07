@@ -19,7 +19,7 @@ class BeritaAcaraRPSController extends Controller
         $matkul = ref_damatkul::all();
         $beritaRPS = BeritaAcaraRPS::with(['matakuliah'])->get();
         $tanggalList = BeritaAcaraRPS::select('tanggal')->distinct()->get();
-        return view('dashboard.verifikasiRPS.index', compact('beritaRPS', 'matkul', 'tanggalList'));
+        return view('dashboard.beritaRPS.index', compact('beritaRPS', 'matkul', 'tanggalList'));
     }
 
     public function cetakRPS(){

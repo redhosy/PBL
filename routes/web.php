@@ -22,6 +22,8 @@ use App\Http\Controllers\RefSmtThnAkdController;
 use App\Http\Controllers\RPSController;
 use App\Http\Controllers\SoalUasController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\verifikasiRPS;
+use App\Http\Controllers\verifikasiSoal;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -105,9 +107,12 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::group(['middleware' => 'role:pengurus kbk'], function () {
-        Route::resource('/verifikasiSoal', BeritaAcaraSoalController::class);
-        Route::resource('/verifikasiRPS', BeritaAcaraRPSController::class);
+        Route::resource('/beritaSoal', BeritaAcaraSoalController::class);
+        Route::resource('/beritaRPS', BeritaAcaraRPSController::class);
         // Route khusus untuk cetak berita acara
+        Route::resource('/verifikasiRPS', verifikasiRPS::class);
+        Route::resource('/verifikasiSoal', verifikasiSoal::class);
+
         route::get('/cetakRPS', [BeritaAcaraRPSController::class, 'cetakRPS']);
         route::get('/cetakSOAL', [BeritaAcaraSoalController::class, 'cetakSOAL']);
     });
@@ -118,8 +123,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::group(['middleware' => ['can:access-petinggi-routes']], function () {
-        Route::resource('/verifikasiSoal', BeritaAcaraSoalController::class);
-        Route::resource('/verifikasiRPS', BeritaAcaraRPSController::class);
+        Route::resource('/beritaSoal', BeritaAcaraSoalController::class);
+        Route::resource('/beritaRPS', BeritaAcaraRPSController::class);
         // Route khusus untuk cetak berita acara
         route::get('/cetakRPS', [BeritaAcaraRPSController::class, 'cetakRPS']);
         route::get('/cetakSOAL', [BeritaAcaraSoalController::class, 'cetakSOAL']);

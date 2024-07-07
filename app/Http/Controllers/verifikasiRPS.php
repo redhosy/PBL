@@ -2,39 +2,40 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\ActivityLog;
 use App\Models\ref_smt_thn_akds;
 use App\Models\ref_damatkul;
 use App\Models\ref_dosen;
-use App\Models\soalUas;
+use App\Models\verifikasi_rps;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
-class SoalUasController extends Controller
+class verifikasiRPS extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
         $dosen = ref_dosen::all();
         $thnakd = ref_smt_thn_akds::all();
         $damatkul = ref_damatkul::all();
-        $soal = soalUas::with('kode_matkul', 'thnakd', 'dosen')->get();
-        return view('dashboard.soalUas.index', compact('soal', 'dosen', 'thnakd', 'damatkul'));
+        $rps = verifikasi_rps::with('kode_matkul', 'thnakd', 'dosen')->get();
+        return view('dashboard.verifikasiRPS.index', compact('rps', 'dosen', 'thnakd', 'damatkul'));
     }
-
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        $dosen = ref_dosen::all();
+        $thnakd = ref_smt_thn_akds::all();
+        $damatkul = ref_damatkul::all();
+        $rps = verifikasi_rps::with('kode_matkul', 'thnakd', 'dosen')->get();
+        return view('dashboard.verifikasiRPS.index', compact('rps', 'dosen', 'thnakd', 'damatkul'));
     }
 
     /**
@@ -42,10 +43,9 @@ class SoalUasController extends Controller
      */
     public function store(Request $request)
     {
-
-        $data = $request->validate([
-            'kodesoal' => 'required|string|max:10',
-            'dosen_pengampu' => 'required|exists:ref_dosens,id',
+        $validated = $request->validate([
+            'koderps' => 'required|string|max:10',
+            'dosen_pengembang' => 'required|exists:ref_dosens,id',
             'kode_matkul' => 'required|exists:ref_damatkuls,id',
             'dokumen' => 'required|file|mimes:pdf|max:2048',
             'tanggal' => 'required|date',
@@ -53,42 +53,42 @@ class SoalUasController extends Controller
         ]);
 
         $data = [
-            'kodeSoal' => $request->kodesoal,
-            'id_dosen' => $request->dosen_pengampu,
-            'id_kodeMatkul' => $request->kode_matkul,
-            'tanggal' => $request->tanggal,
+            'KodeRPS' => $request->koderps,
+            'id_dosen' => $request->dosen_pengembang,
+            'id_KodeMatkul' => $request->kode_matkul,
+            'Tanggal' => $request->tanggal,
             'id_smt_thn_akd' => $request->thnakd
         ];
 
         $fileName = '';
         if ($request->hasFile('dokumen')) {
+            // $validated['dokumen'] = $request->file('dokumen')->store('dokumen_rps', 'public');
             $file = $request->file('dokumen');
             $fileName = now()->format('YmdHis') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $filePath = $file->storeAs('public/dokumentSoal', $fileName);
-            $data['document'] = $fileName;
+            $filePath = $file->storeAs('public/dokumenVerifikasiHasilRPS', $fileName);
+            $data['Dokumen'] = $fileName;
         }
 
         // Simpan data ke database
-        $soal = soalUas::create($data);
+        $rps = verifikasi_rps::create($data);
 
 
         // Catat aktivitas
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'INSERT',
-            'description' => 'Menambahkan data RPS baru: ' . $request->KodeSoal,
+            'description' => 'Menambahkan data RPS baru: ' . $request->koderps,
         ]);
 
         return response()->json(['data' => $fileName]);
     }
-
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        $data = soalUas::with('dosen', 'kode_matkul', 'thnakd')->where('id', $id)->get();
+        $data = verifikasi_rps::with('dosen', 'kode_matkul', 'thnakd')->where('id', $id)->get();
         return response()->json([
             'data' => $data,
             'status' => 200
@@ -100,7 +100,7 @@ class SoalUasController extends Controller
      */
     public function edit(string $id)
     {
-        $data = soalUas::find($id);
+        $data = verifikasi_rps::find($id);
         return response()->json([
             'status' => 200,
             'data' => $data
@@ -113,21 +113,21 @@ class SoalUasController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'kodesoal' => 'required|string|max:10',
-            'dosen_pengampu' => 'required|exists:ref_dosens,id',
+            'editkoderps' => 'required|string|max:10',
+            'dosen_pengembang' => 'required|exists:ref_dosens,id',
             'kode_matkul' => 'required|exists:ref_damatkuls,id',
-            'dokumen' => 'nullable|file|mimes:pdf|max:2048',
-            'tanggal' => 'required|date',
+            'dokumen' => 'required|file|mimes:pdf|max:2048',
+            'edittanggal' => 'required|date',
             'thnakd' => 'required|exists:ref_smt_thn_akds,id',
         ]);
 
-        $soal = soalUas::findOrFail($id);
+        $RPS = verifikasi_rps::findOrFail($id);
 
         $changes = [];
         foreach ($validated as $key => $value) {
-            if ($soal[$key] != $value) {
+            if ($RPS[$key] != $value) {
                 $changes[$key] = [
-                    'old' => $soal[$key],
+                    'old' => $RPS[$key],
                     'new' => $value
                 ];
             }
@@ -135,23 +135,20 @@ class SoalUasController extends Controller
 
         if ($request->hasFile('dokumen')) {
             $file = $request->file('dokumen');
-            $fileName = now()->format('YmdHis') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $filePath = $file->storeAs('public/dokumentSoal', $fileName);
+            $filePath = $file->store('dokumen', 'public'); // Menyimpan file di direktori storage/app/public/dokumen
+            $validated['dokumen'] = $filePath;
 
-            if ($soal->document != $fileName) {
-                Storage::disk('public')->delete('dokumentSoal/' . $soal->document);
+            if ($RPS->Dokumen != $filePath) {
                 $changes['dokumen'] = [
-                    'old' => $soal->document,
-                    'new' => $fileName
+                    'old' => $RPS->Dokumen,
+                    'new' => $filePath
                 ];
             }
-
-            $validated['document'] = $fileName;
         }
 
-        $soal->update($validated);
+        $RPS->update($validated);
 
-        $description = 'Updated RPS: ' . $soal->kodeSoal;
+        $description = 'Updated RPS: ' . $RPS->KodeRPS;
         if (!empty($changes)) {
             $description .= ' | Changes: ';
             foreach ($changes as $field => $change) {
@@ -166,16 +163,15 @@ class SoalUasController extends Controller
             'description' => $description
         ]);
 
-        return response()->json(['data' => $soal]);
+        return response()->json(['data' => $RPS]);
     }
-
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        $kbk = soalUas::find($id);
+        $kbk = verifikasi_rps::find($id);
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'DELETE',
