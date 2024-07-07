@@ -115,6 +115,8 @@ Route::middleware(['auth'])->group(function () {
     Route::group(['middleware' => ['can:access-petinggi-routes']], function () {
         Route::resource('/verifikasiSoal', BeritaAcaraSoalController::class);
         Route::resource('/verifikasiRPS', BeritaAcaraRPSController::class);
+        Route::resource('/beritaRPS', BeritaAcaraRPSController::class);
+        Route::resource('/beritaSoal', BeritaAcaraSoalController::class);
         Route::get('/cetakRPS', [BeritaAcaraRPSController::class, 'cetakRPS']);
         Route::get('/cetakSOAL', [BeritaAcaraSoalController::class, 'cetakSOAL']);
         Route::resource('/soalUas', SoalUasController::class);
