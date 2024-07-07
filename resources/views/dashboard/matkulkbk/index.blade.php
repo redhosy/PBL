@@ -19,8 +19,8 @@
                             id="import" title="Import Data"><i class="fas fa-file-import" data-toggle="modal"
                             data-target="#importModal"></i></button>
                         {{-- export --}}
-                        <button href="{{ route('matkulkbk.export.excel') }}" class="btn btn-primary ml-2  action" type="button" data-toggle="tooltip"
-                            id="export" title="Export Data"><i class="fas fa-file-export"></i></button>
+                        <a href="{{ route('matkulkbk.export.excel') }}" class="btn btn-primary ml-2  action" type="button" data-toggle="tooltip"
+                            id="export" title="Export Data"><i class="fas fa-file-export"></i></a>
                         {{-- tambah --}}
                         <button class="btn btn-success ml-2  action" type="button" data-toggle="tooltip"
                             id="modalAdd" title="Tambah Data"><i class="fas fa-plus"></i></button>

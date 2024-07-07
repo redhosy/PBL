@@ -21,10 +21,10 @@
                             </button>
 
                             {{-- export --}}
-                            <button href="{{ route('datakbk.export.excel') }}" class="btn btn-primary ml-2 action" type="button"
+                            <a href="{{ route('datakbk.export.excel') }}" class="btn btn-primary ml-2 action" type="button"
                                 data-toggle="tooltip" id="export" title="Export Data">
                                 <i class="fas fa-file-export"></i>
-                            </button>
+                            </a>
 
                             {{-- tambah --}}
                             <button class="btn btn-success ml-2 action" type="button" data-toggle="tooltip" id="modalAdd"
