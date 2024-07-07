@@ -71,7 +71,7 @@
             @endcan
 
             <!-- Perkuliahan for dosen-pengampu -->
-            @canany(['pengurus-kbk', 'dosen-pengampu'])
+            @canany(['dosen-pengampu'])
                 <li class="dropdown">
                     <a class="nav-link has-dropdown"><i class="fas fa-landmark"></i><span>Perkuliahan</span></a>
                     <ul class="dropdown-menu">
@@ -85,21 +85,31 @@
             <!-- Perkuliahan for dosen-pengampu -->
             @canany(['pengurus-kbk'])
                 <li class="dropdown">
-                    <a class="nav-link has-dropdown"><i class="fa fa-upload"></i><span>Verifikasi</span></a>
+                    <a class="nav-link has-dropdown"><i class="fa fa-upload"></i><span>Daftar KBK</span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="/RPS">Verifikasi RPS</a></li>
-                        <li><a class="nav-link" href="/soalUas">verifikasi Soal UAS</a></li>
+                        <li><a class="nav-link" href="/RPS">Daftar RPS</a></li>
+                        <li><a class="nav-link" href="/soalUas">Daftar Soal UAS</a></li>
                     </ul>
                 </li>
             @endcanany
 
+            @canany(['pengurus-kbk'])
+            <li class="dropdown">
+                <a class="nav-link has-dropdown"><i class="fa fa-clipboard-check"></i><span>Verifikasi KBK</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href="/verifikasiRPS">Hasil Verifikasi RPS</a></li>
+                    <li><a class="nav-link" href="/verifikasiSoal">Hasil Verifikasi Soal UAS</a></li>
+                </ul>
+            </li>
+        @endcanany
+
 
             @can('pengurus-kbk')
                 <li class="dropdown">
-                    <a class="nav-link has-dropdown"><i class="fa fa-clipboard-check"></i><span>Berita Acara</span></a>
+                    <a class="nav-link has-dropdown"><i class="fa fa-newspaper"></i><span>Berita Acara</span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href={{ route('verifikasiRPS.index') }}>Berita Acara RPS</a></li>
-                        <li><a class="nav-link" href={{ route('verifikasiSoal.index') }}>Berita Acara Soal</a></li>
+                        <li><a class="nav-link" href={{ route('beritaRPS.index') }}>Berita Acara RPS</a></li>
+                        <li><a class="nav-link" href={{ route('beritaSoal.index') }}>Berita Acara Soal</a></li>
                     </ul>
                 </li>
             @endcan
