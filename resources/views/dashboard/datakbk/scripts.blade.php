@@ -118,7 +118,7 @@
             });
         });
 
-        //    detail
+        //detail
         $(document).on('click', '.detailBtn', function() {
             let dataId = $(this).data('id');
             console.log("Button clicked, data ID:", dataId);

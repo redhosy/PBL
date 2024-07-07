@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Models\ref_damatkul;
 use App\Models\ref_datakbk;
 use App\Models\ref_dosen;
 use App\Models\ref_matakuliahkbk;
@@ -23,15 +24,18 @@ class matkulImport implements ToModel,  WithHeadingRow
         $prodi = ref_prodis::where('prodi', $row['prodi'])->first();
         $id_kbk = ref_datakbk::where('kodekbk', $row['kbk'])->first();
         $dosen = ref_dosen::where('nama', $row['nama'])->first();
+        $matkul = ref_damatkul::where('nama_matakuliah', $row['nama_matakuliah'])
+            ->where('kode_matakuliah', $row['kode_matakuliah'])
+            ->where('semester', $row['semester'])
+            ->where('TP', $row['TP'])
+            ->where('sks', $row['sks'])
+            ->first();
+
 
         return new ref_matakuliahkbk([
-            'kode_matkul' => $row['kode_matkul'],
-            'nama_matkul' => $row['nama_matkul'],
-            'semester' => $row['semester'],
-            'ket' => $row['ket'],
+            'id_matkul' => $matkul->id,
             'id_datakbk' => $id_kbk->id,
             'id_prodi' => $prodi->id,
-            'jumlah_sks' => $row['jumlah_sks'],
             'id_dosen' => $dosen->id,
         ]);
     }
