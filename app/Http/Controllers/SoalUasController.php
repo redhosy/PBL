@@ -121,49 +121,35 @@ class SoalUasController extends Controller
             'thnakd' => 'required|exists:ref_smt_thn_akds,id',
         ]);
 
-        $soal = soalUas::findOrFail($id);
+        $soal = soalUas::where('id',$id)->first();
 
-        $changes = [];
-        foreach ($validated as $key => $value) {
-            if ($soal[$key] != $value) {
-                $changes[$key] = [
-                    'old' => $soal[$key],
-                    'new' => $value
-                ];
-            }
-        }
+        $data = [
+            'kodeSoal' => $request->kodesoal,
+            'id_dosen' => $request->dosen_pengampu,
+            'id_KodeMatkul' => $request->kode_matkul,
+            'document' => $request->dokumen,
+            'tanggal' => $request->tanggal,
+            'id_smt_thn_akd' => $request->thnakd
+        ];
+        $uploadOk = false;
 
         if ($request->hasFile('dokumen')) {
             $file = $request->file('dokumen');
             $fileName = now()->format('YmdHis') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
-            $filePath = $file->storeAs('public/dokumentSoal', $fileName);
-
-            if ($soal->document != $fileName) {
-                Storage::disk('public')->delete('dokumentSoal/' . $soal->document);
-                $changes['dokumen'] = [
-                    'old' => $soal->document,
-                    'new' => $fileName
-                ];
-            }
-
-            $validated['document'] = $fileName;
+            $file->storeAs('public/dokumentSoal', $fileName);
+            $data['document'] = $fileName;
         }
 
-        $soal->update($validated);
-
-        $description = 'Updated RPS: ' . $soal->kodeSoal;
-        if (!empty($changes)) {
-            $description .= ' | Changes: ';
-            foreach ($changes as $field => $change) {
-                $description .= "$field: from '{$change['old']}' to '{$change['new']}', ";
-            }
-            $description = rtrim($description, ', ');
+        if ($uploadOk) {
+            Storage::delete('public/dokumentSoal/' . $soal->document);
+            $file->store('dokumentSoal', $fileName);
         }
+        $soal->update($data);
 
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'UPDATE',
-            'description' => $description
+            'description' =>'Updated Soal: ' . $soal->kodeSoal,
         ]);
 
         return response()->json(['data' => $soal]);

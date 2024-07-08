@@ -116,51 +116,40 @@ class verifikasiRPS extends Controller
             'editkoderps' => 'required|string|max:10',
             'dosen_pengembang' => 'required|exists:ref_dosens,id',
             'kode_matkul' => 'required|exists:ref_damatkuls,id',
-            'dokumen' => 'required|file|mimes:pdf|max:2048',
+            'dokumen' => 'nullable|file|mimes:pdf|max:2048',
             'edittanggal' => 'required|date',
             'thnakd' => 'required|exists:ref_smt_thn_akds,id',
         ]);
 
-        $RPS = verifikasi_rps::findOrFail($id);
+        $RPS = verifikasi_rps::where('id', $id)->first();
 
-        $changes = [];
-        foreach ($validated as $key => $value) {
-            if ($RPS[$key] != $value) {
-                $changes[$key] = [
-                    'old' => $RPS[$key],
-                    'new' => $value
-                ];
-            }
-        }
+        $data = [
+            'KodeRPS' => $request->editkoderps,
+            'id_dosen' => $request->dosen_pengembang,
+            'id_KodeMatkul' => $request->kode_matkul,
+            'Dokumen' => $request->dokumen,
+            'Tanggal' => $request->edittanggal,
+            'id_smt_thn_akd' => $request->thnakd
+        ];
+        $uploadOk = false;
 
         if ($request->hasFile('dokumen')) {
             $file = $request->file('dokumen');
-            $filePath = $file->store('dokumen', 'public'); // Menyimpan file di direktori storage/app/public/dokumen
-            $validated['dokumen'] = $filePath;
-
-            if ($RPS->Dokumen != $filePath) {
-                $changes['dokumen'] = [
-                    'old' => $RPS->Dokumen,
-                    'new' => $filePath
-                ];
-            }
+            $fileName = now()->format('YmdHis') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/dokumenVerifikasiHasilRPS', $fileName);
+            $data['Dokumen'] = $fileName;
         }
 
-        $RPS->update($validated);
-
-        $description = 'Updated RPS: ' . $RPS->KodeRPS;
-        if (!empty($changes)) {
-            $description .= ' | Changes: ';
-            foreach ($changes as $field => $change) {
-                $description .= "$field: from '{$change['old']}' to '{$change['new']}', ";
-            }
-            $description = rtrim($description, ', ');
+        if ($uploadOk) {
+            Storage::delete('public/dokumenVerifikasiHasilRPS/' . $RPS->Dokumen);
+            $file->store('dokumenVerifikasiHasilRPS', $fileName);
         }
+        $RPS->update($data);
 
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'UPDATE',
-            'description' => $description
+            'description' => 'Updated RPS: ' . $RPS->KodeRPS,
         ]);
 
         return response()->json(['data' => $RPS]);

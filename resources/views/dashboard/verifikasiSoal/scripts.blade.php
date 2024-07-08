@@ -65,6 +65,7 @@
             let dataId = $(this).data('id');
             $.get("/verifikasiSoal/" + dataId + "/edit", function(response) {
                 console.log(response)
+                $('#editDataId').val(response.data.id)
                 $('#editkodesoal').val(response.data.kodeSoal);
                 $('#editdosen_pengampu').selectpicker('val',response.data.id_dosen);
                 $('#editkode_matkul').selectpicker('val', response.data.id_kodeMatkul);
@@ -75,15 +76,26 @@
             });
         });
 
+        //update
         $('#editDataForm').on('submit', function(e) {
             e.preventDefault();
-            // console.log($('#editDataId').val());
+            console.log($('#editDataId').val());
             let dataId = $('#editDataId').val();
-            let formData = $(this).serialize(); // Serialize form data
+            // let formData = $(this).serialize(); // Serialize form data
+            var data = new FormData();
+            data.append('_method', 'PUT');
+            data.append('kodesoal', $('#editkodesoal').val());
+            data.append('dosen_pengampu', $('#editdosen_pengampu').val());
+            data.append('kode_matkul', $('#editkode_matkul').val());
+            data.append('dokumen', $('#editdokumen')[0].files[0]);
+            data.append('tanggal', $('#edittanggal').val());
+            data.append('thnakd', $('#editthnakd').val());
             $.ajax({
-                url: "{{ url('verifikasiSoal') }}/" + dataId,
-                method: 'PUT',
-                data: formData,
+                url: "/verifikasiSoal/" + dataId,
+                method: 'POST',
+                data: data,
+                processData: false,
+                contentType: false,
                 success: function(response) {
                     $('#editModal').modal('hide');
                     $('#success-alert').removeClass('d-none').text(

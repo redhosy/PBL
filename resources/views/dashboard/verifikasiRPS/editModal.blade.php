@@ -4,6 +4,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form id="editPostForm">
+                <input type="hidden" id="editDataId">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit Data</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -70,7 +71,7 @@
                 </div>
                 <div class="modal-footer">
                     {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-                    <button type="button" class="btn btn-primary" id="updateRps">Save changes</button>
+                    <button type="submit" class="btn btn-primary" id="updateRps">Save changes</button>
                 </div>
             </form>
         </div>

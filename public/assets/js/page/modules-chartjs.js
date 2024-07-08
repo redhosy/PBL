@@ -20,7 +20,17 @@ document.addEventListener('DOMContentLoaded', function () {
             // Menampilkan pesan kesalahan kepada pengguna
             displayErrorMessage('Failed to load chart data. Please try again later.');
         });
+    // $.ajax({
+    //     type: "GET",
+    //     url: "/dashboard/barChartData",
+    //     dataType: "json",
+    //     success: function (response) {
+    //         console.log(response)
+    //     }
+    // });
   }
+
+  fetchDataAndUpdateChart();
   
   function fetchChartData() {
     return Promise.all([

@@ -22,6 +22,8 @@ use App\Http\Controllers\RefSmtThnAkdController;
 use App\Http\Controllers\RPSController;
 use App\Http\Controllers\SoalUasController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\verifikasiRPS;
+use App\Http\Controllers\verifikasiSoal;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -32,11 +34,11 @@ Route::middleware(['auth', 'checkUserSession'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/dashboard/barChartData', [DashboardController::class, 'getBarChartData'])
-        ->middleware('role:admin|pengurus kbk|pimpinan jurusan|pimpinan program studi|dosen-pengampu')
+        ->middleware('role:super admin|admin|pengurus kbk|pimpinan jurusan|pimpinan program studi|dosen pengampu')
         ->name('dashboard.barChartData');
 
     Route::get('/dashboard/pieChartData', [DashboardController::class, 'getPieChartData'])
-        ->middleware('role:admin|pengurus kbk|pimpinan jurusan|pimpinan program studi|dosen-pengampu')
+        ->middleware('role:admin|pengurus kbk|pimpinan jurusan|pimpinan program studi|dosen pengampu')
         ->name('dashboard.pieChartData');
 });
 Route::get('/team', function () {
@@ -113,8 +115,10 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::group(['middleware' => ['can:access-petinggi-routes']], function () {
-        Route::resource('/verifikasiSoal', BeritaAcaraSoalController::class);
-        Route::resource('/verifikasiRPS', BeritaAcaraRPSController::class);
+        Route::resource('/verifikasiSoal', verifikasiSoal::class);
+        Route::resource('/verifikasiRPS', verifikasiRPS::class);
+        Route::resource('/beritaSoal', BeritaAcaraSoalController::class);
+        Route::resource('/beritaRPS', BeritaAcaraRPSController::class);
         Route::get('/cetakRPS', [BeritaAcaraRPSController::class, 'cetakRPS']);
         Route::get('/cetakSOAL', [BeritaAcaraSoalController::class, 'cetakSOAL']);
         Route::resource('/soalUas', SoalUasController::class);

@@ -2,6 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form id="editDataForm">
+                <input type="hidden" id="editDataId">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editModalLabel">Edit Data</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
