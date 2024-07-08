@@ -55,12 +55,12 @@
                                             </td>
                                             <td class="text-nowrap">{{ $data->tanggal }}</td>
                                             <td class="text-nowrap">{{ $data->thnakd->smt_thn_akd }}</td>
-                                            @can('dosen-pengampu')
+                                            @can('pengurus-kbk')
                                             <td class="d-flex justify-content-around">
                                                 <button class="btn btn-icon btn-warning editBtn" data-id="{{ $data->id }}"><i
                                                         class="far fa-edit"></i></button>
-                                                <button class="btn btn-icon btn-info detailBtn" data-id="{{ $data->id }}"><i
-                                                        class="fas fa-info-circle"></i></button>
+                                                {{-- <button class="btn btn-icon btn-info detailBtn" data-id="{{ $data->id }}"><i
+                                                        class="fas fa-info-circle"></i></button> --}}
                                                 <button class="btn btn-danger deleteBtn" data-toggle="modal" data-id="{{ $data->id }}" ><i
                                                         class="fas fa-trash"></i></button>
                                             </td>

@@ -65,6 +65,7 @@
             let dataId = $(this).data('id');
             $.get("/verifikasiRPS/" + dataId + "/edit", function(response) {
                 console.log(response)
+                $('#editDataId').val(response.data.id)
                 $('#editkoderps').val(response.data.KodeRPS);
                 $('#editdosen_pengembang').selectpicker('val',response.data.id_dosen);
                 $('#editkode_matkul').selectpicker('val', response.data.id_KodeMatkul);
@@ -75,15 +76,26 @@
             });
         });
 
-        $('#editDataForm').on('submit', function(e) {
+        //update
+        $('#editPostForm').on('submit', function(e) {
             e.preventDefault();
             console.log($('#editDataId').val());
             let dataId = $('#editDataId').val();
-            let formData = $(this).serialize(); // Serialize form data
+            // let formData = $(this).serialize(); // Serialize form data
+            var data = new FormData();
+            data.append('_method', 'PUT');
+            data.append('editkoderps', $('#editkoderps').val());
+            data.append('dosen_pengembang', $('#editdosen_pengembang').val());
+            data.append('kode_matkul', $('#editkode_matkul').val());
+            data.append('dokumen', $('#editdokumen')[0].files[0]);
+            data.append('edittanggal', $('#edittanggal').val());
+            data.append('thnakd', $('#editthnakd').val());
             $.ajax({
-                url: "{{ url('verifikasiRPS') }}/" + dataId,
-                method: 'PUT',
-                data: formData,
+                url: "/verifikasiRPS/" + dataId,
+                method: 'POST',
+                data: data,
+                processData: false,
+                contentType: false,
                 success: function(response) {
                     $('#editModal').modal('hide');
                     $('#success-alert').removeClass('d-none').text(

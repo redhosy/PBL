@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
+use PhpParser\Node\NullableType;
 
 class RPSController extends Controller
 {
@@ -145,13 +146,12 @@ class RPSController extends Controller
             $file->store('dokumen', $fileName);    
         }
         $RPS->update($data);
-
-        $description = 'Updated RPS: ' . $RPS->KodeRPS;
+        
 
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'UPDATE',
-            'description' => $description
+            'description' => 'Updated RPS: ' . $RPS->KodeRPS,
         ]);
 
         return response()->json(['data' => $RPS]);

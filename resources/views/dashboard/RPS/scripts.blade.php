@@ -94,7 +94,7 @@
                 url: "/RPS/" + dataId,
                 method: 'POST',
                 data: data,
-                processData: false,
+                processData: false, 
                 contentType: false,
                 success: function(response) {
                     $('#editModal').modal('hide');
