@@ -45,6 +45,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function dosen(){
+        return $this->belongsTo(ref_dosen::class, 'email', 'email');
+    }
+
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new \App\Notifications\ResetPasswordNotification($token));

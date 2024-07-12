@@ -1,3 +1,4 @@
+
 <script>
     $(document).ready(function() {
         // Setup CSRF token for AJAX requests
@@ -7,94 +8,120 @@
             }
         });
 
-
-        // Tooltip
+        //tooltip
         $('[data-toggle="tooltip"]').tooltip();
 
-        // Show add modal
+        // Show modal
         $('#modalAdd').on('click', function() {
             $('#addModal').modal('show');
         });
 
-        // Save new data
-        $('#saveBeritaAcara').click(function() {
+        // Save form data
+        $('#saveRps').click(function() {
+            var data = new FormData();
+            data.append('koderps', $('#koderps').val());
+            data.append('dosen_pengembang', $('#dosen_pengembang').val());
+            data.append('kode_matkul', $('#kode_matkul').val());
+            data.append('dokumen', $('#dokumen')[0].files[0]);
+            data.append('tanggal', $('#tanggal').val());
+            data.append('thnakd', $('#thnakd').val());
+
             $.ajax({
                 url: "{{ route('verifikasiRPS.store') }}",
                 type: "POST",
-                data: $('#addPostForm').serialize(),
+                data: data,
+                processData : false,
+                contentType : false,
                 success: function(response) {
+                    console.log(response);
                     $('#addModal').modal('hide');
                     $('#success-alert').removeClass('d-none').text(
                         'Data berhasil ditambahkan!');
                     setTimeout(function() {
                         $('#success-alert').addClass('d-none');
                     }, 5000);
-                    location.reload(); // Reload halaman untuk menampilkan perubahan
+
+                   location.reload();
+
+                    $('#addUserForm')[0].reset();
                 },
                 error: function(error) {
                     console.log(error);
                     var errors = error.responseJSON.errors;
                     if (errors) {
-                        $('#error_semester').text(errors.semester ? errors.semester[0] :
-                            '');
-                        $('#error_matakuliah').text(errors.matakuliah ? errors.matakuliah[
-                            0] : '');
-                        $('#error_evaluasi').text(errors.evaluasi ? errors.evaluasi[0] :
-                            '');
-                        $('#error_ruang').text(errors.ruang ? errors.ruang[0] : '');
+                        $('#error_koderps').text(errors.koderps ? errors.koderps[0] : '');
+                        $('#error_dosen_pengembang').text(errors.dosen_pengembang ? errors.dosen_pengembang[0] : '');
+                        $('#error_kode_matkul').text(errors.kode_matkul ? errors.kode_matkul[0] : '');
+                        $('#error_dokumen').text(errors.dokumen ? errors.dokumen[0] : '');
                         $('#error_tanggal').text(errors.tanggal ? errors.tanggal[0] : '');
+                        $('#error_thnakd').text(errors.thnakd ? errors.thnakd[0] : '');
                     }
                 }
             });
         });
 
-        // Show Edit Modal
+        // Edit Data
         $(document).on('click', '.editBtn', function() {
             let dataId = $(this).data('id');
             $.get("/verifikasiRPS/" + dataId + "/edit", function(response) {
-                console.log(response);
-                $('#editsemester').selectpicker('val', response.data.semester);
-                $('#editmatakuliah').selectpicker('val', response.data
-                    .id_matakuliah); // Sesuaikan ini dengan struktur data Anda
-                $('#editevaluasi').val(response.data.evaluasi);
-                $('#editruang').val(response.data.ruang);
-                $('#edittanggal').val(response.data.tanggal);
+                console.log(response)
+                $('#editDataId').val(response.data.id)
+                $('#editkoderps').val(response.data.KodeRPS);
+                $('#editdosen_pengembang').selectpicker('val',response.data.id_dosen);
+                $('#editkode_matkul').selectpicker('val', response.data.id_KodeMatkul);
+                $('.dokumen_preview').html(`<a class="btn btn-primary mb-2" href="/storage/dokumen/${response.data.Dokumen}" target="_blank">View Dokumen</a>`);
+                $('#edittanggal').val(response.data.Tanggal);
+                $('#editthnakd').selectpicker('val', response.data.id_smt_thn_akd);
                 $('#editModal').modal('show');
             });
         });
 
-
-        // Update Data
-        $('#editBeritaAcaraForm').on('submit', function(e) {
+        //update
+        $('#editPostForm').on('submit', function(e) {
             e.preventDefault();
+            console.log($('#editDataId').val());
             let dataId = $('#editDataId').val();
-            let formData = $(this).serialize(); // Serialize form data
+            // let formData = $(this).serialize(); // Serialize form data
+            var data = new FormData();
+            data.append('_method', 'PUT');
+            data.append('editkoderps', $('#editkoderps').val());
+            data.append('dosen_pengembang', $('#editdosen_pengembang').val());
+            data.append('kode_matkul', $('#editkode_matkul').val());
+            data.append('dokumen', $('#editdokumen')[0].files[0]);
+            data.append('edittanggal', $('#edittanggal').val());
+            data.append('thnakd', $('#editthnakd').val());
             $.ajax({
-                url: "{{ url('verifikasiRPS') }}/" + dataId,
-                method: 'PUT',
-                data: formData,
+                url: "/verifikasiRPS/" + dataId,
+                method: 'POST',
+                data: data,
+                processData: false,
+                contentType: false,
                 success: function(response) {
                     $('#editModal').modal('hide');
                     $('#success-alert').removeClass('d-none').text(
-                        'Data berhasil diperbarui.');
+                        'Data berhasil diUpdate! '
+                    );
+
+                    // Hide alert after 3 seconds
                     setTimeout(function() {
                         $('#success-alert').addClass('d-none');
-                        location.reload();
-                    }, 3000);
+                    }, 5000);
+
+                    location.reload();
+
                 },
                 error: function(xhr) {
+                    console.log(xhr);
                     let errors = xhr.responseJSON.errors;
-                    console.log(errors);
-                    // Tampilkan error di form (optional)
-                    $('#error-alert').removeClass('d-none').text(
-                        'Error updating data. Please check the form.');
                 }
             });
         });
 
 
-
         // pencarian
+        $('#dataTable').DataTable();
+        var table = $('#dataTable').DataTable();
+
         $('#searchInput').on('keyup', function() {
             table.search(this.value).draw();
         });
@@ -102,34 +129,52 @@
         //dropdownsearch
         $('.selectpicker select').selectpicker();
 
-        // Initialize DataTables
-        $('#dataTable1').DataTable();
 
-        // Show Delete Modal
+        // Detail
+        $(document).on('click', '.detailBtn', function() {
+            let itemId = $(this).data('id');
+            console.log("Button clicked, data ID:", itemId);
+
+            $.get("{{ url('verifikasiRPS') }}/" + itemId, function(response) {
+                console.log(response);
+                $('#detailModal').modal('show');
+                $('#detailkoderps').text(response.data[0].KodeRPS);
+                $('#detaildosen_pengembang').text(response.data[0].dosen.nama);
+                $('#detailkode_matkul').text(response.data[0].kode_matkul.nama_matakuliah);
+                $('#detaildokumen').html(`<a href="/storage/dokumen/${response.data[0].Dokumen}" target="_blank" class="btn btn-primary">View Dokumen</a>`);
+                $('#detailtanggal').text(response.data[0].Tanggal);
+                $('#detailthnakd').text(response.data[0].thnakd.smt_thn_akd);
+            }).fail(function(error) {
+                console.error('Failed to fetch data');
+                console.log(error);
+            });
+        });
+
         $(document).on('click', '.deleteBtn', function() {
             let dataId = $(this).data('id');
             $('#modalDelete').modal('show');
             $('#confirmDelete').data('id', dataId);
         });
 
-        // Confirm Delete
+        // Confirm deletion
         $('#confirmDelete').click(function() {
-            let dataId = $(this).data('id');
+            var dataId = $(this).data('id');
             $.ajax({
                 url: "{{ url('verifikasiRPS') }}/" + dataId,
                 method: 'DELETE',
                 success: function(res) {
+                    console.log(res);
                     $('#data' + dataId).remove();
                     $('#modalDelete').modal('hide');
                     $('#success-alert').removeClass('d-none').text(
                         'Data berhasil dihapus!');
+
+                    // Hide alert after 3 seconds
                     setTimeout(function() {
                         $('#success-alert').addClass('d-none');
                     }, 3000);
-
-                    location.reload(); // Reload halaman untuk menampilkan perubahan
                 },
-                error: function(xhr) {
+                error: function(xhr, status, error) {
                     console.log(xhr.responseText);
                     alert('Failed to delete data');
                 }

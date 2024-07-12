@@ -1,4 +1,3 @@
-
 <script>
     $(document).ready(function() {
         // Setup CSRF token for AJAX requests
@@ -30,8 +29,8 @@
                 url: "{{ route('RPS.store') }}",
                 type: "POST",
                 data: data,
-                processData : false,
-                contentType : false,
+                processData: false,
+                contentType: false,
                 success: function(response) {
                     console.log(response);
                     $('#addModal').modal('hide');
@@ -41,7 +40,7 @@
                         $('#success-alert').addClass('d-none');
                     }, 5000);
 
-                   location.reload();
+                    location.reload();
 
                     $('#addUserForm')[0].reset();
                 },
@@ -50,14 +49,16 @@
                     var errors = error.responseJSON.errors;
                     if (errors) {
                         $('#error_koderps').text(errors.koderps ? errors.koderps[0] : '');
-                        $('#error_dosen_pengembang').text(errors.dosen_pengembang ? errors.dosen_pengembang[0] : '');
-                        $('#error_kode_matkul').text(errors.kode_matkul ? errors.kode_matkul[0] : '');
+                        $('#error_dosen_pengembang').text(errors.dosen_pengembang ? errors
+                            .dosen_pengembang[0] : '');
+                        $('#error_kode_matkul').text(errors.kode_matkul ? errors
+                            .kode_matkul[0] : '');
                         $('#error_dokumen').text(errors.dokumen ? errors.dokumen[0] : '');
                         $('#error_tanggal').text(errors.tanggal ? errors.tanggal[0] : '');
                         $('#error_thnakd').text(errors.thnakd ? errors.thnakd[0] : '');
                     }
                 }
-            });
+            }); 
         });
 
         // Edit Data
@@ -65,8 +66,9 @@
             let dataId = $(this).data('id');
             $.get("/RPS/" + dataId + "/edit", function(response) {
                 console.log(response)
+                $('#editDataId').val(response.data.id)
                 $('#editkoderps').val(response.data.KodeRPS);
-                $('#editdosen_pengembang').selectpicker('val',response.data.id_dosen);
+                $('#editdosen_pengembang').selectpicker('val', response.data.id_dosen);
                 $('#editkode_matkul').selectpicker('val', response.data.id_KodeMatkul);
                 $('.dokumen_preview').html(`<a class="btn btn-primary mb-2" href="/storage/dokumen/${response.data.Dokumen}" target="_blank">View Dokumen</a>`);
                 $('#edittanggal').val(response.data.Tanggal);
@@ -75,15 +77,25 @@
             });
         });
 
-        $('#editDataForm').on('submit', function(e) {
+        $('#editPostForm').on('submit', function(e) {
             e.preventDefault();
             console.log($('#editDataId').val());
             let dataId = $('#editDataId').val();
-            let formData = $(this).serialize(); // Serialize form data
+            // var formData = new FormData(); // Serialize form data
+            var data = new FormData();
+            data.append('_method', 'PUT');
+            data.append('editkoderps', $('#editkoderps').val());
+            data.append('dosen_pengembang', $('#editdosen_pengembang').val());
+            data.append('kode_matkul', $('#editkode_matkul').val());
+            data.append('dokumen', $('#editdokumen')[0].files[0]);
+            data.append('edittanggal', $('#edittanggal').val());
+            data.append('thnakd', $('#editthnakd').val());
             $.ajax({
-                url: "{{ url('RPS') }}/" + dataId,
-                method: 'PUT',
-                data: formData,
+                url: "/RPS/" + dataId,
+                method: 'POST',
+                data: data,
+                processData: false, 
+                contentType: false,
                 success: function(response) {
                     $('#editModal').modal('hide');
                     $('#success-alert').removeClass('d-none').text(
@@ -129,7 +141,9 @@
                 $('#detailkoderps').text(response.data[0].KodeRPS);
                 $('#detaildosen_pengembang').text(response.data[0].dosen.nama);
                 $('#detailkode_matkul').text(response.data[0].kode_matkul.nama_matakuliah);
-                $('#detaildokumen').html(`<a href="/storage/dokumen/${response.data[0].Dokumen}" target="_blank" class="btn btn-primary">View Dokumen</a>`);
+                $('#detaildokumen').html(
+                    `<a href="/storage/dokumen/${response.data[0].Dokumen}" target="_blank" class="btn btn-primary">View Dokumen</a>`
+                    );
                 $('#detailtanggal').text(response.data[0].Tanggal);
                 $('#detailthnakd').text(response.data[0].thnakd.smt_thn_akd);
             }).fail(function(error) {
@@ -137,6 +151,8 @@
                 console.log(error);
             });
         });
+
+
 
         $(document).on('click', '.deleteBtn', function() {
             let dataId = $(this).data('id');
