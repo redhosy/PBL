@@ -39,7 +39,7 @@
                                             <td>{{ $item->role }}</td>
                                             <td class="d-flex justify-content-around">
                                                 <button class="btn btn-icon btn-warning editBtn"
-                                                    data-id="{{ $item->id }}"><i class="far fa-edit"></i></button>
+                                                    data-id="{{ $item->id }}" id="editBtn"><i class="far fa-edit"></i></button>
                                                 <button class="btn btn-icon btn-info detailBtn"
                                                     data-id="{{ $item->id }}"><i
                                                         class="fas fa-info-circle"></i></button>

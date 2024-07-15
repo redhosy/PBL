@@ -33,13 +33,12 @@ class RPSController extends Controller
      */
     public function create()
     {
-      
+
         $dosen = ref_dosen::all();
         $thnakd = ref_smt_thn_akds::all();
         $damatkul = ref_damatkul::all();
         $rps = RPS::with('kode_matkul', 'thnakd', 'dosen')->get();
         return view('dashboard.RPS.index', compact('rps', 'dosen', 'thnakd', 'damatkul'));
-        
     }
 
     public function store(Request $request)
@@ -84,6 +83,18 @@ class RPSController extends Controller
         return response()->json(['data' => $fileName]);
     }
 
+    public function approve(Request $request)
+    {
+        $rps = RPS::find($request->id);
+        if ($rps) {
+            $rps->status = 'terverifikasi';
+            $rps->save();
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false]);
+    } 
+
+
     /**
      * Display the specified resource.
      */
@@ -122,7 +133,7 @@ class RPSController extends Controller
             'thnakd' => 'required|exists:ref_smt_thn_akds,id',
         ]);
 
-        $RPS = RPS::where('id',$id)->first();
+        $RPS = RPS::where('id', $id)->first();
 
         $data = [
             'KodeRPS' => $request->editkoderps,
@@ -137,16 +148,16 @@ class RPSController extends Controller
         if ($request->hasFile('dokumen')) {
             $file = $request->file('dokumen');
             $fileName = now()->format('YmdHis') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
-             $file->storeAs('public/dokumen', $fileName);
+            $file->storeAs('public/dokumen', $fileName);
             $data['Dokumen'] = $fileName;
         }
 
-        if($uploadOk){
-            Storage::delete('public/dokumen/'. $RPS->Dokumen);
-            $file->store('dokumen', $fileName);    
+        if ($uploadOk) {
+            Storage::delete('public/dokumen/' . $RPS->Dokumen);
+            $file->store('dokumen', $fileName);
         }
         $RPS->update($data);
-        
+
 
         ActivityLog::create([
             'user_id' => Auth::id(),

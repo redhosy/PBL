@@ -8,6 +8,7 @@
     <title>SIKABEKA | @yield('title')</title>
     <!-- General CSS Files -->
     <script src="assets/modules/jquery.min.js"></script>
+    <link rel="icon" href="/assets/img/logo2.png" type="image/*">
     <link rel="stylesheet" href="assets/modules/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/modules/fontawesome/css/all.min.css">
 

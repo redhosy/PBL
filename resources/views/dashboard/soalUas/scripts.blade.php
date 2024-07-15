@@ -1,4 +1,3 @@
-
 <script>
     $(document).ready(function() {
         // Setup CSRF token for AJAX requests
@@ -8,9 +7,8 @@
             }
         });
 
-        //tooltip
+        // Tooltip initialization
         $('[data-toggle="tooltip"]').tooltip();
-
 
         // Show modal
         $('#modalAdd').on('click', function() {
@@ -31,17 +29,16 @@
                 url: "{{ route('soalUas.store') }}",
                 type: "POST",
                 data: data,
-                processData : false,
-                contentType : false,
+                processData: false,
+                contentType: false,
                 success: function(response) {
                     $('#addModal').modal('hide');
-                    $('#success-alert').removeClass('d-none').text(
-                        'Data berhasil ditambahkan!');
+                    $('#success-alert').removeClass('d-none').text('Data berhasil ditambahkan!');
                     setTimeout(function() {
                         $('#success-alert').addClass('d-none');
                     }, 5000);
 
-                    location.reload();
+                    location.reload(); // Refresh page after successful operation
 
                     $('#addUserForm')[0].reset();
                 },
@@ -67,9 +64,11 @@
                 console.log(response)
                 $('#editDataId').val(response.data.id);
                 $('#editkodesoal').val(response.data.kodeSoal);
-                $('#editdosen_pengampu').selectpicker('val',response.data.id_dosen);
+                $('#editdosen_pengampu').selectpicker('val', response.data.id_dosen);
                 $('#editkode_matkul').selectpicker('val', response.data.id_kodeMatkul);
-                $('.dokumen_preview').html(`<a class="btn btn-primary mb-2" href="/storage/dokumentSoal/${response.data.document}" target="_blank">View Dokumen</a>`);
+                $('.dokumen_preview').html(
+                    `<a class="btn btn-primary mb-2" href="/storage/dokumentSoal/${response.data.document}" target="_blank">View Dokumen</a>`
+                );
                 $('#edittanggal').val(response.data.tanggal);
                 $('#editthnakd').selectpicker('val', response.data.id_smt_thn_akd);
                 $('#editModal').modal('show');
@@ -78,9 +77,7 @@
 
         $('#editDataForm').on('submit', function(e) {
             e.preventDefault();
-            console.log($('#editDataId').val());
             let dataId = $('#editDataId').val();
-            // let formData = $(this).serialize(); // Serialize form data
             var data = new FormData();
             data.append('_method', 'PUT');
             data.append('kodesoal', $('#editkodesoal').val());
@@ -97,17 +94,12 @@
                 contentType: false,
                 success: function(response) {
                     $('#editModal').modal('hide');
-                    $('#success-alert').removeClass('d-none').text(
-                        'Data berhasil diUpdate! '
-                    );
-
-                    // Hide alert after 3 seconds
+                    $('#success-alert').removeClass('d-none').text('Data berhasil diUpdate!');
                     setTimeout(function() {
                         $('#success-alert').addClass('d-none');
                     }, 5000);
 
-                    location.reload();
-
+                    location.reload(); // Refresh page after successful operation
                 },
                 error: function(xhr) {
                     console.log(xhr);
@@ -116,29 +108,18 @@
             });
         });
 
-        // pencarian
-        $('#dataTable').DataTable();
-        var table = $('#dataTable').DataTable();
-
-        $('#searchInput').on('keyup', function() {
-            table.search(this.value).draw();
-        });
-
-        //dropdownsearch
-        $('.selectpicker select').selectpicker();
-
         // Detail
         $(document).on('click', '.detailBtn', function() {
             let itemId = $(this).data('id');
-            console.log("Button clicked, data ID:", itemId);
-
             $.get("{{ url('soalUas') }}/" + itemId, function(response) {
                 console.log(response);
                 $('#detailModal').modal('show');
                 $('#detailsoal').text(response.data[0].kodeSoal);
                 $('#detaildosen_Pengampu').text(response.data[0].dosen.nama);
                 $('#detailkode_matkul').text(response.data[0].kode_matkul.nama_matakuliah);
-                $('#detaildokumen').html(`<a href="/storage/dokumentSoal/${response.data[0].document}" target="_blank" class="btn btn-primary">View Dokumen</a>`);
+                $('#detaildokumen').html(
+                    `<a href="/storage/dokumentSoal/${response.data[0].document}" target="_blank" class="btn btn-primary">View Dokumen</a>`
+                );
                 $('#detailtanggal').text(response.data[0].tanggal);
                 $('#detailthnakd').text(response.data[0].thnakd.smt_thn_akd);
             }).fail(function(error) {
@@ -147,6 +128,7 @@
             });
         });
 
+        // Delete
         $(document).on('click', '.deleteBtn', function() {
             let dataId = $(this).data('id');
             $('#modalDelete').modal('show');
@@ -163,10 +145,7 @@
                     console.log(res);
                     $('#data' + dataId).remove();
                     $('#modalDelete').modal('hide');
-                    $('#success-alert').removeClass('d-none').text(
-                        'Data berhasil dihapus!');
-
-                    // Hide alert after 3 seconds
+                    $('#success-alert').removeClass('d-none').text('Data berhasil dihapus!');
                     setTimeout(function() {
                         $('#success-alert').addClass('d-none');
                     }, 3000);
@@ -177,5 +156,44 @@
                 }
             });
         });
+
+        // Approve
+        $(document).on('click', '.approve', function() {
+            var id = $(this).data('id');
+            $.ajax({
+                url: "{{ route('soal.approve') }}",
+                method: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    id: id
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Menghapus kelas d-none dari label 'Terverifikasi' untuk menampilkannya
+                        $('#status_' + id).removeClass('d-none');
+
+                        // Menyembunyikan tombol 'Approve' yang terkait
+                        $('#data' + id).find('.approve').hide();
+                    } else {
+                        alert('Failed to verify the document.');
+                    }
+                },
+                error: function() {
+                    alert('Error processing request.');
+                }
+            });
+        });
+
+        // Initialize DataTable
+        $('#dataTable').DataTable();
+
+        // Search functionality
+        var table = $('#dataTable').DataTable();
+        $('#searchInput').on('keyup', function() {
+            table.search(this.value).draw();
+        });
+
+        // Initialize select picker
+        $('.selectpicker select').selectpicker();
     });
 </script>

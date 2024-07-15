@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('kodeSoal')->unique();
             $table->unsignedBigInteger('id_kodeMatkul');
             $table->unsignedBigInteger('id_dosen');
-            $table->string('tanggal');
+            $table->date('tanggal');
             $table->string('document');
             $table->unsignedBigInteger('id_smt_thn_akd');
             $table->timestamps();

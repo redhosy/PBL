@@ -265,6 +265,25 @@ select.form-control:not([size]):not([multiple]) {
   .custom-file-input:focus + .custom-file-label:after {
     border-color: transparent; }
 
+.nav-link.notification-toggle {
+    font-size: 1rem; /* Adjust the font size for the bell icon */
+    padding: 0.5rem; /* Adjust padding to make it smaller */
+    position: relative;
+}
+
+.navbar-badge {
+    font-size: 0.7rem; /* Adjust the font size for the badge */
+    padding: 0.2rem 0.4rem; /* Adjust padding for the badge */
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+}
+
+/* tambahan */
+
+/* tambahan */
+
 .selectgroup {
   display: -ms-inline-flexbox;
   display: inline-flex; }

@@ -7,7 +7,7 @@
             }
         });
 
-        //tooltip
+        // Tooltip
         $('[data-toggle="tooltip"]').tooltip();
 
         // Show modal
@@ -58,19 +58,21 @@
                         $('#error_thnakd').text(errors.thnakd ? errors.thnakd[0] : '');
                     }
                 }
-            }); 
+            });
         });
 
         // Edit Data
         $(document).on('click', '.editBtn', function() {
             let dataId = $(this).data('id');
             $.get("/RPS/" + dataId + "/edit", function(response) {
-                console.log(response)
-                $('#editDataId').val(response.data.id)
+                console.log(response);
+                $('#editDataId').val(response.data.id);
                 $('#editkoderps').val(response.data.KodeRPS);
                 $('#editdosen_pengembang').selectpicker('val', response.data.id_dosen);
                 $('#editkode_matkul').selectpicker('val', response.data.id_KodeMatkul);
-                $('.dokumen_preview').html(`<a class="btn btn-primary mb-2" href="/storage/dokumen/${response.data.Dokumen}" target="_blank">View Dokumen</a>`);
+                $('.dokumen_preview').html(
+                    `<a class="btn btn-primary mb-2" href="/storage/dokumen/${response.data.Dokumen}" target="_blank">View Dokumen</a>`
+                );
                 $('#edittanggal').val(response.data.Tanggal);
                 $('#editthnakd').selectpicker('val', response.data.id_smt_thn_akd);
                 $('#editModal').modal('show');
@@ -79,9 +81,7 @@
 
         $('#editPostForm').on('submit', function(e) {
             e.preventDefault();
-            console.log($('#editDataId').val());
             let dataId = $('#editDataId').val();
-            // var formData = new FormData(); // Serialize form data
             var data = new FormData();
             data.append('_method', 'PUT');
             data.append('editkoderps', $('#editkoderps').val());
@@ -90,25 +90,24 @@
             data.append('dokumen', $('#editdokumen')[0].files[0]);
             data.append('edittanggal', $('#edittanggal').val());
             data.append('thnakd', $('#editthnakd').val());
+
             $.ajax({
                 url: "/RPS/" + dataId,
                 method: 'POST',
                 data: data,
-                processData: false, 
+                processData: false,
                 contentType: false,
                 success: function(response) {
                     $('#editModal').modal('hide');
                     $('#success-alert').removeClass('d-none').text(
-                        'Data berhasil diUpdate! '
+                        'Data berhasil diUpdate!'
                     );
 
-                    // Hide alert after 3 seconds
                     setTimeout(function() {
                         $('#success-alert').addClass('d-none');
                     }, 5000);
 
                     location.reload();
-
                 },
                 error: function(xhr) {
                     console.log(xhr);
@@ -117,18 +116,15 @@
             });
         });
 
-
-        // pencarian
-        $('#dataTable').DataTable();
+        // Pencarian
         var table = $('#dataTable').DataTable();
 
         $('#searchInput').on('keyup', function() {
             table.search(this.value).draw();
         });
 
-        //dropdownsearch
+        // Dropdownsearch
         $('.selectpicker select').selectpicker();
-
 
         // Detail
         $(document).on('click', '.detailBtn', function() {
@@ -143,7 +139,7 @@
                 $('#detailkode_matkul').text(response.data[0].kode_matkul.nama_matakuliah);
                 $('#detaildokumen').html(
                     `<a href="/storage/dokumen/${response.data[0].Dokumen}" target="_blank" class="btn btn-primary">View Dokumen</a>`
-                    );
+                );
                 $('#detailtanggal').text(response.data[0].Tanggal);
                 $('#detailthnakd').text(response.data[0].thnakd.smt_thn_akd);
             }).fail(function(error) {
@@ -152,8 +148,7 @@
             });
         });
 
-
-
+        // Hapus Data
         $(document).on('click', '.deleteBtn', function() {
             let dataId = $(this).data('id');
             $('#modalDelete').modal('show');
@@ -171,9 +166,9 @@
                     $('#data' + dataId).remove();
                     $('#modalDelete').modal('hide');
                     $('#success-alert').removeClass('d-none').text(
-                        'Data berhasil dihapus!');
+                        'Data berhasil dihapus!'
+                    );
 
-                    // Hide alert after 3 seconds
                     setTimeout(function() {
                         $('#success-alert').addClass('d-none');
                     }, 3000);
@@ -183,6 +178,35 @@
                     alert('Failed to delete data');
                 }
             });
+        });
+
+        // Approve RPS
+        $(document).on('click', '.approve', function() {
+            var id = $(this).data('id');
+            $.ajax({
+                url: "{{ route('rps.approve') }}",
+                method: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    id: id
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Menghapus kelas d-none dari label 'Terverifikasi' untuk menampilkannya
+                        $('#status_' + id).removeClass('d-none');
+
+                        // Menyembunyikan tombol 'Approve' yang terkait
+                        $('#data' + id).find('.approve').hide();
+
+                    } else {
+                        alert('Failed to verify the document.');
+                    }
+                },
+                error: function() {
+                    alert('Error processing request.');
+                }
+            });
+            // $('#status_').removeClass('d-none');
         });
     });
 </script>

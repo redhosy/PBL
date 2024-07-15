@@ -16,8 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         // Buat super admin secara default
         User::create([
-            'name' => 'super admin',
-            'email' => 'admin@gmail.com', // Ganti dengan email super admin yang diinginkan
+            'name' => 'Redho Septayudien',
+            'email' => 'SuperAdmin@gmail.com', // Ganti dengan email super admin yang diinginkan
             'password' => Hash::make('#Redho99'), // Ganti dengan password super admin yang diinginkan
             'role' => 'super admin', // Sesuaikan dengan role yang Anda tetapkan untuk super admin
         ]);

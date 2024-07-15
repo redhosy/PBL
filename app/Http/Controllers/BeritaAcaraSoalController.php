@@ -39,10 +39,17 @@ class BeritaAcaraSoalController extends Controller
             'description' => 'Cetak data berita acara SOAL',
         ]);
 
-        $pdf = FacadePdf::loadView('pdf_view_soal', compact('data', 'tanggal', 'ruang'));
+        $data = [
+            'logo' => public_path('/img/pnp.png'),
+            'data' => $data,
+            'tanggal' => $tanggal,
+            'ruang' => $ruang,
+        ];
+
+        $pdf = FacadePdf::loadView('pdf_view_soal', $data);
         return $pdf->download('berita_acara_Soal.pdf');
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */

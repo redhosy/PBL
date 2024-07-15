@@ -23,12 +23,7 @@ class matkulImport implements ToModel,  WithHeadingRow
         $id_kbk = ref_datakbk::where('kodekbk', $row['kbk'])->first();
         $prodi = ref_prodis::where('prodi', $row['prodi'])->first();
         $dosen = ref_dosen::where('nama', $row['nama'])->first();
-        $matkul = ref_damatkul::where('nama_matakuliah', $row['nama_matakuliah'])
-            ->where('kode_matakuliah', $row['kode_matakuliah'])
-            ->where('semester', $row['semester'])
-            ->where('TP', $row['TP'])
-            ->where('sks', $row['sks'])
-            ->first();
+        $matkul = ref_damatkul::where('nama_matakuliah', $row['nama_matakuliah'])->first();
 
 
         return new ref_matakuliahkbk([

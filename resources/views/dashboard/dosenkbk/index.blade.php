@@ -13,21 +13,24 @@
                 <div class="card mt-5">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h3>Dosen KBK</h3>
-                        <div class="card-header-form">           
+                        <div class="card-header-form">
                             {{-- import --}}
-                            <a class="btn btn-import ml-2  action" type="button" data-toggle="tooltip"
-                                id="import" title="Import Data"><i class="fas fa-file-import" data-toggle="modal"
-                                data-target="#importModal"></i></a>
+                            <a class="btn btn-import ml-2  action" type="button" data-toggle="tooltip" id="import"
+                                title="Import Data"><i class="fas fa-file-import" data-toggle="modal"
+                                    data-target="#importModal"></i></a>
                             {{-- export --}}
-                            <a href="{{ route('dosenkbk.export.excel') }}" class="btn btn-primary ml-2  action" type="button" data-toggle="tooltip"
-                                id="export" title="Export Data"><i class="fas fa-file-export"></i></a>
+                            <a href="{{ route('dosenkbk.export.excel') }}" class="btn btn-primary ml-2  action"
+                                type="button" data-toggle="tooltip" id="export" title="Export Data"><i
+                                    class="fas fa-file-export"></i></a>
                             {{-- tambah --}}
-                            <a class="btn btn-success ml-2  action" type="button" data-toggle="tooltip"
-                                id="modalAdd" title="Tambah Data"><i class="fas fa-plus"></i></a>
+                            <a class="btn btn-success ml-2  action" type="button" data-toggle="tooltip" id="modalAdd"
+                                title="Tambah Data"><i class="fas fa-plus"></i></a>
                         </div>
                     </div>
                     <div class="card-body p-3 rounded">
                         <div class="table-responsive">
+                            <div class="alert alert-success d-none" id="success-alert">
+                            </div>
                             <table class="table table-striped table-bordered" id="dataTable" class="display">
                                 <thead class="bg-primary">
                                     <tr>
@@ -47,25 +50,27 @@
                                     @foreach ($dosenkbk as $data)
                                         <tr id="data{{ $data->id }}">
                                             <td>{{ $loop->iteration }}</td>
-                                            <td class="text-nowrap">  {{ $data->dosen->nama   }}</td>
-                                            <td class="text-nowrap">  {{ $data->dosen->nip }}</td>
+                                            <td class="text-nowrap"> {{ $data->dosen->nama }}</td>
+                                            <td class="text-nowrap"> {{ $data->dosen->nip }}</td>
                                             {{-- <td class="text-nowrap">{{ $data->jurusan->jurusan }}</td> --}}
                                             <td class="text-nowrap">{{ $data->prodi->prodi }}</td>
-                                            <td class="text-nowrap">  {{ $data->dosen->email  }}</td>
+                                            <td class="text-nowrap"> {{ $data->dosen->email }}</td>
                                             <td>{{ $data->kbk->kodekbk }}</td>
                                             <td>{{ $data->jabatan->jabatan_pimpinan }}</td>
                                             <td>
-                                                <span class="badge rounded-pill {{ $data->status ? 'bg-success  text-white' : 'bg-danger text-white' }} py-2 px-4">
-                                                    {{ $data->status == 1 ? 'Aktif' : 'Nonaktif'}}
-                                                </span> 
+                                                <span
+                                                    class="badge rounded-pill {{ $data->status ? 'bg-success  text-white' : 'bg-danger text-white' }} py-2 px-4">
+                                                    {{ $data->status == 1 ? 'Aktif' : 'Nonaktif' }}
+                                                </span>
                                             </td>
                                             <td class="d-flex justify-content-around">
-                                                <button class="btn btn-icon btn-warning editBtn" data-id="{{ $data->id }}"><i
-                                                        class="far fa-edit"></i></button>
-                                                <button class="btn btn-icon btn-info detailBtn" data-id="{{ $data->id }}"><i
+                                                <button class="btn btn-icon btn-warning editBtn"
+                                                    data-id="{{ $data->id }}"><i class="far fa-edit"></i></button>
+                                                <button class="btn btn-icon btn-info detailBtn"
+                                                    data-id="{{ $data->id }}"><i
                                                         class="fas fa-info-circle"></i></button>
-                                                <button class="btn btn-danger deleteBtn" data-toggle="modal" data-id="{{ $data->id }}" ><i
-                                                        class="fas fa-trash"></i></button>
+                                                <button class="btn btn-danger deleteBtn" data-toggle="modal"
+                                                    data-id="{{ $data->id }}"><i class="fas fa-trash"></i></button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -97,35 +102,35 @@
         </div>
     </div>
 
-<!-- Import Modal -->
-<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
-     aria-hidden="true">
-     <div class="modal-dialog" role="document">
-         <div class="modal-content">
-             <form id="importForm" action="{{ route('dosenkbk.import.excel') }}" method="POST"
-                 enctype="multipart/form-data">
-                 @csrf
-                 <div class="modal-header">
-                     <h5 class="modal-title" id="importModalLabel">Import Data Excel</h5>
-                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                         <span aria-hidden="true">&times;</span>
-                     </button>
-                 </div>
-                 <div class="modal-body">
-                     <div class="form-group">
-                         <label for="file">Pilih file Excel:</label>
-                         <input type="file" class="form-control" id="file" name="file" required>
-                     </div>
-                 </div>
-                 <div class="modal-footer">
-                     {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-                     <button type="submit" class="btn btn-primary">Import</button>
-                 </div>
-             </form>
-         </div>
-     </div>
- </div>
- @include('dashboard.dosenkbk.addModal')
- @include('dashboard.dosenkbk.editModal')
- @include('dashboard.dosenkbk.detailModal')
+    <!-- Import Modal -->
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form id="importForm" action="{{ route('dosenkbk.import.excel') }}" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="importModalLabel">Import Data Excel</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="file">Pilih file Excel:</label>
+                            <input type="file" class="form-control" id="file" name="file" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    @include('dashboard.dosenkbk.addModal')
+    @include('dashboard.dosenkbk.editModal')
+    @include('dashboard.dosenkbk.detailModal')
 @endsection

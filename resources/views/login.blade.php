@@ -30,12 +30,14 @@
                         <div class="mb-md-4 mt-md-4">
                             <img src="assets/img/logoig.png" alt="logo" style="max-width: 100px; height: auto;">
                             <h3 class="text-dark mb-4 mt-3">Masuk Ke Akun</h3>
-                            <!-- Display error message -->
+                            {{-- alert login --}}
+                            <!-- Alert section -->
                             @if (session('message'))
-                                <div class="alert alert-danger">
+                                <div class="alert alert-warning fade show" role="alert">
                                     {{ session('message') }}
                                 </div>
                             @endif
+                            {{-- login form --}}
                             <form class="form-signin" method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="input-group">
@@ -52,7 +54,8 @@
                                     <div class="form-group form-check">
                                         <input type="checkbox" class="form-check-input" id="terms" name="terms"
                                             required>
-                                        <label class="form-check-label small text-dark" for="terms">Saya setuju dengan
+                                        <label class="form-check-label small text-dark" for="terms">Saya setuju
+                                            dengan
                                             <a href="/terms">syarat dan ketentuan</a>
                                         </label>
                                     </div>
@@ -70,4 +73,5 @@
         </div>
     </div>
 </body>
+
 </html>

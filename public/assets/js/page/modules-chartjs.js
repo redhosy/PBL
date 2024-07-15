@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .catch(error => {
             console.error('Error fetching or updating chart data:', error);
             // Menampilkan pesan kesalahan kepada pengguna
-            displayErrorMessage('Failed to load chart data. Please try again later.');
+            // displayErrorMessage('Failed to load chart data. Please try again later.');
         });
     // $.ajax({
     //     type: "GET",

@@ -69,7 +69,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::define('access-petinggi-routes', function ($user) {
-            return $user->role == 'pengurus kbk' || $user->role == 'pimpinan program studi' ||  $user->role == 'dosen pengampu' || $user->role == 'pimpinan jurusan';
+            return $user->role == 'pengurus kbk' || $user->role == 'pimpinan program studi' || $user->role == 'dosen pengampu' || $user->role == 'pimpinan jurusan';
         });
     }
 }

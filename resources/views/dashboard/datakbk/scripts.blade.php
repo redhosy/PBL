@@ -1,5 +1,7 @@
 <script>
-    $(document).ready(function() {
+
+$(document).ready(function() {
+
         // Setup CSRF token for AJAX requests
         $.ajaxSetup({
             headers: {
@@ -30,6 +32,8 @@
 
         });
 
+        
+
         $('#saveKbk').on('click', function() {
             let formData = $('#addPostForm').serialize();
             $.ajax({
@@ -46,7 +50,7 @@
                     setTimeout(function() {
                         $('#success-alert').removeClass('d-none');
                     }, 5000);
-
+                    $('#addPostForm').trigger('reset');
                     location.reload();
                 },
                 error: function(errors) {
@@ -73,7 +77,7 @@
                     console.log(errors)
                 }
             });
-        })
+        });
 
         // Edit Data
         $(document).on('click', '.editBtn', function() {
@@ -108,7 +112,7 @@
                     }, 3000);
 
                     location.reload();
-                    // $('#dataTable').DataTable().ajax.reload(null, false);
+                    // $('#dataTable').DataTable().ajax.reload();
                 },
                 error: function(xhr) {
                     console.log(xhr)
@@ -165,6 +169,8 @@
                     setTimeout(function() {
                         $('#success-alert').addClass('d-none');
                     }, 3000);
+
+                    // table.ajax.reload(null, false); 
                 },
                 error: function(xhr, status, error) {
                     console.log(xhr.responseText);

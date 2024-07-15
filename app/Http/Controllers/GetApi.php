@@ -58,12 +58,31 @@ class GetApi extends Controller
     {
         return $this->template("https://umkm-pnp.com/heni/index.php?folder=mahasiswa&file=kelas");
     }
-    public function getMahasiswa()
+
+    public function getJurusan()
     {
-        return $this->template("https://umkm-pnp.com/heni/index.php?folder=mahasiswa&file=index");
+        return $this->template("https://umkm-pnp.com/heni/index.php?folder=jurusan&file=jurusan");
     }
-    public function getMahasiswaProposal()
+
+    public function getPimjur()
     {
-        return $this->template("https://umkm-pnp.com/heni/index.php?folder=mahasiswa&file=kelas");
+        return $this->template("https://umkm-pnp.com/heni/index.php?folder=jurusan&file=pimpinan");
     }
+
+    public function getProdi()
+    {
+        return $this->template("https://umkm-pnp.com/heni/index.php?folder=jurusan&file=prodi");
+    }
+
+    public function getPimprod()
+    {
+        return $this->template("https://umkm-pnp.com/heni/index.php?folder=jurusan&file=kaprodi");
+    }
+
+    public function getSmt_thn_akd()
+    {
+        return $this->template("https://umkm-pnp.com/heni/index.php?folder=jurusan&file=thn_ta");
+    }
+    
+    
 }

@@ -39,7 +39,14 @@ class BeritaAcaraRPSController extends Controller
             'description' => 'Cetak data berita acara RPS',
         ]);
 
-        $pdf = FacadePdf::loadView('pdf_view_rps', compact('data', 'tanggal', 'ruang'));
+        $data = [
+            'logo' => public_path('/img/pnp.png'),
+            'data' => $data,
+            'tanggal' => $tanggal,
+            'ruang' => $ruang,
+        ];
+
+        $pdf = FacadePdf::loadView('pdf_view_rps', $data);
         return $pdf->download('berita_acara_pdf.pdf');
     }
 
