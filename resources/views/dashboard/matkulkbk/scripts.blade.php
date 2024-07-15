@@ -46,7 +46,7 @@
                         'Data berhasil ditambahkan!');
                     setTimeout(function() {
                         $('#success-alert').addClass('d-none');
-                    }, 5000);
+                    }, 3000);
                     location.reload();
                 },
                 error: function(error) {

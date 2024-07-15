@@ -76,10 +76,21 @@ class SoalUasController extends Controller
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'INSERT',
-            'description' => 'Menambahkan data RPS baru: ' . $request->KodeSoal,
+            'description' => 'Menambahkan data Soal baru: ' . $request->KodeSoal,
         ]);
 
         return response()->json(['data' => $fileName]);
+    }
+
+    public function approve(Request $request)
+    {
+        $soal = soalUas::find($request->id);
+        if ($soal) {
+            $soal->status = 'terverifikasi';
+            $soal->save();
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false]);
     }
 
 
@@ -121,7 +132,7 @@ class SoalUasController extends Controller
             'thnakd' => 'required|exists:ref_smt_thn_akds,id',
         ]);
 
-        $soal = soalUas::where('id',$id)->first();
+        $soal = soalUas::where('id', $id)->first();
 
         $data = [
             'kodeSoal' => $request->kodesoal,
@@ -149,7 +160,7 @@ class SoalUasController extends Controller
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'UPDATE',
-            'description' =>'Updated Soal: ' . $soal->kodeSoal,
+            'description' => 'Updated Soal: ' . $soal->kodeSoal,
         ]);
 
         return response()->json(['data' => $soal]);

@@ -21,12 +21,12 @@ class dosenkbkImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         // Validasi dan konversi data
-        $id_datakbk = ref_datakbk::where('kodekbk', $row['kbk'])->first();
-        $jabatan = jabpims::where('jabatan_pimpinan', $row['jabatan'])->first();
+        $dosen = ref_dosen::where('nama', $row['nama'])->first();
         $jurusan = ref_jurusans::where('jurusan', $row['jurusan'])->first();
         $prodi = ref_prodis::where('prodi', $row['prodi'])->first();
-        $dosen = ref_dosen::where('nama', $row['nama'])->first();
-        // dd($jabatan);
+        $jabatan = jabpims::where('jabatan_pimpinan', $row['jabatan'])->first();
+        $id_datakbk = ref_datakbk::where('kodekbk', $row['kbk'])->first();
+        // dd($id_datakbk);
 
         return new ref_dosenkbk([
             'id_dosen'=>$dosen->id,
@@ -40,30 +40,4 @@ class dosenkbkImport implements ToModel, WithHeadingRow
             'status' => $row['status'] == 'Aktif' ? 1 : 0,
         ]);
     }
-
-    // private function convertToText($value)
-    // {
-    //     // Dapatkan kode KBK berdasarkan ID
-    //     $kbk = ref_datakbk::find($value);
-    //     return $kbk ? $kbk->kodekbk : 'Tidak Diketahui';
-    // }
-
-    // private function convertJabatan($value)
-    // {
-    //     // Konversi angka jabatan ke teks
-    //     switch ($value) {
-    //         case 1:
-    //             return 'Ketua';
-    //         case 2:
-    //             return 'Sekretaris';
-    //         default:
-    //             return 'Anggota';
-    //     }
-    // }
-
-    // private function convertStatus($value)
-    // {
-    //     // Konversi angka status ke teks
-    //     return $value == 1 ? 'Aktif' : 'Nonaktif';
-    // }
 }

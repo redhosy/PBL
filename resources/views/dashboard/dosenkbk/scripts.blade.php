@@ -46,6 +46,8 @@
                      setTimeout(function() {
                          $('#success-alert').addClass('d-none');
                      }, 5000);
+                     $('#addPostForm').trigger('reset');
+
                      location.reload(); // Reload halaman untuk menampilkan perubahan
                  },
                  error: function(error) {

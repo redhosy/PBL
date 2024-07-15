@@ -47,7 +47,7 @@
                                             <td class="text-nowrap">{{ $data->kode_matkul->nama_matakuliah }}</td>
                                             <td>
                                                 @if ($data->document)
-                                                <a class="btn btn-primary" href="{{ asset('storage/dokumentSoal/' . $data->document) }}" target="_blank">Lihat
+                                                <a class="btn btn-primary" href="{{ asset('storage/dokumentVerifikasiHasilSoal/' . $data->document) }}" target="_blank">Lihat
                                                     Dokumen</a>
                                                 @else
                                                     Tidak ada dokumen

@@ -93,19 +93,24 @@
                             <p class="mb-4 pb-2">Rencana proses pembelajaran yang disusun untuk kegiatan pembelajaran selama
                                 satu semester guna memenuhi capaian pembelajaran yang telah ditetapkan oleh program studi.
                             </p>
-                            <h5 class="mb-4">Daftar RPS:</h5>
-                            <div class="list-group">
-                                <!-- Example of a document entry -->
-                                <a href="path/to/document1.pdf" class="list-group-item list-group-item-action"
-                                    target="_blank">
-                                    RPS Semester Ganjil 2023/2024
-                                </a>
-                                <a href="path/to/document2.pdf" class="list-group-item list-group-item-action"
-                                    target="_blank">
-                                    RPS Semester Genap 2022/2023
-                                </a>
-                                <!-- More document entries -->
+                            <h5 class="mb-2">Daftar RPS:</h5>
+
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownRPS"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Pilih Semester
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownRPS">
+                                    @foreach ($rps as $item)
+                                        <a class="dropdown-item"
+                                            href="{{ asset('storage/dokumenVerifikasiHasilRPS/' . $item->Dokumen) }}"
+                                            target="_blank">
+                                            {{ $item->thnakd->smt_thn_akd }}
+                                        </a>
+                                    @endforeach
+                                </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="col-lg-6 pe-lg-0 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">

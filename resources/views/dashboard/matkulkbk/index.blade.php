@@ -28,6 +28,8 @@
                 </div>
                 <div class="card-body p-3 rounded">
                     <div class="table-responsive">
+                        <div class="alert alert-success d-none" id="success-alert">
+                        </div>
                         <table class="table table-striped table-bordered" id="dataTable" class="display">
                             <thead class="bg-primary">
                                 <tr>

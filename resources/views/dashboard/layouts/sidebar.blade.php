@@ -52,7 +52,7 @@
                 <li class="menu-header">Kelompok Bidang Keahlian</li>
                 <li class="dropdown ">
                     <a class="nav-link has-dropdown"><i class="fas fa-th-large"></i><span>KBK</span></a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" id="kbk">
                         <li><a class="nav-link" href="/datakbk">Data KBK</a></li>
                         <li><a class="nav-link" href="/dosenkbk">Dosen KBK</a></li>
                         <li><a class="nav-link" href="{{ route('matkulkbk.index') }}">Matkul KBK</a></li>
@@ -82,8 +82,8 @@
             @endcanany
 
 
-            <!-- Perkuliahan for dosen-pengampu -->
-            @canany(['pengurus-kbk'])
+            <!-- Perkuliahan for pengurus-kbk -->
+            @canany(['pengurus-kbk', 'pimpinan-jurusan', 'pimpinan-prodi'])
                 <li class="dropdown">
                     <a class="nav-link has-dropdown"><i class="fa fa-upload"></i><span>Daftar KBK</span></a>
                     <ul class="dropdown-menu">
@@ -93,28 +93,36 @@
                 </li>
             @endcanany
 
-            @canany(['pengurus-kbk'])
-            <li class="dropdown">
-                <a class="nav-link has-dropdown"><i class="fa fa-clipboard-check"></i><span>Verifikasi KBK</span></a>
-                <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="/verifikasiRPS">Hasil Verifikasi RPS</a></li>
-                    <li><a class="nav-link" href="/verifikasiSoal">Hasil Verifikasi Soal UAS</a></li>
-                </ul>
-            </li>
-        @endcanany
-
-
-            @can('pengurus-kbk')
+            @canany(['pengurus-kbk', 'pimpinan-jurusan', 'pimpinan-prodi'])
                 <li class="dropdown">
-                    <a class="nav-link has-dropdown"><i class="fa fa-newspaper"></i><span>Berita Acara</span></a>
+                    <a class="nav-link has-dropdown"><i class="fa fa-clipboard-check"></i><span>Verifikasi KBK</span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href={{ route('beritaRPS.index') }}>Berita Acara RPS</a></li>
-                        <li><a class="nav-link" href={{ route('beritaSoal.index') }}>Berita Acara Soal</a></li>
+                        <li><a class="nav-link" href="/verifikasiRPS">Hasil Verifikasi RPS</a></li>
+                        <li><a class="nav-link" href="/verifikasiSoal">Hasil Verifikasi Soal UAS</a></li>
                     </ul>
                 </li>
-            @endcan
+            @endcanany
 
-            @canany(['pimpinan-jurusan' ,'pimpinan-prodi'])
+
+            @canany(['pengurus-kbk', 'pimpinan-jurusan', 'pimpinan-prodi'])
+            <li class="dropdown">
+                <a class="nav-link has-dropdown"><i class="fa fa-newspaper"></i><span>Berita Acara</span></a>
+                <ul class="dropdown-menu">
+                    <li><a class="nav-link" href={{ route('beritaRPS.index') }}>Berita Acara RPS</a></li>
+                    <li><a class="nav-link" href={{ route('beritaSoal.index') }}>Berita Acara Soal</a></li>
+                </ul>
+            </li>
+            @endcanany
+            {{-- @can('pengurus-kbk')
+            @endcan --}}
+
+            {{-- @can('pengurus-kbk')
+            <li>
+                <a href="#" class="nav-link"><i class="fas fa-file"></i><span>Lampiran RPS&Soal UAS</span></a>
+            </li>
+            @endcan --}}
+
+            {{-- @canany(['pimpinan-jurusan', 'pimpinan-prodi'])
                 <li class="dropdown">
                     <a class="nav-link has-dropdown"><i class="fa fa-upload"></i><span>Daftar RPS dan Soal Uas</span></a>
                     <ul class="dropdown-menu">
@@ -123,13 +131,14 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a class="nav-link has-dropdown"><i class="fa fa-clipboard-check"></i><span>Laporan Berita Acara</span></a>
+                    <a class="nav-link has-dropdown"><i class="fa fa-clipboard-check"></i><span>Laporan Berita
+                            Acara</span></a>
                     <ul class="dropdown-menu">
-                        <li><a class="nav-link" href={{ route('verifikasiRPS.index') }}>Laporan Berita Acara RPS</a></li>
-                        <li><a class="nav-link" href={{ route('verifikasiSoal.index') }}>Laporan Berita Acara Soal</a></li>
+                        <li><a class="nav-link" href={{ route('beritaRPS.index') }}>Laporan Berita Acara RPS</a></li>
+                        <li><a class="nav-link" href={{ route('beritaSoal.index') }}>Laporan Berita Acara Soal</a></li>
                     </ul>
                 </li>
-            @endcanany
+            @endcanany --}}
 
             @can('super-admin')
                 <li>
