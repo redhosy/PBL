@@ -79,7 +79,7 @@
             });
         });
 
-        $('#editPostForm').on('submit', function(e) {
+        $('#editModal').on('submit', function(e) {
             e.preventDefault();
             let dataId = $('#editDataId').val();
             var data = new FormData();

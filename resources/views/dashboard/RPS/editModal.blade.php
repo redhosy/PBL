@@ -71,7 +71,7 @@
                 </div>
                 <div class="modal-footer">
                     {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-                    <button type="submit" class="btn btn-primary" id="updateRps">Save changes</button>
+                    <button type="submit" class="btn btn-primary" id="editModal">Save changes</button>
                 </div>
             </form>
         </div>

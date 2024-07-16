@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\ActivityLog;
-use App\Models\ref_smt_thn_akds;
+use App\Models\Notification;
 use App\Models\ref_damatkul;
 use App\Models\ref_dosen;
+use App\Models\ref_smt_thn_akds;
 use App\Models\soalUas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
 
 class SoalUasController extends Controller
 {
@@ -20,21 +19,19 @@ class SoalUasController extends Controller
      */
     public function index()
     {
-
         $dosen = ref_dosen::all();
         $thnakd = ref_smt_thn_akds::all();
         $damatkul = ref_damatkul::all();
         $soal = soalUas::with('kode_matkul', 'thnakd', 'dosen')->get();
+
         return view('dashboard.soalUas.index', compact('soal', 'dosen', 'thnakd', 'damatkul'));
     }
-
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -42,7 +39,6 @@ class SoalUasController extends Controller
      */
     public function store(Request $request)
     {
-
         $data = $request->validate([
             'kodesoal' => 'required|string|max:10',
             'dosen_pengampu' => 'required|exists:ref_dosens,id',
@@ -57,13 +53,13 @@ class SoalUasController extends Controller
             'id_dosen' => $request->dosen_pengampu,
             'id_kodeMatkul' => $request->kode_matkul,
             'tanggal' => $request->tanggal,
-            'id_smt_thn_akd' => $request->thnakd
+            'id_smt_thn_akd' => $request->thnakd,
         ];
 
         $fileName = '';
         if ($request->hasFile('dokumen')) {
             $file = $request->file('dokumen');
-            $fileName = now()->format('YmdHis') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $fileName = now()->format('YmdHis').'-'.uniqid().'.'.$file->getClientOriginalExtension();
             $filePath = $file->storeAs('public/dokumentSoal', $fileName);
             $data['document'] = $fileName;
         }
@@ -71,12 +67,11 @@ class SoalUasController extends Controller
         // Simpan data ke database
         $soal = soalUas::create($data);
 
-
         // Catat aktivitas
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'INSERT',
-            'description' => 'Menambahkan data Soal baru: ' . $request->KodeSoal,
+            'description' => 'Menambahkan data Soal baru: '.$request->KodeSoal,
         ]);
 
         return response()->json(['data' => $fileName]);
@@ -88,11 +83,18 @@ class SoalUasController extends Controller
         if ($soal) {
             $soal->status = 'terverifikasi';
             $soal->save();
+
+            // Simpan pesan notifikasi ke dalam database
+            Notification::create([
+               'user_id' => Auth::id(),
+               'message' => $soal->kodeSoal.' Telah Diverifikasi',
+            ]);
+
             return response()->json(['success' => true]);
         }
+
         return response()->json(['success' => false]);
     }
-
 
     /**
      * Display the specified resource.
@@ -100,9 +102,10 @@ class SoalUasController extends Controller
     public function show(string $id)
     {
         $data = soalUas::with('dosen', 'kode_matkul', 'thnakd')->where('id', $id)->get();
+
         return response()->json([
             'data' => $data,
-            'status' => 200
+            'status' => 200,
         ]);
     }
 
@@ -112,9 +115,10 @@ class SoalUasController extends Controller
     public function edit(string $id)
     {
         $data = soalUas::find($id);
+
         return response()->json([
             'status' => 200,
-            'data' => $data
+            'data' => $data,
         ]);
     }
 
@@ -140,19 +144,19 @@ class SoalUasController extends Controller
             'id_KodeMatkul' => $request->kode_matkul,
             'document' => $request->dokumen,
             'tanggal' => $request->tanggal,
-            'id_smt_thn_akd' => $request->thnakd
+            'id_smt_thn_akd' => $request->thnakd,
         ];
         $uploadOk = false;
 
         if ($request->hasFile('dokumen')) {
             $file = $request->file('dokumen');
-            $fileName = now()->format('YmdHis') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $fileName = now()->format('YmdHis').'-'.uniqid().'.'.$file->getClientOriginalExtension();
             $file->storeAs('public/dokumentSoal', $fileName);
             $data['document'] = $fileName;
         }
 
         if ($uploadOk) {
-            Storage::delete('public/dokumentSoal/' . $soal->document);
+            Storage::delete('public/dokumentSoal/'.$soal->document);
             $file->store('dokumentSoal', $fileName);
         }
         $soal->update($data);
@@ -160,12 +164,11 @@ class SoalUasController extends Controller
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'UPDATE',
-            'description' => 'Updated Soal: ' . $soal->kodeSoal,
+            'description' => 'Updated Soal: '.$soal->kodeSoal,
         ]);
 
         return response()->json(['data' => $soal]);
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -176,12 +179,13 @@ class SoalUasController extends Controller
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'DELETE',
-            'description' => 'menghapus data: ' . $id
+            'description' => 'menghapus data: '.$id,
         ]);
 
         if ($kbk->delete()) {
             return response()->json(['success' => true]);
         }
-        return  response()->json(['status' => 404, 'message' => 'something went wrong']);
+
+        return response()->json(['status' => 404, 'message' => 'something went wrong']);
     }
 }
