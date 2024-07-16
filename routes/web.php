@@ -8,6 +8,7 @@ use App\Http\Controllers\forgotPasswordController;
 use App\Http\Controllers\GetApi;
 use App\Http\Controllers\Landingpage;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\Ref_matakuliahkbkController;
 use App\Http\Controllers\RefDakurController;
@@ -146,19 +147,22 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/reset-password', [profileController::class, 'resetPassword'])->name('profile.reset-password');
 });
 
-Route::get('buttonApi', function(){
+Route::get('/notifications', [NotificationController::class, 'index']);
+Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead']);
+
+Route::get('buttonApi', function () {
     return view('buttonApi');
 });
 
 Route::get('/fetchingJurusan', function () {
     $cekSukses = false;
-    $response = Http::get("https://umkm-pnp.com/heni/index.php?folder=jurusan&file=jurusan");
+    $response = Http::get('https://umkm-pnp.com/heni/index.php?folder=jurusan&file=jurusan');
     if ($response->successful()) {
         $JurusanList = $response->json();
-        for ($i = 0; $i < count($JurusanList['list']); $i++) {
+        for ($i = 0; $i < count($JurusanList['list']); ++$i) {
             ref_jurusans::updateOrCreate([
                 'kode_jurusan' => $JurusanList['list'][$i]['kode_jurusan'],
-                'jurusan' => $JurusanList['list'][$i]['jurusan']
+                'jurusan' => $JurusanList['list'][$i]['jurusan'],
             ]);
             $cekSukses = true;
         }
@@ -169,10 +173,10 @@ Route::get('/fetchingJurusan', function () {
 
 Route::get('/fetchingProdi', function () {
     $cekSukses = false;
-    $response = Http::get("https://umkm-pnp.com/heni/index.php?folder=jurusan&file=prodi");
+    $response = Http::get('https://umkm-pnp.com/heni/index.php?folder=jurusan&file=prodi');
     if ($response->successful()) {
         $ProdiList = $response->json();
-        for ($i = 0; $i < count($ProdiList['list']); $i++) {
+        for ($i = 0; $i < count($ProdiList['list']); ++$i) {
             ref_prodis::updateOrCreate([
                 'kode_prodi' => $ProdiList['list'][$i]['kode_prodi'],
                 'prodi' => $ProdiList['list'][$i]['prodi'],
@@ -188,16 +192,16 @@ Route::get('/fetchingProdi', function () {
 
 Route::get('/fetchingKurikulum', function () {
     $cekSukses = false;
-    $response = Http::get("https://umkm-pnp.com/heni/index.php?folder=matakuliah&file=kurikulum");
+    $response = Http::get('https://umkm-pnp.com/heni/index.php?folder=matakuliah&file=kurikulum');
     if ($response->successful()) {
         $DosenMatkulList = $response->json();
-        for ($i = 0; $i < count($DosenMatkulList['list']); $i++) {
+        for ($i = 0; $i < count($DosenMatkulList['list']); ++$i) {
             ref_dakur::updateOrCreate([
                 'kode_kurikulum' => $DosenMatkulList['list'][$i]['kode_kurikulum'],
                 'nama_kurikulum' => $DosenMatkulList['list'][$i]['nama_kurikulum'],
                 'tahun' => $DosenMatkulList['list'][$i]['tahun'],
                 'id_prodi' => $DosenMatkulList['list'][$i]['id_prodi'],
-                'status' => $DosenMatkulList['list'][$i]['status']
+                'status' => $DosenMatkulList['list'][$i]['status'],
             ]);
             $cekSukses = true;
         }
@@ -208,14 +212,13 @@ Route::get('/fetchingKurikulum', function () {
 
 Route::get('/fetchingSmt_thn_akd', function () {
     $cekSukses = false;
-    $response = Http::get("https://umkm-pnp.com/heni/index.php?folder=jurusan&file=thn_ta");
+    $response = Http::get('https://umkm-pnp.com/heni/index.php?folder=jurusan&file=thn_ta');
     if ($response->successful()) {
         $Smt_thn_akdList = $response->json();
-        for ($i = 0; $i < count($Smt_thn_akdList['list']); $i++) {
-
+        for ($i = 0; $i < count($Smt_thn_akdList['list']); ++$i) {
             ref_smt_thn_akds::updateOrCreate([
                 'smt_thn_akd' => $Smt_thn_akdList['list'][$i]['smt_thn_akd'],
-                'status' => $Smt_thn_akdList['list'][$i]['status']
+                'status' => $Smt_thn_akdList['list'][$i]['status'],
             ]);
             $cekSukses = true;
         }
@@ -226,11 +229,11 @@ Route::get('/fetchingSmt_thn_akd', function () {
 
 Route::get('fetchingMatakuliah', function () {
     $cekSukses = false;
-    $response = Http::get("https://umkm-pnp.com/heni/index.php?folder=matakuliah&file=index");
+    $response = Http::get('https://umkm-pnp.com/heni/index.php?folder=matakuliah&file=index');
     if ($response->successful()) {
         $matakuliahList = $response->json();
-        for ($i = 0; $i < count($matakuliahList['list']); $i++) {
-            ref_damatkul ::updateOrCreate([
+        for ($i = 0; $i < count($matakuliahList['list']); ++$i) {
+            ref_damatkul::updateOrCreate([
                 'kode_matakuliah' => $matakuliahList['list'][$i]['kode_matakuliah'],
                 'nama_matakuliah' => $matakuliahList['list'][$i]['nama_matakuliah'],
                 'TP' => $matakuliahList['list'][$i]['TP'],
@@ -241,31 +244,32 @@ Route::get('fetchingMatakuliah', function () {
                 'jam_teori' => $matakuliahList['list'][$i]['jam_teori'],
                 'jam_praktek' => $matakuliahList['list'][$i]['jam_praktek'],
                 'semester' => $matakuliahList['list'][$i]['semester'],
-                'id_kurikulum' => $matakuliahList['list'][$i]['id_kurikulum']
+                'id_kurikulum' => $matakuliahList['list'][$i]['id_kurikulum'],
             ]);
             $cekSukses = true;
         }
     }
+
     return $cekSukses ? Response()->json(['status' => 200, 'message' => 'Berhasil mengambil data dari api']) : Response()->json(['status' => 400, 'message' => 'Gagal mengambil data dari api']);
 });
 
 Route::get('/fetchingDosen', function () {
     $cekSukses = false;
-    $response = Http::get("https://umkm-pnp.com/heni/index.php?folder=dosen&file=index");
+    $response = Http::get('https://umkm-pnp.com/heni/index.php?folder=dosen&file=index');
     if ($response->successful()) {
         $DosenList = $response->json();
-        for ($i = 0; $i < count($DosenList['list']); $i++) {
-            $idjurusan = ref_jurusans::where('jurusan',$DosenList['list'][$i]['jurusan'] )->first();
-            $idprodi = ref_prodis::where('prodi',$DosenList['list'][$i]['prodi'] )->first();
+        for ($i = 0; $i < count($DosenList['list']); ++$i) {
+            $idjurusan = ref_jurusans::where('jurusan', $DosenList['list'][$i]['jurusan'])->first();
+            $idprodi = ref_prodis::where('prodi', $DosenList['list'][$i]['prodi'])->first();
             ref_dosen::updateOrCreate([
-                'nama' => $DosenList['list'][$i]['nama'], 
+                'nama' => $DosenList['list'][$i]['nama'],
                 'nidn' => $DosenList['list'][$i]['nidn'],
                 'nip' => $DosenList['list'][$i]['nip'],
                 'gender' => $DosenList['list'][$i]['gender'] == 'Laki-laki' ? 1 : 0,
                 'id_jurusan' => $idjurusan->id,
                 'id_prodi' => $idprodi->id,
                 'email' => $DosenList['list'][$i]['email'],
-                'status' => 1
+                'status' => 1,
             ]);
             $cekSukses = true;
         }
@@ -276,19 +280,18 @@ Route::get('/fetchingDosen', function () {
 
 Route::get('/fetchingKelas', function () {
     $cekSukses = false;
-    $response = Http::get("https://umkm-pnp.com/heni/index.php?folder=mahasiswa&file=kelas");
+    $response = Http::get('https://umkm-pnp.com/heni/index.php?folder=mahasiswa&file=kelas');
     if ($response->successful()) {
         $KelasList = $response->json();
-        for ($i = 0; $i < count($KelasList['list']); $i++) {
-            $idprodi = ref_prodis::where('prodi',$KelasList['list'][$i]['prodi'] )->first();
-            $idSmt = ref_smt_thn_akds::where('smt_thn_akd',$KelasList['list'][$i]['smt_thn_akd'] )->first();
+        for ($i = 0; $i < count($KelasList['list']); ++$i) {
+            $idprodi = ref_prodis::where('prodi', $KelasList['list'][$i]['prodi'])->first();
+            $idSmt = ref_smt_thn_akds::where('smt_thn_akd', $KelasList['list'][$i]['smt_thn_akd'])->first();
 
             RefKelas::updateOrCreate([
                 'kode_kelas' => $KelasList['list'][$i]['kode_kelas'],
                 'nama_kelas' => $KelasList['list'][$i]['nama_kelas'],
-                'id_prodi' => $idprodi->id,                
-                'id_smt_thn_akd' => $idSmt->id
-
+                'id_prodi' => $idprodi->id,
+                'id_smt_thn_akd' => $idSmt->id,
             ]);
             $cekSukses = true;
         }
@@ -299,19 +302,19 @@ Route::get('/fetchingKelas', function () {
 
 Route::get('/fetchingDosenMatkul', function () {
     $cekSukses = false;
-    $response = Http::get("https://umkm-pnp.com/heni/index.php?folder=dosen&file=matakuliah");
+    $response = Http::get('https://umkm-pnp.com/heni/index.php?folder=dosen&file=matakuliah');
     if ($response->successful()) {
         $DosenMatkulList = $response->json();
-        for ($i = 0; $i < count($DosenMatkulList['list']); $i++) {
-            $idDosen = ref_dosen::where('nama',$DosenMatkulList['list'][$i]['nama'] )->first();
-            $idMatkul = ref_damatkul::where('kode_matakuliah',$DosenMatkulList['list'][$i]['kode_matakuliah'] )->first();
-            $idKelas = RefKelas::where('kode_kelas',$DosenMatkulList['list'][$i]['kode_kelas'] )->first();
-            $idSmt = ref_smt_thn_akds::where('smt_thn_akd',$DosenMatkulList['list'][$i]['smt_thn_akd'] )->first();
+        for ($i = 0; $i < count($DosenMatkulList['list']); ++$i) {
+            $idDosen = ref_dosen::where('nama', $DosenMatkulList['list'][$i]['nama'])->first();
+            $idMatkul = ref_damatkul::where('kode_matakuliah', $DosenMatkulList['list'][$i]['kode_matakuliah'])->first();
+            $idKelas = RefKelas::where('kode_kelas', $DosenMatkulList['list'][$i]['kode_kelas'])->first();
+            $idSmt = ref_smt_thn_akds::where('smt_thn_akd', $DosenMatkulList['list'][$i]['smt_thn_akd'])->first();
             RefDosenMatkul::updateOrCreate([
                 'id_matakuliah' => $idMatkul->id,
                 'id_dosen' => $idDosen->id,
                 'id_kelas' => $idKelas->id,
-                'id_smt_thn_akd' => $idSmt->id
+                'id_smt_thn_akd' => $idSmt->id,
             ]);
             $cekSukses = true;
         }
@@ -319,21 +322,21 @@ Route::get('/fetchingDosenMatkul', function () {
 
     return $cekSukses ? Response()->json(['status' => 200, 'message' => 'Berhasil mengambil data dari api']) : Response()->json(['status' => 400, 'message' => 'Gagal mengambil data dari api']);
 });
- 
+
 Route::get('/fetchingPimJur', function () {
     $cekSukses = false;
-    $response = Http::get("https://umkm-pnp.com/heni/index.php?folder=jurusan&file=pimpinan");
+    $response = Http::get('https://umkm-pnp.com/heni/index.php?folder=jurusan&file=pimpinan');
     if ($response->successful()) {
         $PimJurList = $response->json();
-        for ($i = 0; $i < count($PimJurList['list']); $i++) {
-            $idjurusan = ref_jurusans::where('jurusan',$PimJurList['list'][$i]['jurusan'] )->first();
-            $idDosen = ref_dosen::where('nama',$PimJurList['list'][$i]['nama'] )->first();
+        for ($i = 0; $i < count($PimJurList['list']); ++$i) {
+            $idjurusan = ref_jurusans::where('jurusan', $PimJurList['list'][$i]['jurusan'])->first();
+            $idDosen = ref_dosen::where('nama', $PimJurList['list'][$i]['nama'])->first();
             ref_dapinjurs::updateOrCreate([
                 'id_jabatan_pimpinan' => $PimJurList['list'][$i]['kode_jabatan_pimpinan'],
                 'id_jurusan' => $idjurusan->id,
                 'id_dosen' => $idDosen->id,
                 'periode' => $PimJurList['list'][$i]['periode'],
-                'status' => 1
+                'status' => 1,
             ]);
             $cekSukses = true;
         }
@@ -344,17 +347,17 @@ Route::get('/fetchingPimJur', function () {
 
 Route::get('/fetchingPimProd', function () {
     $cekSukses = false;
-    $response = Http::get("https://umkm-pnp.com/heni/index.php?folder=jurusan&file=kaprodi");
+    $response = Http::get('https://umkm-pnp.com/heni/index.php?folder=jurusan&file=kaprodi');
     if ($response->successful()) {
-        $PimJurList = $response->json(); 
-        for ($i = 0; $i < count($PimJurList['list']); $i++) {
-            $idJabatan = ref_dapinjurs::where('kode_jabatan_pimpinan',$PimJurList['list'][$i]['kode_jabatan_pimpinan'] )->first();
+        $PimJurList = $response->json();
+        for ($i = 0; $i < count($PimJurList['list']); ++$i) {
+            $idJabatan = ref_dapinjurs::where('kode_jabatan_pimpinan', $PimJurList['list'][$i]['kode_jabatan_pimpinan'])->first();
             ref_dapinprod::updateOrCreate([
-                'id_jabatan_pimpinan' =>$idJabatan->id,
+                'id_jabatan_pimpinan' => $idJabatan->id,
                 'id_jurusan' => $PimJurList['list'][$i]['id_jurusan'],
                 'id_dosen' => $PimJurList['list'][$i]['id_dosen'],
                 'periode' => $PimJurList['list'][$i]['periode'],
-                'status' => 1
+                'status' => 1,
             ]);
             $cekSukses = true;
         }
@@ -362,7 +365,6 @@ Route::get('/fetchingPimProd', function () {
 
     return $cekSukses ? Response()->json(['status' => 200, 'message' => 'Berhasil mengambil data dari api']) : Response()->json(['status' => 400, 'message' => 'Gagal mengambil data dari api']);
 });
-
 
 Route::get('getMatkulKurikulum', [GetApi::class, 'getMatkulKurikulum']);
 Route::get('getMataKuliah', [GetApi::class, 'getMataKuliah']);
@@ -374,4 +376,3 @@ Route::get('getPimjur', [GetApi::class, 'getPimjur']);
 Route::get('getProdi', [GetApi::class, 'getProdi']);
 Route::get('getPimprod', [GetApi::class, 'getPimprod']);
 Route::get('getSmt_thn_akd', [GetApi::class, 'getSmt_thn_akd']);
-

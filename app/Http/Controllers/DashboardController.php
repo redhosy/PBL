@@ -132,7 +132,7 @@ class DashboardController extends Controller
 
             return response()->json($data);
         } catch (\Exception $e) {
-            Log::error('Error fetching pie chart data: ' . $e->getMessage());
+            Log::error('Error fetching pie chart data: '.$e->getMessage());
 
             return response()->json([
                 'error' => 'Error fetching pie chart data. Please try again later.',

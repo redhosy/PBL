@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\ActivityLog;
-use App\Models\ref_smt_thn_akds;
 use App\Models\ref_damatkul;
 use App\Models\ref_dosen;
+use App\Models\ref_smt_thn_akds;
 use App\Models\verifikasi_rps;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
 
 class verifikasiRPS extends Controller
 {
@@ -23,6 +22,7 @@ class verifikasiRPS extends Controller
         $thnakd = ref_smt_thn_akds::all();
         $damatkul = ref_damatkul::all();
         $rps = verifikasi_rps::with('kode_matkul', 'thnakd', 'dosen')->get();
+
         return view('dashboard.verifikasiRPS.index', compact('rps', 'dosen', 'thnakd', 'damatkul'));
     }
 
@@ -35,6 +35,7 @@ class verifikasiRPS extends Controller
         $thnakd = ref_smt_thn_akds::all();
         $damatkul = ref_damatkul::all();
         $rps = verifikasi_rps::with('kode_matkul', 'thnakd', 'dosen')->get();
+
         return view('dashboard.verifikasiRPS.index', compact('rps', 'dosen', 'thnakd', 'damatkul'));
     }
 
@@ -57,14 +58,14 @@ class verifikasiRPS extends Controller
             'id_dosen' => $request->dosen_pengembang,
             'id_KodeMatkul' => $request->kode_matkul,
             'Tanggal' => $request->tanggal,
-            'id_smt_thn_akd' => $request->thnakd
+            'id_smt_thn_akd' => $request->thnakd,
         ];
 
         $fileName = '';
         if ($request->hasFile('dokumen')) {
             // $validated['dokumen'] = $request->file('dokumen')->store('dokumen_rps', 'public');
             $file = $request->file('dokumen');
-            $fileName = now()->format('YmdHis') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $fileName = now()->format('YmdHis').'-'.uniqid().'.'.$file->getClientOriginalExtension();
             $filePath = $file->storeAs('public/dokumenVerifikasiHasilRPS', $fileName);
             $data['Dokumen'] = $fileName;
         }
@@ -72,12 +73,11 @@ class verifikasiRPS extends Controller
         // Simpan data ke database
         $rps = verifikasi_rps::create($data);
 
-
         // Catat aktivitas
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'INSERT',
-            'description' => 'Menambahkan data RPS baru: ' . $request->koderps,
+            'description' => 'Menambahkan data RPS baru: '.$request->koderps,
         ]);
 
         return response()->json(['data' => $fileName]);
@@ -89,9 +89,10 @@ class verifikasiRPS extends Controller
     public function show(string $id)
     {
         $data = verifikasi_rps::with('dosen', 'kode_matkul', 'thnakd')->where('id', $id)->get();
+
         return response()->json([
             'data' => $data,
-            'status' => 200
+            'status' => 200,
         ]);
     }
 
@@ -101,9 +102,10 @@ class verifikasiRPS extends Controller
     public function edit(string $id)
     {
         $data = verifikasi_rps::find($id);
+
         return response()->json([
             'status' => 200,
-            'data' => $data
+            'data' => $data,
         ]);
     }
 
@@ -129,19 +131,19 @@ class verifikasiRPS extends Controller
             'id_KodeMatkul' => $request->kode_matkul,
             'Dokumen' => $request->dokumen,
             'Tanggal' => $request->edittanggal,
-            'id_smt_thn_akd' => $request->thnakd
+            'id_smt_thn_akd' => $request->thnakd,
         ];
         $uploadOk = false;
 
         if ($request->hasFile('dokumen')) {
             $file = $request->file('dokumen');
-            $fileName = now()->format('YmdHis') . '-' . uniqid() . '.' . $file->getClientOriginalExtension();
+            $fileName = now()->format('YmdHis').'-'.uniqid().'.'.$file->getClientOriginalExtension();
             $file->storeAs('public/dokumenVerifikasiHasilRPS', $fileName);
             $data['Dokumen'] = $fileName;
         }
 
         if ($uploadOk) {
-            Storage::delete('public/dokumenVerifikasiHasilRPS/' . $RPS->Dokumen);
+            Storage::delete('public/dokumenVerifikasiHasilRPS/'.$RPS->Dokumen);
             $file->store('dokumenVerifikasiHasilRPS', $fileName);
         }
         $RPS->update($data);
@@ -149,7 +151,7 @@ class verifikasiRPS extends Controller
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'UPDATE',
-            'description' => 'Updated RPS: ' . $RPS->KodeRPS,
+            'description' => 'Updated RPS: '.$RPS->KodeRPS,
         ]);
 
         return response()->json(['data' => $RPS]);
@@ -164,12 +166,13 @@ class verifikasiRPS extends Controller
         ActivityLog::create([
             'user_id' => Auth::id(),
             'action' => 'DELETE',
-            'description' => 'menghapus data: ' . $id
+            'description' => 'menghapus data: '.$id,
         ]);
 
         if ($kbk->delete()) {
             return response()->json(['success' => true]);
         }
-        return  response()->json(['status' => 404, 'message' => 'something went wrong']);
+
+        return response()->json(['status' => 404, 'message' => 'something went wrong']);
     }
 }
