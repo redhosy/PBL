@@ -13,19 +13,37 @@
                 <div class="card mt-5">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h3>Dosen KBK</h3>
-                        <div class="card-header-form">
+                        <div class="card-header-form d-flex align-items-center justify-content-between">
+
                             {{-- import --}}
-                            <a class="btn btn-import ml-2  action" type="button" data-toggle="tooltip" id="import"
+                            <a class="btn btn-import ml-2 action" type="button" data-toggle="tooltip" id="import"
                                 title="Import Data"><i class="fas fa-file-import" data-toggle="modal"
                                     data-target="#importModal"></i></a>
-                            {{-- export --}}
-                            <a href="{{ route('dosenkbk.export.excel') }}" class="btn btn-primary ml-2  action"
-                                type="button" data-toggle="tooltip" id="export" title="Export Data"><i
-                                    class="fas fa-file-export"></i></a>
+
+                            <div class="d-flex align-items-center">
+                                {{-- filter prodi --}}
+                                <form action="{{ route('dosenkbk.export.excel') }}" method="GET" id="exportForm"
+                                    class="d-flex align-items-center">
+                                    <select name="prodi" class="form-control ml-2 form-control-sm" style="width: 8rem;">
+                                        <option value="">Pilih Prodi</option>
+                                        @foreach ($prodi as $p)
+                                            <option value="{{ $p->id }}">{{ $p->prodi }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    {{-- export --}}
+                                    <button type="submit" class="btn btn-primary ml-2 action" data-toggle="tooltip"
+                                        title="Export Data">
+                                        <i class="fas fa-file-export"></i>
+                                    </button>
+                                </form>
+                            </div>
                             {{-- tambah --}}
-                            <a class="btn btn-success ml-2  action" type="button" data-toggle="tooltip" id="modalAdd"
-                                title="Tambah Data"><i class="fas fa-plus"></i></a>
+                            <a class="btn btn-success ml-2 action" type="button" data-toggle="tooltip" id="modalAdd"
+                                title="Tambah Data"><i class="fas fa-plus"></i>
+                            </a>
                         </div>
+
                     </div>
                     <div class="card-body p-3 rounded">
                         <div class="table-responsive">

@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>PDF</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { font-family: 'Times New Roman', Times, serif; }
-        
+        body {
+            font-family: 'Times New Roman', Times, serif;
+        }
+
         .container {
             width: 100%;
             margin: 0 auto;
@@ -18,7 +21,6 @@
             padding: 10px;
             text-align: center;
             font-size: 12px;
-            /* Mengurangi ukuran teks */
         }
 
         .table-no-border th,
@@ -73,6 +75,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <table class="table header-table">
@@ -97,10 +100,13 @@
                 </td>
             </tr>
         </table>
-        
-        <p>Telah dilaksanakan rapat verifikasi dan validasi soal ujian Akhir Semester besama
-            KBK dan Kaprodi yang dilaksanakan pada :</p>
-            <p><strong>Tanggal: </strong> {{ $tanggal }} <br><strong>Tempat: </strong> {{ $ruang }} </p>
+
+        <p>Telah dilaksanakan rapat verifikasi dan validasi soal ujian Akhir Semester bersama KBK dan Kaprodi yang dilaksanakan pada :</p>
+        <div>
+            <p><strong>Tanggal:</strong> {{ $dateRange }}</p>
+            <p><strong>Tempat:</strong> {{ $ruang }}</p>
+        </div>
+
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -111,9 +117,9 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($data as  $item)
+                @foreach ($data as $item)
                     <tr>
-                        <td>{{ $loop->iteration}}</td>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->semester }}</td>
                         <td>{{ $item->matkul->nama_matakuliah }}</td>
                         <td>{{ $item->validasi_isi }}</td>
@@ -121,18 +127,20 @@
                 @endforeach
             </tbody>
         </table>
-        <br><br><br>
+
         <div class="signature">
             <div>
-                <p>Menyetujui,<br>Ketua Program Studi<br><br><br><br>(......................................)</p>
+                <p>Menyetujui,<br>Ketua Program Studi<br><br><br>(......................................)</p>
             </div>
             <div>
-                <p>Ketua KBK<br><br><br><br>(......................................)</p>
+                <p>Ketua KBK<br><br><br>(......................................)</p>
             </div>
         </div>
+
         <div class="text-center" style="margin-top: 50px;">
-            <p>Mengetahui,<br>Ketua Jurusan<br><br><br><br>(......................................)</p>
+            <p>Mengetahui,<br>Ketua Jurusan<br><br><br>(......................................)</p>
         </div>
     </div>
 </body>
+
 </html>

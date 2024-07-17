@@ -37,6 +37,11 @@
                                     {{ session('message') }}
                                 </div>
                             @endif
+                            @if (session('error'))
+                            <div class="alert alert-warning fade show" role="alert">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                             {{-- login form --}}
                             <form class="form-signin" method="POST" action="{{ route('login') }}">
                                 @csrf

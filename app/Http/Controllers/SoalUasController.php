@@ -40,7 +40,7 @@ class SoalUasController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'kodesoal' => 'required|string|max:10',
+            'kodesoal' => 'required|string|unique:soal_uas,KodeSoal',
             'dosen_pengampu' => 'required|exists:ref_dosens,id',
             'kode_matkul' => 'required|exists:ref_damatkuls,id',
             'dokumen' => 'required|file|mimes:pdf|max:2048',

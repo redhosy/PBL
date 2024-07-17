@@ -4,24 +4,38 @@ namespace App\Exports;
 
 use App\Models\ref_matakuliahkbk;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class matkulExport implements FromCollection
+class matkulExport implements FromCollection, WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
     */
+    protected $prodiId;
+
+    public function __construct($prodiId)
+    {
+        $this->prodiId = $prodiId;
+    }
+
     public function collection()
     {
-        return ref_matakuliahkbk::all()->map(function($item){
+        $query = ref_matakuliahkbk::query();
+// dd($this->prodiId);
+        if ($this->prodiId) {
+            $query->where('id_prodi', $this->prodiId);
+        }
+
+        return $query->get()->map(function($item){
             return [
                 'ID' => $item->id,
-                'KodeMatkul' => $item->kode_matkul,
-                'NamaMatkul' => $item->nama_matkul,
-                'Semester' => $item->semester,
+                'KodeMatkul' => $item->matkul->kode_matakuliah,
+                'NamaMatkul' => $item->matkul->nama_matakuliah,
+                'Semester' => $item->matkul->semester,
                 'Keterangan' => $item->ket == 1 ? 'T' : ($item->ket == 2 ? 'P'  : 'T/P'),
                 'KodeKBK' => $item->kbk->kodekbk,
                 'Prodi' => $item->prodi->prodi,
-                'JumlahSKS' => $item->Jumlah_SKS,
+                'JumlahSKS' => $item->matkul->sks,
                 'Pengampu' => $item->dosen->nama,
             ];
         });
@@ -31,16 +45,14 @@ class matkulExport implements FromCollection
     {
         return [
             'ID',
-            'kode_matkul',
-            'nama_matkul',
-            'semester',
-            'ket',
-            'id_datakbk',
-            'id_prodi',
-            'jumlah_SKS',
-            'id_dosen',
-            // Add other column headings as needed
+            'KodeMatkul',
+            'NamaMatkul',
+            'Semester',
+            'Keterangan',
+            'KodeKBK',
+            'Prodi',
+            'JumlahSKS',
+            'Pengampu',
         ];
     }
-
 }

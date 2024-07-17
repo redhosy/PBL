@@ -31,8 +31,10 @@ class Ref_matakuliahkbkController extends Controller
         return view('dashboard.matkulkbk.index', compact('matkulkbk', 'dosen', 'prodi', 'kbk', 'matkul'));
     }
 
-    public function matkulExport()
+    public function matkulExport(request $request)
     {
+
+        $prodiId = $request->input('prodi');
 
         ActivityLog::create([
             'user_id' => Auth::id(),
@@ -40,7 +42,7 @@ class Ref_matakuliahkbkController extends Controller
             'description' => 'Mengimpor data dari file Excel',
         ]);
 
-        return Excel::download(new matkulExport, 'matkulkbk.xlsx');
+        return Excel::download(new matkulExport($prodiId), 'matkulkbk.xlsx');
     }
 
     public function matkulImport(Request $request)
@@ -144,16 +146,16 @@ class Ref_matakuliahkbkController extends Controller
         ]);
 
         // Periksa apakah data ref_matakuliahkbk ada
-        $matkulkbk = ref_matakuliahkbk::where('id',$id)->first();
+        $matkulkbk = ref_matakuliahkbk::where('id', $id)->first();
         if (!$matkulkbk) {
             return response()->json(['error' => 'Data not found.'], 404);
         }
 
         $data = [
-            'id_matkul'=>$request->editmatkul_id,
-            'id_datakbk'=>$request->kbk,
-            'id_prodi'=>$request->prodi,
-            'id_dosen'=>$request->pengampu,
+            'id_matkul' => $request->editmatkul_id,
+            'id_datakbk' => $request->kbk,
+            'id_prodi' => $request->prodi,
+            'id_dosen' => $request->pengampu,
         ];
         $matkulkbk->update($data);
 

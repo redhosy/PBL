@@ -28,8 +28,9 @@ class RefDosenkbk extends Controller
         return view('dashboard.dosenkbk.index', compact('dosenkbk', 'dosen', 'prodi', 'jurusan', 'datakbk', 'jabatan'));
     }
 
-    public function dosenkbkExport()
+    public function dosenkbkExport(Request $request)
     {
+        $prodiId = $request->input('prodi');
 
         ActivityLog::create([
             'user_id' => Auth::id(),
@@ -37,8 +38,9 @@ class RefDosenkbk extends Controller
             'description' => 'Mengimpor data dari file Excel',
         ]);
 
-        return Excel::download(new dosenkbkExport, 'dosenkbk.xlsx');
+        return Excel::download(new DosenKbkExport($prodiId), 'dosenkbk.xlsx');
     }
+
 
     public function dosenkbkImport(Request $request)
     {

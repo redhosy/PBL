@@ -22,15 +22,29 @@ class BeritaAcaraRPSController extends Controller
         return view('dashboard.beritaRPS.index', compact('beritaRPS', 'matkul', 'tanggalList'));
     }
 
-    public function cetakRPS(){
-        
-        $data = BeritaAcaraRPS::with('matakuliah')->where('tanggal', request('tanggal'))->get();
+    public function cetakRPS(Request $request)
+    {
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $beritaRPS = BeritaAcaraRPS::with('matakuliah');
+
+        if ($startDate && $endDate) {
+            $beritaRPS->whereBetween('tanggal', [$startDate, $endDate]);
+            $dateRange = date('d F Y', strtotime($startDate)) . ' dan ' . date('d F Y', strtotime($endDate));
+        } elseif ($request->has('tanggal')) {
+            $tanggalFilter = $request->input('tanggal');
+            $beritaRPS->where('tanggal', $tanggalFilter);
+            $dateRange = date('d F Y', strtotime($tanggalFilter));
+        }
+
+        $data = $beritaRPS->get();
+
         if ($data->isEmpty()) {
             return response()->json(['status' => 404, 'message' => 'Data not found']);
         }
 
         // Ambil tanggal dan ruang dari salah satu item karena diasumsikan sama untuk semua item yang difilter
-        $tanggal = $data->first()->tanggal;
+        $tanggal = $startDate ?? $request->input('tanggal');
         $ruang = $data->first()->ruang;
 
         ActivityLog::create([
@@ -44,6 +58,7 @@ class BeritaAcaraRPSController extends Controller
             'data' => $data,
             'tanggal' => $tanggal,
             'ruang' => $ruang,
+            'dateRange' => $dateRange,
         ];
 
         $pdf = FacadePdf::loadView('pdf_view_rps', $data);

@@ -18,12 +18,8 @@
                             <form action="/cetakSOAL" method="get" target="_blank">
                                 <div class="form-group mb-0 d-flex align-items-center">
                                     <!-- Filter -->
-                                    <select class="form-control selectpicker w-auto mr-2" id="filterTanggal" name="tanggal">
-                                        <option value="">Pilih Tanggal</option>
-                                        @foreach ($tanggalList as $tanggal)
-                                            <option value="{{ $tanggal->tanggal }}">{{ $tanggal->tanggal }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="date" class="form-control w-auto mr-2" id="startDate" name="start_date" placeholder="Start Date" title="tanggal Awal" data-toggle="tooltip">
+                                    <input type="date" class="form-control w-auto mr-2" id="endDate" name="end_date" placeholder="End Date" title="tanggal Akhir" data-toggle="tooltip">
 
                                     <!-- Print -->
                                     <button class="btn btn-primary" type="submit" data-toggle="tooltip"
@@ -67,7 +63,7 @@
                                             <td>{{ $item->semester }}</td>
                                             <td>{{ $item->matkul->nama_matakuliah }}</td>
                                             <td>{{ $item->validasi_isi }}</td>
-                                            <td>{{ $item->tanggal }}</td>
+                                            <td class="text-nowrap">{{ $item->tanggal }}</td>
                                             <td>{{ $item->ruang }}</td>
                                             @can('pengurus-kbk')
                                                 <td class="d-flex justify-content-around">

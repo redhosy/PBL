@@ -56,7 +56,7 @@ class RPSController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'koderps' => 'required|string|max:10',
+            'koderps' => 'required|string|unique:r_p_s,KodeRPS',
             'dosen_pengembang' => 'required|exists:ref_dosens,id',
             'kode_matkul' => 'required|exists:ref_damatkuls,id',
             'dokumen' => 'required|file|mimes:pdf|max:2048',

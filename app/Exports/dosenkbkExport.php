@@ -4,15 +4,30 @@ namespace App\Exports;
 
 use App\Models\ref_dosenkbk;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class dosenkbkExport implements FromCollection
+class dosenkbkExport implements FromCollection, WithHeadings
 {
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
+
+    protected $prodiId;
+
+    public function __construct($prodiId)
+    {
+        $this->prodiId = $prodiId;
+    }
+
     public function collection()
     {
-        return ref_dosenkbk::all()->map(function($item){
+        $query = ref_dosenkbk::query();
+
+        if ($this->prodiId) {
+            $query->where('id_prodi', $this->prodiId);
+        }
+
+        return $query->get()->map(function ($item) {
             return [
                 'ID' => $item->id,
                 'Nama' => $item->nama,
@@ -31,15 +46,14 @@ class dosenkbkExport implements FromCollection
     {
         return [
             'ID',
-            'nama',
-            'nip',
-            'id_jurusan',
-            'id_prodi',
-            'id_datakbk',
-            'id_jabatan',
-            'email',
-            'status',
-            // Add other column headings as needed
+            'Nama',
+            'Nip',
+            'Jurusan',
+            'Prodi',
+            'KBK',
+            'Jabatan',
+            'Email',
+            'Status',
         ];
     }
 }

@@ -24,7 +24,7 @@ class CheckUserSession
         if ((time() - $lastActivity) > $timeout) {
             Auth::logout();
             Session::flush();
-            return redirect()->route('login')->with('message', 'Session expired, please login again.');
+            return redirect()->route('login')->with('error', 'Session expired, please login again.');
         }
 
         Session::put('last_activity_time', time());

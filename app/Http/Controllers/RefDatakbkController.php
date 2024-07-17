@@ -65,7 +65,7 @@ class RefDatakbkController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'kodekbk' => 'required',
+            'kodekbk' => 'required|string|unique:ref_datakbks,kodekbk,',
             'nama' => 'required',
             'deskripsi' => 'required',
             
