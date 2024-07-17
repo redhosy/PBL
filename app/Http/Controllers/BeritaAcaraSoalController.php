@@ -22,15 +22,29 @@ class BeritaAcaraSoalController extends Controller
         return view('dashboard.beritaSoal.index', compact('beritaSoal', 'matkul', 'tanggalList'));
     }
 
-    public function cetakSOAL()
+    public function cetakSOAL(Request $request)
     {
-        $data = BeritaAcaraSoal::with('matkul')->where('tanggal', request('tanggal'))->get();
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+        $beritaSoal = BeritaAcaraSoal::with('matkul');
+
+        if ($startDate && $endDate) {
+            $beritaSoal->whereBetween('tanggal', [$startDate, $endDate]);
+            $dateRange = date('d F Y', strtotime($startDate)) . ' dan ' . date('d F Y', strtotime($endDate));
+        } elseif ($request->has('tanggal')) {
+            $tanggalFilter = $request->input('tanggal');
+            $beritaSoal->where('tanggal', $tanggalFilter);
+            $dateRange = date('d F Y', strtotime($tanggalFilter));
+        }
+
+        $data = $beritaSoal->get();
+
         if ($data->isEmpty()) {
             return response()->json(['status' => 404, 'message' => 'Data not found']);
         }
 
         // Ambil tanggal dan ruang dari salah satu item karena diasumsikan sama untuk semua item yang difilter
-        $tanggal = $data->first()->tanggal;
+        $tanggal = $startDate ?? $request->input('tanggal');
         $ruang = $data->first()->ruang;
 
         ActivityLog::create([
@@ -44,6 +58,7 @@ class BeritaAcaraSoalController extends Controller
             'data' => $data,
             'tanggal' => $tanggal,
             'ruang' => $ruang,
+            'dateRange' => $dateRange,
         ];
 
         $pdf = FacadePdf::loadView('pdf_view_soal', $data);

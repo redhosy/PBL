@@ -94,14 +94,21 @@
             </tr>
             <tr>
                 <td colspan="3" class="text-center">
-                    BERITA ACARA VERIFIKASI RENCANA PEMBELAJARAN SEMESTER <br>
+                    BERITA ACARA VERIFIKASI RENCANA PEMBELAJARAN SEMESTER<br>
                     JURUSAN : TEKNOLOGI INFORMASI<br>
                     PROGRAM STUDI : D4 Teknologi Rekayasa Perangkat Lunak
                 </td>
             </tr>
         </table>
+        
+        
         <p>Telah dilaksanakan rapat Peninjauan materi RPS besama KBK dan Kaprodi yang dilaksanakan pada:</p>
-        <p><strong>Tanggal: </strong> {{ $tanggal }} <br><strong>Tempat: </strong> {{ $ruang }} </p>
+        <div>
+            <p><strong>Tanggal:</strong> {{ $dateRange }}</p>
+            <p><strong>Tempat:</strong> {{ $ruang }}</p>
+        </div>
+
+
         <table class="table table-bordered">
             <thead>
                 <tr>

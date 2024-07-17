@@ -11,7 +11,7 @@ use App\Models\ref_prodis;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class dosenkbkImport implements ToModel, WithHeadingRow
+class dosenkbkImport implements ToModel
 {
     /**
     * @param array $row
@@ -21,23 +21,23 @@ class dosenkbkImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         // Validasi dan konversi data
-        $dosen = ref_dosen::where('nama', $row['nama'])->first();
-        $jurusan = ref_jurusans::where('jurusan', $row['jurusan'])->first();
-        $prodi = ref_prodis::where('prodi', $row['prodi'])->first();
-        $jabatan = jabpims::where('jabatan_pimpinan', $row['jabatan'])->first();
-        $id_datakbk = ref_datakbk::where('kodekbk', $row['kbk'])->first();
+        $dosen = ref_dosen::where('nama', $row[1])->first();
+        $jurusan = ref_jurusans::where('jurusan', $row[3])->first();
+        $prodi = ref_prodis::where('prodi', $row[4])->first();
+        $id_datakbk = ref_datakbk::where('kodekbk', $row[5])->first();
+        $jabatan = jabpims::where('jabatan_pimpinan', $row[6])->first();
         // dd($id_datakbk);
 
         return new ref_dosenkbk([
             'id_dosen'=>$dosen->id,
-            'nama' => $row['nama'],
-            'nip' => $row['nip'],
+            'nama' => $row[1],
+            'nip' => $row[2],
             'id_jurusan' => $jurusan->id,
             'id_prodi' => $prodi->id,
             'id_datakbk' => $id_datakbk->id,
             'id_jabatan' => $jabatan->id,
-            'email' => $row['email'],
-            'status' => $row['status'] == 'Aktif' ? 1 : 0,
+            'email' => $row[7],
+            'status' => $row[8] == 'Aktif' ? 1 : 0,
         ]);
     }
 }
