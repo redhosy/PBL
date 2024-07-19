@@ -5,10 +5,12 @@
         </div>
 
         <ul class="sidebar-menu mt-4">
+            @canany(['admin', 'pengurus-kbk', 'pimpinan-jurusan', 'pimpinan-prodi', 'dosen-pengampu' ])
             <li class="menu-header">Dashboard</li>
             <li>
                 <a href="/dashboard" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
+            @endcanany
 
             @can('admin')
                 <li class="dropdown">
