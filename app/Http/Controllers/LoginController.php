@@ -27,7 +27,7 @@ class LoginController extends Controller
             // Jika autentikasi berhasil, arahkan ke halaman dashboard
             Log::info('Authentication passed for email: '.$credentials['email']);
 
-            return redirect()->intended('/pengguna');
+            return redirect()->intended('/dashboard');
         }
 
         // Jika autentikasi gagal, arahkan kembali ke halaman login dengan pesan kesalahan
